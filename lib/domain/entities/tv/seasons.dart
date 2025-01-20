@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class SeasonsModel extends Equatable {
+class Seasons extends Equatable {
   String? airDate;
   int? episodeCount;
   int? id;
@@ -10,7 +10,7 @@ class SeasonsModel extends Equatable {
   int? seasonNumber;
   int? voteAverage;
 
-  SeasonsModel(
+  Seasons(
       {required this.airDate,
         required this.episodeCount,
         required this.id,

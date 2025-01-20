@@ -1,7 +1,7 @@
 
 import 'package:equatable/equatable.dart';
 
-class CreatedByModel extends Equatable {
+class CreatedBy extends Equatable {
   int? id;
   String? creditId;
   String? name;
@@ -9,7 +9,7 @@ class CreatedByModel extends Equatable {
   int? gender;
   String? profilePath;
 
-  CreatedByModel(
+  CreatedBy(
       {required this.id,
         required this.creditId,
         required this.name,
