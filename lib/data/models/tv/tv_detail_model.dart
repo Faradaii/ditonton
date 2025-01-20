@@ -1,4 +1,14 @@
+import 'package:ditonton/domain/entities/tv/created_by.dart';
+import 'package:ditonton/domain/entities/tv/genres.dart';
+import 'package:ditonton/domain/entities/tv/last_episode_to_air.dart';
+import 'package:ditonton/domain/entities/tv/production_companies.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
+
+import '../../../domain/entities/tv/networks.dart';
+import '../../../domain/entities/tv/next_episode_to_air.dart';
+import '../../../domain/entities/tv/production_countries.dart';
+import '../../../domain/entities/tv/seasons.dart';
+import '../../../domain/entities/tv/spoken_languages.dart';
 
 class TvSeriesDetailResponse {
   TvSeriesDetailResponse({
@@ -37,19 +47,19 @@ class TvSeriesDetailResponse {
   });
   late final bool adult;
   late final String backdropPath;
-  late final List<CreatedBy> createdBy;
-  late final List<dynamic> episodeRunTime;
+  late final List<CreatedByModel> createdBy;
+  late final List<int> episodeRunTime;
   late final String firstAirDate;
-  late final List<Genres> genres;
+  late final List<GenresModel> genres;
   late final String homepage;
   late final int id;
   late final bool inProduction;
   late final List<String> languages;
   late final String lastAirDate;
-  late final LastEpisodeToAir lastEpisodeToAir;
+  late final LastEpisodeToAirModel lastEpisodeToAir;
   late final String name;
-  late final NextEpisodeToAir nextEpisodeToAir;
-  late final List<Networks> networks;
+  late final NextEpisodeToAirModel nextEpisodeToAir;
+  late final List<NetworksModel> networks;
   late final int numberOfEpisodes;
   late final int numberOfSeasons;
   late final List<String> originCountry;
@@ -58,10 +68,10 @@ class TvSeriesDetailResponse {
   late final String overview;
   late final double popularity;
   late final String posterPath;
-  late final List<ProductionCompanies> productionCompanies;
-  late final List<ProductionCountries> productionCountries;
-  late final List<Seasons> seasons;
-  late final List<SpokenLanguages> spokenLanguages;
+  late final List<ProductionCompaniesModel> productionCompanies;
+  late final List<ProductionCountriesModel> productionCountries;
+  late final List<SeasonsModel> seasons;
+  late final List<SpokenLanguagesModel> spokenLanguages;
   late final String status;
   late final String tagline;
   late final String type;
@@ -71,19 +81,19 @@ class TvSeriesDetailResponse {
   TvSeriesDetailResponse.fromJson(Map<String, dynamic> json){
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
-    createdBy = List.from(json['created_by']).map((e)=>CreatedBy.fromJson(e)).toList();
-    episodeRunTime = List.castFrom<dynamic, dynamic>(json['episode_run_time']);
+    createdBy = List.from(json['created_by']).map((e)=>CreatedByModel.fromJson(e)).toList();
+    episodeRunTime = List.from(json['episode_run_time']);
     firstAirDate = json['first_air_date'];
-    genres = List.from(json['genres']).map((e)=>Genres.fromJson(e)).toList();
+    genres = List.from(json['genres']).map((e)=>GenresModel.fromJson(e)).toList();
     homepage = json['homepage'];
     id = json['id'];
     inProduction = json['in_production'];
     languages = List.castFrom<dynamic, String>(json['languages']);
     lastAirDate = json['last_air_date'];
-    lastEpisodeToAir = LastEpisodeToAir.fromJson(json['last_episode_to_air']);
+    lastEpisodeToAir = LastEpisodeToAirModel.fromJson(json['last_episode_to_air']);
     name = json['name'];
-    nextEpisodeToAir = NextEpisodeToAir.fromJson(json['next_episode_to_air']);
-    networks = List.from(json['networks']).map((e)=>Networks.fromJson(e)).toList();
+    nextEpisodeToAir = NextEpisodeToAirModel.fromJson(json['next_episode_to_air']);
+    networks = List.from(json['networks']).map((e)=>NetworksModel.fromJson(e)).toList();
     numberOfEpisodes = json['number_of_episodes'];
     numberOfSeasons = json['number_of_seasons'];
     originCountry = List.castFrom<dynamic, String>(json['origin_country']);
@@ -92,10 +102,10 @@ class TvSeriesDetailResponse {
     overview = json['overview'];
     popularity = json['popularity'];
     posterPath = json['poster_path'];
-    productionCompanies = List.from(json['production_companies']).map((e)=>ProductionCompanies.fromJson(e)).toList();
-    productionCountries = List.from(json['production_countries']).map((e)=>ProductionCountries.fromJson(e)).toList();
-    seasons = List.from(json['seasons']).map((e)=>Seasons.fromJson(e)).toList();
-    spokenLanguages = List.from(json['spoken_languages']).map((e)=>SpokenLanguages.fromJson(e)).toList();
+    productionCompanies = List.from(json['production_companies']).map((e)=>ProductionCompaniesModel.fromJson(e)).toList();
+    productionCountries = List.from(json['production_countries']).map((e)=>ProductionCountriesModel.fromJson(e)).toList();
+    seasons = List.from(json['seasons']).map((e)=>SeasonsModel.fromJson(e)).toList();
+    spokenLanguages = List.from(json['spoken_languages']).map((e)=>SpokenLanguagesModel.fromJson(e)).toList();
     status = json['status'];
     tagline = json['tagline'];
     type = json['type'];
@@ -144,13 +154,40 @@ class TvSeriesDetailResponse {
     adult: this.adult,
     backdropPath: this.backdropPath,
     createdBy: this.createdBy.map((e) => e.toEntity()).toList(),
-
-
+    episodeRunTime: this.episodeRunTime,
+    firstAirDate: this.firstAirDate,
+    genres: this.genres.map((e) => e.toEntity()).toList(),
+    homepage: this.homepage,
+    id: this.id,
+    inProduction: this.inProduction,
+    languages: this.languages,
+    lastAirDate: this.lastAirDate,
+    lastEpisodeToAir: this.lastEpisodeToAir.toEntity(),
+    name: this.name,
+    nextEpisodeToAir: this.nextEpisodeToAir.toEntity(),
+    networks: this.networks.map((e) => e.toEntity()).toList(),
+    numberOfEpisodes: this.numberOfEpisodes,
+    numberOfSeasons: this.numberOfSeasons,
+    originCountry: this.originCountry,
+    originalLanguage: this.originalLanguage,
+    originalName: this.originalName,
+    overview: this.overview,
+    popularity: this.popularity,
+    posterPath: this.posterPath,
+    productionCompanies: this.productionCompanies.map((e) => e.toEntity()).toList(),
+    productionCountries: this.productionCountries.map((e) => e.toEntity()).toList(),
+    seasons: this.seasons.map((e) => e.toEntity()).toList(),
+    spokenLanguages: this.spokenLanguages.map((e) => e.toEntity()).toList(),
+    status: this.status,
+    tagline: this.tagline,
+    type: this.type,
+    voteAverage: this.voteAverage,
+    voteCount: this.voteCount,
   );
 }
 
-class CreatedBy {
-  CreatedBy({
+class CreatedByModel {
+  CreatedByModel({
     required this.id,
     required this.creditId,
     required this.name,
@@ -165,7 +202,7 @@ class CreatedBy {
   late final int gender;
   late final Null profilePath;
 
-  CreatedBy.fromJson(Map<String, dynamic> json){
+  CreatedByModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     creditId = json['credit_id'];
     name = json['name'];
@@ -184,17 +221,26 @@ class CreatedBy {
     _data['profile_path'] = profilePath;
     return _data;
   }
+
+  CreatedBy toEntity () => CreatedBy(
+    id: this.id,
+    creditId: this.creditId,
+    name: this.name,
+    originalName: this.originalName,
+    gender: this.gender,
+    profilePath: this.profilePath
+  );
 }
 
-class Genres {
-  Genres({
+class GenresModel {
+  GenresModel({
     required this.id,
     required this.name,
   });
   late final int id;
   late final String name;
 
-  Genres.fromJson(Map<String, dynamic> json){
+  GenresModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
   }
@@ -205,10 +251,15 @@ class Genres {
     _data['name'] = name;
     return _data;
   }
+
+  Genres toEntity () => Genres(
+    id: this.id,
+    name: this.name
+  );
 }
 
-class LastEpisodeToAir {
-  LastEpisodeToAir({
+class LastEpisodeToAirModel {
+  LastEpisodeToAirModel({
     required this.id,
     required this.name,
     required this.overview,
@@ -237,7 +288,7 @@ class LastEpisodeToAir {
   late final int showId;
   late final String stillPath;
 
-  LastEpisodeToAir.fromJson(Map<String, dynamic> json){
+  LastEpisodeToAirModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     overview = json['overview'];
@@ -270,10 +321,26 @@ class LastEpisodeToAir {
     _data['still_path'] = stillPath;
     return _data;
   }
+
+  LastEpisodeToAir toEntity () => LastEpisodeToAir(
+    id: this.id,
+    name: this.name,
+    overview: this.overview,
+    voteAverage: this.voteAverage,
+    voteCount: this.voteCount,
+    airDate: this.airDate,
+    episodeNumber: this.episodeNumber,
+    episodeType: this.episodeType,
+    productionCode: this.productionCode,
+    runtime: this.runtime,
+    seasonNumber: this.seasonNumber,
+    showId: this.showId,
+    stillPath: this.stillPath
+  );
 }
 
-class NextEpisodeToAir {
-  NextEpisodeToAir({
+class NextEpisodeToAirModel {
+  NextEpisodeToAirModel({
     required this.id,
     required this.name,
     required this.overview,
@@ -302,7 +369,7 @@ class NextEpisodeToAir {
   late final int showId;
   late final Null stillPath;
 
-  NextEpisodeToAir.fromJson(Map<String, dynamic> json){
+  NextEpisodeToAirModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];
     overview = json['overview'];
@@ -335,10 +402,26 @@ class NextEpisodeToAir {
     _data['still_path'] = stillPath;
     return _data;
   }
+
+  NextEpisodeToAir toEntity () => NextEpisodeToAir(
+    id: this.id,
+    name: this.name,
+    overview: this.overview,
+    voteAverage: this.voteAverage,
+    voteCount: this.voteCount,
+    airDate: this.airDate,
+    episodeNumber: this.episodeNumber,
+    episodeType: this.episodeType,
+    productionCode: this.productionCode,
+    runtime: this.runtime,
+    seasonNumber: this.seasonNumber,
+    showId: this.showId,
+    stillPath: this.stillPath
+  );
 }
 
-class Networks {
-  Networks({
+class NetworksModel {
+  NetworksModel({
     required this.id,
     required this.logoPath,
     required this.name,
@@ -349,7 +432,7 @@ class Networks {
   late final String name;
   late final String originCountry;
 
-  Networks.fromJson(Map<String, dynamic> json){
+  NetworksModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     logoPath = json['logo_path'];
     name = json['name'];
@@ -364,10 +447,17 @@ class Networks {
     _data['origin_country'] = originCountry;
     return _data;
   }
+
+  Networks toEntity () => Networks(
+    id: this.id,
+    logoPath: this.logoPath,
+    name: this.name,
+    originCountry: this.originCountry
+  );
 }
 
-class ProductionCompanies {
-  ProductionCompanies({
+class ProductionCompaniesModel {
+  ProductionCompaniesModel({
     required this.id,
     required this.logoPath,
     required this.name,
@@ -378,7 +468,7 @@ class ProductionCompanies {
   late final String name;
   late final String originCountry;
 
-  ProductionCompanies.fromJson(Map<String, dynamic> json){
+  ProductionCompaniesModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     logoPath = json['logo_path'];
     name = json['name'];
@@ -393,17 +483,24 @@ class ProductionCompanies {
     _data['origin_country'] = originCountry;
     return _data;
   }
+
+  ProductionCompanies toEntity () => ProductionCompanies(
+    id: this.id,
+    logoPath: this.logoPath,
+    name: this.name,
+    originCountry: this.originCountry
+  );
 }
 
-class ProductionCountries {
-  ProductionCountries({
+class ProductionCountriesModel {
+  ProductionCountriesModel({
     required this.iso_3166_1,
     required this.name,
   });
   late final String iso_3166_1;
   late final String name;
 
-  ProductionCountries.fromJson(Map<String, dynamic> json){
+  ProductionCountriesModel.fromJson(Map<String, dynamic> json){
     iso_3166_1 = json['iso_3166_1'];
     name = json['name'];
   }
@@ -414,10 +511,15 @@ class ProductionCountries {
     _data['name'] = name;
     return _data;
   }
+
+  ProductionCountries toEntity () => ProductionCountries(
+    iso31661: this.iso_3166_1,
+    name: this.name,
+  );
 }
 
-class Seasons {
-  Seasons({
+class SeasonsModel {
+  SeasonsModel({
     required this.airDate,
     required this.episodeCount,
     required this.id,
@@ -436,7 +538,7 @@ class Seasons {
   late final int seasonNumber;
   late final int voteAverage;
 
-  Seasons.fromJson(Map<String, dynamic> json){
+  SeasonsModel.fromJson(Map<String, dynamic> json){
     airDate = json['air_date'];
     episodeCount = json['episode_count'];
     id = json['id'];
@@ -459,10 +561,21 @@ class Seasons {
     _data['vote_average'] = voteAverage;
     return _data;
   }
+
+  Seasons toEntity () => Seasons(
+    airDate: this.airDate,
+    episodeCount: this.episodeCount,
+    id: this.id,
+    name: this.name,
+    overview: this.overview,
+    posterPath: this.posterPath,
+    seasonNumber: this.seasonNumber,
+    voteAverage: this.voteAverage,
+  );
 }
 
-class SpokenLanguages {
-  SpokenLanguages({
+class SpokenLanguagesModel {
+  SpokenLanguagesModel({
     required this.englishName,
     required this.iso_639_1,
     required this.name,
@@ -471,7 +584,7 @@ class SpokenLanguages {
   late final String iso_639_1;
   late final String name;
 
-  SpokenLanguages.fromJson(Map<String, dynamic> json){
+  SpokenLanguagesModel.fromJson(Map<String, dynamic> json){
     englishName = json['english_name'];
     iso_639_1 = json['iso_639_1'];
     name = json['name'];
@@ -484,4 +597,10 @@ class SpokenLanguages {
     _data['name'] = name;
     return _data;
   }
+
+  SpokenLanguages toEntity () => SpokenLanguages(
+    englishName: this.englishName,
+    iso6391: this.iso_639_1,
+    name: this.name,
+  );
 }
