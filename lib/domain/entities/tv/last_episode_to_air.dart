@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class LastEpisodeToAirModel extends Equatable{
+class LastEpisodeToAir extends Equatable{
   int? id;
   String? name;
   String? overview;
@@ -15,7 +15,7 @@ class LastEpisodeToAirModel extends Equatable{
   int? showId;
   String? stillPath;
 
-  LastEpisodeToAirModel(
+  LastEpisodeToAir(
       {required this.id,
         required this.name,
         required this.overview,
