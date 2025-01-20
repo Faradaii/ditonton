@@ -4,7 +4,7 @@ class LastEpisodeToAir extends Equatable{
   int? id;
   String? name;
   String? overview;
-  int? voteAverage;
+  double? voteAverage;
   int? voteCount;
   String? airDate;
   int? episodeNumber;

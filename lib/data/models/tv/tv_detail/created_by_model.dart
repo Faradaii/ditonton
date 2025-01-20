@@ -12,7 +12,7 @@ class CreatedByModel extends Equatable {
     required this.profilePath,
   });
 
-  final int? id;
+  final int id;
   final String? creditId;
   final String? name;
   final String? originalName;

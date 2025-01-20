@@ -11,9 +11,9 @@ class NetworksModel extends Equatable {
   });
 
   final int id;
-  final String logoPath;
-  final String name;
-  final String originCountry;
+  final String? logoPath;
+  final String? name;
+  final String? originCountry;
 
   factory NetworksModel.fromJson(Map<String, dynamic> json) => NetworksModel(
         id: json['id'],

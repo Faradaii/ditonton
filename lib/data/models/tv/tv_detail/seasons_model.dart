@@ -14,14 +14,14 @@ class SeasonsModel extends Equatable {
     required this.voteAverage,
   });
 
-  final String airDate;
-  final int episodeCount;
+  final String? airDate;
+  final int? episodeCount;
   final int id;
-  final String name;
-  final String overview;
-  final String posterPath;
-  final int seasonNumber;
-  final int voteAverage;
+  final String? name;
+  final String? overview;
+  final String? posterPath;
+  final int? seasonNumber;
+  final double? voteAverage;
 
   factory SeasonsModel.fromJson(Map<String, dynamic> json) => SeasonsModel(
         airDate: json['air_date'],

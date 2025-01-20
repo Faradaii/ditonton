@@ -8,8 +8,8 @@ class ProductionCountriesModel extends Equatable {
     required this.name,
   });
 
-  final String iso_3166_1;
-  final String name;
+  final String? iso_3166_1;
+  final String? name;
 
   factory ProductionCountriesModel.fromJson(Map<String, dynamic> json) =>
       ProductionCountriesModel(
