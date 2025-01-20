@@ -21,7 +21,7 @@ class TvSeriesModel extends Equatable {
   });
 
   final bool adult;
-  final String backdropPath;
+  final String? backdropPath;
   final List<int> genreIds;
   final int id;
   final List<String> originCountry;
@@ -32,7 +32,7 @@ class TvSeriesModel extends Equatable {
   final String? posterPath;
   final String firstAirDate;
   final String name;
-  final int? voteAverage;
+  final double? voteAverage;
   final int voteCount;
 
   factory TvSeriesModel.fromJson(Map<String, dynamic> json) => TvSeriesModel(

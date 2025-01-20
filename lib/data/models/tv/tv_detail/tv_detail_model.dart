@@ -47,38 +47,38 @@ class TvSeriesDetailResponse extends Equatable {
     required this.voteCount,
   });
 
-  final bool adult;
-  final String backdropPath;
-  final List<CreatedByModel> createdBy;
-  final List<int> episodeRunTime;
-  final String firstAirDate;
-  final List<GenresModel> genres;
-  final String homepage;
+  final bool? adult;
+  final String? backdropPath;
+  final List<CreatedByModel>? createdBy;
+  final List<int>? episodeRunTime;
+  final String? firstAirDate;
+  final List<GenresModel>? genres;
+  final String? homepage;
   final int id;
-  final bool inProduction;
-  final List<String> languages;
-  final String lastAirDate;
-  final LastEpisodeToAirModel lastEpisodeToAir;
-  final String name;
-  final NextEpisodeToAirModel nextEpisodeToAir;
-  final List<NetworksModel> networks;
-  final int numberOfEpisodes;
-  final int numberOfSeasons;
-  final List<String> originCountry;
-  final String originalLanguage;
-  final String originalName;
-  final String overview;
-  final double popularity;
-  final String posterPath;
-  final List<ProductionCompaniesModel> productionCompanies;
-  final List<ProductionCountriesModel> productionCountries;
-  final List<SeasonsModel> seasons;
-  final List<SpokenLanguagesModel> spokenLanguages;
-  final String status;
-  final String tagline;
-  final String type;
-  final int voteAverage;
-  final int voteCount;
+  final bool? inProduction;
+  final List<String>? languages;
+  final String? lastAirDate;
+  final LastEpisodeToAirModel? lastEpisodeToAir;
+  final String? name;
+  final NextEpisodeToAirModel? nextEpisodeToAir;
+  final List<NetworksModel>? networks;
+  final int? numberOfEpisodes;
+  final int? numberOfSeasons;
+  final List<String>? originCountry;
+  final String? originalLanguage;
+  final String? originalName;
+  final String? overview;
+  final double? popularity;
+  final String? posterPath;
+  final List<ProductionCompaniesModel>? productionCompanies;
+  final List<ProductionCountriesModel>? productionCountries;
+  final List<SeasonsModel>? seasons;
+  final List<SpokenLanguagesModel>? spokenLanguages;
+  final String? status;
+  final String? tagline;
+  final String? type;
+  final double? voteAverage;
+  final int? voteCount;
 
   factory TvSeriesDetailResponse.fromJson(Map<String, dynamic> json) =>
       TvSeriesDetailResponse(
@@ -100,8 +100,9 @@ class TvSeriesDetailResponse extends Equatable {
         lastEpisodeToAir:
             LastEpisodeToAirModel.fromJson(json['last_episode_to_air']),
         name: json['name'],
-        nextEpisodeToAir:
-            NextEpisodeToAirModel.fromJson(json['next_episode_to_air']),
+        nextEpisodeToAir: json['next_episode_to_air'] != null
+            ? NextEpisodeToAirModel.fromJson(json['next_episode_to_air'])
+            : null,
         networks: List.from(json['networks'])
             .map((e) => NetworksModel.fromJson(e))
             .toList(),
@@ -136,19 +137,19 @@ class TvSeriesDetailResponse extends Equatable {
     final _data = <String, dynamic>{};
     _data['adult'] = adult;
     _data['backdrop_path'] = backdropPath;
-    _data['created_by'] = createdBy.map((e)=>e.toJson()).toList();
+    _data['created_by'] = createdBy?.map((e) => e.toJson()).toList();
     _data['episode_run_time'] = episodeRunTime;
     _data['first_air_date'] = firstAirDate;
-    _data['genres'] = genres.map((e)=>e.toJson()).toList();
+    _data['genres'] = genres?.map((e) => e.toJson()).toList();
     _data['homepage'] = homepage;
     _data['id'] = id;
     _data['in_production'] = inProduction;
     _data['languages'] = languages;
     _data['last_air_date'] = lastAirDate;
-    _data['last_episode_to_air'] = lastEpisodeToAir.toJson();
+    _data['last_episode_to_air'] = lastEpisodeToAir?.toJson();
     _data['name'] = name;
-    _data['next_episode_to_air'] = nextEpisodeToAir.toJson();
-    _data['networks'] = networks.map((e)=>e.toJson()).toList();
+    _data['next_episode_to_air'] = nextEpisodeToAir?.toJson();
+    _data['networks'] = networks?.map((e) => e.toJson()).toList();
     _data['number_of_episodes'] = numberOfEpisodes;
     _data['number_of_seasons'] = numberOfSeasons;
     _data['origin_country'] = originCountry;
@@ -157,10 +158,13 @@ class TvSeriesDetailResponse extends Equatable {
     _data['overview'] = overview;
     _data['popularity'] = popularity;
     _data['poster_path'] = posterPath;
-    _data['production_companies'] = productionCompanies.map((e)=>e.toJson()).toList();
-    _data['production_countries'] = productionCountries.map((e)=>e.toJson()).toList();
-    _data['seasons'] = seasons.map((e)=>e.toJson()).toList();
-    _data['spoken_languages'] = spokenLanguages.map((e)=>e.toJson()).toList();
+    _data['production_companies'] =
+        productionCompanies?.map((e) => e.toJson()).toList();
+    _data['production_countries'] =
+        productionCountries?.map((e) => e.toJson()).toList();
+    _data['seasons'] = seasons?.map((e) => e.toJson()).toList();
+    _data['spoken_languages'] =
+        spokenLanguages?.map((e) => e.toJson()).toList();
     _data['status'] = status;
     _data['tagline'] = tagline;
     _data['type'] = type;
@@ -172,20 +176,20 @@ class TvSeriesDetailResponse extends Equatable {
   TvSeriesDetail toEntity() => TvSeriesDetail(
     adult: this.adult,
     backdropPath: this.backdropPath,
-    createdBy: this.createdBy.map((e) => e.toEntity()).toList(),
-    episodeRunTime: this.episodeRunTime,
+        createdBy: this.createdBy?.map((e) => e.toEntity()).toList(),
+        episodeRunTime: this.episodeRunTime,
     firstAirDate: this.firstAirDate,
-    genres: this.genres.map((e) => e.toEntity()).toList(),
-    homepage: this.homepage,
+        genres: this.genres?.map((e) => e.toEntity()).toList(),
+        homepage: this.homepage,
     id: this.id,
     inProduction: this.inProduction,
     languages: this.languages,
     lastAirDate: this.lastAirDate,
-    lastEpisodeToAir: this.lastEpisodeToAir.toEntity(),
-    name: this.name,
-    nextEpisodeToAir: this.nextEpisodeToAir.toEntity(),
-    networks: this.networks.map((e) => e.toEntity()).toList(),
-    numberOfEpisodes: this.numberOfEpisodes,
+        lastEpisodeToAir: this.lastEpisodeToAir?.toEntity(),
+        name: this.name,
+        nextEpisodeToAir: this.nextEpisodeToAir?.toEntity(),
+        networks: this.networks?.map((e) => e.toEntity()).toList(),
+        numberOfEpisodes: this.numberOfEpisodes,
     numberOfSeasons: this.numberOfSeasons,
     originCountry: this.originCountry,
     originalLanguage: this.originalLanguage,
@@ -193,11 +197,14 @@ class TvSeriesDetailResponse extends Equatable {
     overview: this.overview,
     popularity: this.popularity,
     posterPath: this.posterPath,
-    productionCompanies: this.productionCompanies.map((e) => e.toEntity()).toList(),
-    productionCountries: this.productionCountries.map((e) => e.toEntity()).toList(),
-    seasons: this.seasons.map((e) => e.toEntity()).toList(),
-    spokenLanguages: this.spokenLanguages.map((e) => e.toEntity()).toList(),
-    status: this.status,
+        productionCompanies:
+            this.productionCompanies?.map((e) => e.toEntity()).toList(),
+        productionCountries:
+            this.productionCountries?.map((e) => e.toEntity()).toList(),
+        seasons: this.seasons?.map((e) => e.toEntity()).toList(),
+        spokenLanguages:
+            this.spokenLanguages?.map((e) => e.toEntity()).toList(),
+        status: this.status,
     tagline: this.tagline,
     type: this.type,
     voteAverage: this.voteAverage,

@@ -8,7 +8,7 @@ class Seasons extends Equatable {
   String? overview;
   String? posterPath;
   int? seasonNumber;
-  int? voteAverage;
+  double? voteAverage;
 
   Seasons(
       {required this.airDate,

@@ -41,7 +41,7 @@ class TvSeriesDetail extends Equatable {
   String? status;
   String? tagline;
   String? type;
-  int? voteAverage;
+  double? voteAverage;
   int? voteCount;
 
   TvSeriesDetail(
