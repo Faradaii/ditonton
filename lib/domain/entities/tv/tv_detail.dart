@@ -6,7 +6,7 @@ class TvSeriesDetail {
   String? firstAirDate;
   List<Genres>? genres;
   String? homepage;
-  int? id;
+  int id;
   bool? inProduction;
   List<String>? languages;
   String? lastAirDate;
