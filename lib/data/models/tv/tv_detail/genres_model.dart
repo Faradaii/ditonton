@@ -9,7 +9,7 @@ class GenresModel extends Equatable {
   });
 
   final int id;
-  final String name;
+  final String? name;
 
   factory GenresModel.fromJson(Map<String, dynamic> json) => GenresModel(
         id: json['id'],
