@@ -20,37 +20,37 @@ class TvSeriesModel extends Equatable {
     required this.voteCount,
   });
 
-  late final bool adult;
-  late final String backdropPath;
-  late final List<int> genreIds;
-  late final int id;
-  late final List<String> originCountry;
-  late final String originalLanguage;
-  late final String originalName;
-  late final String overview;
-  late final double popularity;
-  late final String posterPath;
-  late final String firstAirDate;
-  late final String name;
-  late final int? voteAverage;
-  late final int voteCount;
+  final bool adult;
+  final String backdropPath;
+  final List<int> genreIds;
+  final int id;
+  final List<String> originCountry;
+  final String originalLanguage;
+  final String originalName;
+  final String overview;
+  final double popularity;
+  final String? posterPath;
+  final String firstAirDate;
+  final String name;
+  final int? voteAverage;
+  final int voteCount;
 
-  TvSeriesModel.fromJson(Map<String, dynamic> json){
-    adult = json['adult'];
-    backdropPath = json['backdrop_path'];
-    genreIds = List.castFrom<dynamic, int>(json['genre_ids']);
-    id = json['id'];
-    originCountry = List.castFrom<dynamic, String>(json['origin_country']);
-    originalLanguage = json['original_language'];
-    originalName = json['original_name'];
-    overview = json['overview'];
-    popularity = json['popularity'];
-    posterPath = json['poster_path'];
-    firstAirDate = json['first_air_date'];
-    name = json['name'];
-    voteAverage = json['vote_average'];
-    voteCount = json['vote_count'];
-  }
+  factory TvSeriesModel.fromJson(Map<String, dynamic> json) => TvSeriesModel(
+        adult: json['adult'],
+        backdropPath: json['backdrop_path'],
+        genreIds: List.castFrom<dynamic, int>(json['genre_ids']),
+        id: json['id'],
+        originCountry: List.castFrom<dynamic, String>(json['origin_country']),
+        originalLanguage: json['original_language'],
+        originalName: json['original_name'],
+        overview: json['overview'],
+        popularity: json['popularity'],
+        posterPath: json['poster_path'],
+        firstAirDate: json['first_air_date'],
+        name: json['name'],
+        voteAverage: json['vote_average'],
+        voteCount: json['vote_count'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

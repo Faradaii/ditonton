@@ -14,25 +14,25 @@ class SeasonsModel extends Equatable {
     required this.voteAverage,
   });
 
-  late final String airDate;
-  late final int episodeCount;
-  late final int id;
-  late final String name;
-  late final String overview;
-  late final String posterPath;
-  late final int seasonNumber;
-  late final int voteAverage;
+  final String airDate;
+  final int episodeCount;
+  final int id;
+  final String name;
+  final String overview;
+  final String posterPath;
+  final int seasonNumber;
+  final int voteAverage;
 
-  SeasonsModel.fromJson(Map<String, dynamic> json) {
-    airDate = json['air_date'];
-    episodeCount = json['episode_count'];
-    id = json['id'];
-    name = json['name'];
-    overview = json['overview'];
-    posterPath = json['poster_path'];
-    seasonNumber = json['season_number'];
-    voteAverage = json['vote_average'];
-  }
+  factory SeasonsModel.fromJson(Map<String, dynamic> json) => SeasonsModel(
+        airDate: json['air_date'],
+        episodeCount: json['episode_count'],
+        id: json['id'],
+        name: json['name'],
+        overview: json['overview'],
+        posterPath: json['poster_path'],
+        seasonNumber: json['season_number'],
+        voteAverage: json['vote_average'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

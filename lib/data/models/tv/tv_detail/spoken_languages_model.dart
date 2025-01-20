@@ -9,15 +9,16 @@ class SpokenLanguagesModel extends Equatable {
     required this.name,
   });
 
-  late final String englishName;
-  late final String iso_639_1;
-  late final String name;
+  final String englishName;
+  final String iso_639_1;
+  final String name;
 
-  SpokenLanguagesModel.fromJson(Map<String, dynamic> json) {
-    englishName = json['english_name'];
-    iso_639_1 = json['iso_639_1'];
-    name = json['name'];
-  }
+  factory SpokenLanguagesModel.fromJson(Map<String, dynamic> json) =>
+      SpokenLanguagesModel(
+        englishName: json['english_name'],
+        iso_639_1: json['iso_639_1'],
+        name: json['name'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

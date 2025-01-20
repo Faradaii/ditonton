@@ -46,73 +46,91 @@ class TvSeriesDetailResponse extends Equatable {
     required this.voteAverage,
     required this.voteCount,
   });
-  late final bool adult;
-  late final String backdropPath;
-  late final List<CreatedByModel> createdBy;
-  late final List<int> episodeRunTime;
-  late final String firstAirDate;
-  late final List<GenresModel> genres;
-  late final String homepage;
-  late final int id;
-  late final bool inProduction;
-  late final List<String> languages;
-  late final String lastAirDate;
-  late final LastEpisodeToAirModel lastEpisodeToAir;
-  late final String name;
-  late final NextEpisodeToAirModel nextEpisodeToAir;
-  late final List<NetworksModel> networks;
-  late final int numberOfEpisodes;
-  late final int numberOfSeasons;
-  late final List<String> originCountry;
-  late final String originalLanguage;
-  late final String originalName;
-  late final String overview;
-  late final double popularity;
-  late final String posterPath;
-  late final List<ProductionCompaniesModel> productionCompanies;
-  late final List<ProductionCountriesModel> productionCountries;
-  late final List<SeasonsModel> seasons;
-  late final List<SpokenLanguagesModel> spokenLanguages;
-  late final String status;
-  late final String tagline;
-  late final String type;
-  late final int voteAverage;
-  late final int voteCount;
 
-  TvSeriesDetailResponse.fromJson(Map<String, dynamic> json){
-    adult = json['adult'];
-    backdropPath = json['backdrop_path'];
-    createdBy = List.from(json['created_by']).map((e)=>CreatedByModel.fromJson(e)).toList();
-    episodeRunTime = List.from(json['episode_run_time']);
-    firstAirDate = json['first_air_date'];
-    genres = List.from(json['genres']).map((e)=>GenresModel.fromJson(e)).toList();
-    homepage = json['homepage'];
-    id = json['id'];
-    inProduction = json['in_production'];
-    languages = List.castFrom<dynamic, String>(json['languages']);
-    lastAirDate = json['last_air_date'];
-    lastEpisodeToAir = LastEpisodeToAirModel.fromJson(json['last_episode_to_air']);
-    name = json['name'];
-    nextEpisodeToAir = NextEpisodeToAirModel.fromJson(json['next_episode_to_air']);
-    networks = List.from(json['networks']).map((e)=>NetworksModel.fromJson(e)).toList();
-    numberOfEpisodes = json['number_of_episodes'];
-    numberOfSeasons = json['number_of_seasons'];
-    originCountry = List.castFrom<dynamic, String>(json['origin_country']);
-    originalLanguage = json['original_language'];
-    originalName = json['original_name'];
-    overview = json['overview'];
-    popularity = json['popularity'];
-    posterPath = json['poster_path'];
-    productionCompanies = List.from(json['production_companies']).map((e)=>ProductionCompaniesModel.fromJson(e)).toList();
-    productionCountries = List.from(json['production_countries']).map((e)=>ProductionCountriesModel.fromJson(e)).toList();
-    seasons = List.from(json['seasons']).map((e)=>SeasonsModel.fromJson(e)).toList();
-    spokenLanguages = List.from(json['spoken_languages']).map((e)=>SpokenLanguagesModel.fromJson(e)).toList();
-    status = json['status'];
-    tagline = json['tagline'];
-    type = json['type'];
-    voteAverage = json['vote_average'];
-    voteCount = json['vote_count'];
-  }
+  final bool adult;
+  final String backdropPath;
+  final List<CreatedByModel> createdBy;
+  final List<int> episodeRunTime;
+  final String firstAirDate;
+  final List<GenresModel> genres;
+  final String homepage;
+  final int id;
+  final bool inProduction;
+  final List<String> languages;
+  final String lastAirDate;
+  final LastEpisodeToAirModel lastEpisodeToAir;
+  final String name;
+  final NextEpisodeToAirModel nextEpisodeToAir;
+  final List<NetworksModel> networks;
+  final int numberOfEpisodes;
+  final int numberOfSeasons;
+  final List<String> originCountry;
+  final String originalLanguage;
+  final String originalName;
+  final String overview;
+  final double popularity;
+  final String posterPath;
+  final List<ProductionCompaniesModel> productionCompanies;
+  final List<ProductionCountriesModel> productionCountries;
+  final List<SeasonsModel> seasons;
+  final List<SpokenLanguagesModel> spokenLanguages;
+  final String status;
+  final String tagline;
+  final String type;
+  final int voteAverage;
+  final int voteCount;
+
+  factory TvSeriesDetailResponse.fromJson(Map<String, dynamic> json) =>
+      TvSeriesDetailResponse(
+        adult: json['adult'],
+        backdropPath: json['backdrop_path'],
+        createdBy: List.from(json['created_by'])
+            .map((e) => CreatedByModel.fromJson(e))
+            .toList(),
+        episodeRunTime: List.from(json['episode_run_time']),
+        firstAirDate: json['first_air_date'],
+        genres: List.from(json['genres'])
+            .map((e) => GenresModel.fromJson(e))
+            .toList(),
+        homepage: json['homepage'],
+        id: json['id'],
+        inProduction: json['in_production'],
+        languages: List.castFrom<dynamic, String>(json['languages']),
+        lastAirDate: json['last_air_date'],
+        lastEpisodeToAir:
+            LastEpisodeToAirModel.fromJson(json['last_episode_to_air']),
+        name: json['name'],
+        nextEpisodeToAir:
+            NextEpisodeToAirModel.fromJson(json['next_episode_to_air']),
+        networks: List.from(json['networks'])
+            .map((e) => NetworksModel.fromJson(e))
+            .toList(),
+        numberOfEpisodes: json['number_of_episodes'],
+        numberOfSeasons: json['number_of_seasons'],
+        originCountry: List.castFrom<dynamic, String>(json['origin_country']),
+        originalLanguage: json['original_language'],
+        originalName: json['original_name'],
+        overview: json['overview'],
+        popularity: json['popularity'],
+        posterPath: json['poster_path'],
+        productionCompanies: List.from(json['production_companies'])
+            .map((e) => ProductionCompaniesModel.fromJson(e))
+            .toList(),
+        productionCountries: List.from(json['production_countries'])
+            .map((e) => ProductionCountriesModel.fromJson(e))
+            .toList(),
+        seasons: List.from(json['seasons'])
+            .map((e) => SeasonsModel.fromJson(e))
+            .toList(),
+        spokenLanguages: List.from(json['spoken_languages'])
+            .map((e) => SpokenLanguagesModel.fromJson(e))
+            .toList(),
+        status: json['status'],
+        tagline: json['tagline'],
+        type: json['type'],
+        voteAverage: json['vote_average'],
+        voteCount: json['vote_count'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

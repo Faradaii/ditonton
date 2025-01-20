@@ -8,13 +8,13 @@ class GenresModel extends Equatable {
     required this.name,
   });
 
-  late final int id;
-  late final String name;
+  final int id;
+  final String name;
 
-  GenresModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
+  factory GenresModel.fromJson(Map<String, dynamic> json) => GenresModel(
+        id: json['id'],
+        name: json['name'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

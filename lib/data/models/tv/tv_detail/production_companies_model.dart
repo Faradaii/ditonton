@@ -10,17 +10,18 @@ class ProductionCompaniesModel extends Equatable {
     required this.originCountry,
   });
 
-  late final int id;
-  late final String logoPath;
-  late final String name;
-  late final String originCountry;
+  final int id;
+  final String logoPath;
+  final String name;
+  final String originCountry;
 
-  ProductionCompaniesModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    logoPath = json['logo_path'];
-    name = json['name'];
-    originCountry = json['origin_country'];
-  }
+  factory ProductionCompaniesModel.fromJson(Map<String, dynamic> json) =>
+      ProductionCompaniesModel(
+        id: json['id'],
+        logoPath: json['logo_path'],
+        name: json['name'],
+        originCountry: json['origin_country'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

@@ -19,35 +19,36 @@ class LastEpisodeToAirModel extends Equatable {
     required this.stillPath,
   });
 
-  late final int id;
-  late final String name;
-  late final String overview;
-  late final int voteAverage;
-  late final int voteCount;
-  late final String airDate;
-  late final int episodeNumber;
-  late final String episodeType;
-  late final String productionCode;
-  late final int runtime;
-  late final int seasonNumber;
-  late final int showId;
-  late final String stillPath;
+  final int id;
+  final String name;
+  final String overview;
+  final int voteAverage;
+  final int voteCount;
+  final String airDate;
+  final int episodeNumber;
+  final String episodeType;
+  final String productionCode;
+  final int runtime;
+  final int seasonNumber;
+  final int showId;
+  final String stillPath;
 
-  LastEpisodeToAirModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    overview = json['overview'];
-    voteAverage = json['vote_average'];
-    voteCount = json['vote_count'];
-    airDate = json['air_date'];
-    episodeNumber = json['episode_number'];
-    episodeType = json['episode_type'];
-    productionCode = json['production_code'];
-    runtime = json['runtime'];
-    seasonNumber = json['season_number'];
-    showId = json['show_id'];
-    stillPath = json['still_path'];
-  }
+  factory LastEpisodeToAirModel.fromJson(Map<String, dynamic> json) =>
+      LastEpisodeToAirModel(
+        id: json['id'],
+        name: json['name'],
+        overview: json['overview'],
+        voteAverage: json['vote_average'],
+        voteCount: json['vote_count'],
+        airDate: json['air_date'],
+        episodeNumber: json['episode_number'],
+        episodeType: json['episode_type'],
+        productionCode: json['production_code'],
+        runtime: json['runtime'],
+        seasonNumber: json['season_number'],
+        showId: json['show_id'],
+        stillPath: json['still_path'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

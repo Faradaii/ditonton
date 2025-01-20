@@ -9,24 +9,24 @@ class CreatedByModel extends Equatable {
     required this.name,
     required this.originalName,
     required this.gender,
-    this.profilePath,
+    required this.profilePath,
   });
 
-  late final int id;
-  late final String creditId;
-  late final String name;
-  late final String originalName;
-  late final int gender;
-  late final Null profilePath;
+  final int? id;
+  final String? creditId;
+  final String? name;
+  final String? originalName;
+  final int? gender;
+  final String? profilePath;
 
-  CreatedByModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    creditId = json['credit_id'];
-    name = json['name'];
-    originalName = json['original_name'];
-    gender = json['gender'];
-    profilePath = null;
-  }
+  factory CreatedByModel.fromJson(Map<String, dynamic> json) => CreatedByModel(
+        id: json['id'],
+        creditId: json['credit_id'],
+        name: json['name'],
+        originalName: json['original_name'],
+        gender: json['gender'],
+        profilePath: json['profile_path'],
+      );
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
