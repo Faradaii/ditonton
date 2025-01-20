@@ -1,19 +1,31 @@
-class TvSeriesDetail {
+import 'package:ditonton/domain/entities/tv/production_companies_model.dart';
+import 'package:ditonton/domain/entities/tv/production_countries_model.dart';
+import 'package:ditonton/domain/entities/tv/seasons_model.dart';
+import 'package:ditonton/domain/entities/tv/spoken_languages_model.dart';
+import 'package:equatable/equatable.dart';
+
+import 'created_by_model.dart';
+import 'genres_model.dart';
+import 'last_episode_to_air_model.dart';
+import 'networks_model.dart';
+import 'next_episode_to_air_model.dart';
+
+class TvSeriesDetail extends Equatable {
   bool? adult;
   String? backdropPath;
-  List<CreatedBy>? createdBy;
+  List<CreatedByModel>? createdBy;
   List<int>? episodeRunTime;
   String? firstAirDate;
-  List<Genres>? genres;
+  List<GenresModel>? genres;
   String? homepage;
   int id;
   bool? inProduction;
   List<String>? languages;
   String? lastAirDate;
-  LastEpisodeToAir? lastEpisodeToAir;
+  LastEpisodeToAirModel? lastEpisodeToAir;
   String? name;
-  NextEpisodeToAir? nextEpisodeToAir;
-  List<Networks>? networks;
+  NextEpisodeToAirModel? nextEpisodeToAir;
+  List<NetworksModel>? networks;
   int? numberOfEpisodes;
   int? numberOfSeasons;
   List<String>? originCountry;
@@ -22,10 +34,10 @@ class TvSeriesDetail {
   String? overview;
   double? popularity;
   String? posterPath;
-  List<ProductionCompanies>? productionCompanies;
-  List<ProductionCountries>? productionCountries;
-  List<Seasons>? seasons;
-  List<SpokenLanguages>? spokenLanguages;
+  List<ProductionCompaniesModel>? productionCompanies;
+  List<ProductionCountriesModel>? productionCountries;
+  List<SeasonsModel>? seasons;
+  List<SpokenLanguagesModel>? spokenLanguages;
   String? status;
   String? tagline;
   String? type;
@@ -65,144 +77,40 @@ class TvSeriesDetail {
         required this.type,
         required this.voteAverage,
         required this.voteCount});
-}
 
-class ProductionCompanies {
-  int? id;
-  String? logoPath;
-  String? name;
-  String? originCountry;
-
-  ProductionCompanies({required this.id, required this.logoPath, required this.name, required this.originCountry});
-}
-
-class CreatedBy {
-  int? id;
-  String? creditId;
-  String? name;
-  String? originalName;
-  int? gender;
-  String? profilePath;
-
-  CreatedBy(
-      {required this.id,
-        required this.creditId,
-        required this.name,
-        required this.originalName,
-        required this.gender,
-        required this.profilePath});
-}
-
-class Genres {
-  int? id;
-  String? name;
-
-  Genres({required this.id, required this.name});
-}
-
-class LastEpisodeToAir {
-  int? id;
-  String? name;
-  String? overview;
-  int? voteAverage;
-  int? voteCount;
-  String? airDate;
-  int? episodeNumber;
-  String? episodeType;
-  String? productionCode;
-  int? runtime;
-  int? seasonNumber;
-  int? showId;
-  String? stillPath;
-
-  LastEpisodeToAir(
-      {required this.id,
-        required this.name,
-        required this.overview,
-        required this.voteAverage,
-        required this.voteCount,
-        required this.airDate,
-        required this.episodeNumber,
-        required this.episodeType,
-        required this.productionCode,
-        required this.runtime,
-        required this.seasonNumber,
-        required this.showId,
-        required this.stillPath});
-}
-
-class NextEpisodeToAir {
-  int? id;
-  String? name;
-  String? overview;
-  int? voteAverage;
-  int? voteCount;
-  String? airDate;
-  int? episodeNumber;
-  String? episodeType;
-  String? productionCode;
-  int? runtime;
-  int? seasonNumber;
-  int? showId;
-  String? stillPath;
-
-  NextEpisodeToAir(
-      {required this.id,
-        required this.name,
-        required this.overview,
-        required this.voteAverage,
-        required this.voteCount,
-        required this.airDate,
-        required this.episodeNumber,
-        required this.episodeType,
-        required this.productionCode,
-        required this.runtime,
-        required this.seasonNumber,
-        required this.showId,
-        required this.stillPath});
-}
-
-class Networks {
-  int? id;
-  String? logoPath;
-  String? name;
-  String? originCountry;
-
-  Networks({required this.id, required this.logoPath, required this.name, required this.originCountry});
-}
-
-class ProductionCountries {
-  String? iso31661;
-  String? name;
-
-  ProductionCountries({required this.iso31661, required this.name});
-}
-
-class Seasons {
-  String? airDate;
-  int? episodeCount;
-  int? id;
-  String? name;
-  String? overview;
-  String? posterPath;
-  int? seasonNumber;
-  int? voteAverage;
-
-  Seasons(
-      {required this.airDate,
-        required this.episodeCount,
-        required this.id,
-        required this.name,
-        required this.overview,
-        required this.posterPath,
-        required this.seasonNumber,
-        required this.voteAverage});
-}
-
-class SpokenLanguages {
-  String? englishName;
-  String? iso6391;
-  String? name;
-
-  SpokenLanguages({required this.englishName, required this.iso6391, required this.name});
+  @override
+  List<Object?> get props => [
+    adult,
+    backdropPath,
+    createdBy,
+    episodeRunTime,
+    firstAirDate,
+    genres,
+    homepage,
+    id,
+    inProduction,
+    languages,
+    lastAirDate,
+    lastEpisodeToAir,
+    name,
+    nextEpisodeToAir,
+    networks,
+    numberOfEpisodes,
+    numberOfSeasons,
+    originCountry,
+    originalLanguage,
+    originalName,
+    overview,
+    popularity,
+    posterPath,
+    productionCompanies,
+    productionCountries,
+    seasons,
+    spokenLanguages,
+    status,
+    tagline,
+    type,
+    voteAverage,
+    voteCount
+  ];
 }
