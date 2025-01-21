@@ -10,6 +10,8 @@ import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/tv/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/tv_detail_page.dart';
+import 'package:ditonton/presentation/pages/tv/tv_detail_season_episode_page.dart';
+import 'package:ditonton/presentation/pages/tv/tv_detail_season_page.dart';
 import 'package:ditonton/presentation/pages/tv/watchlist_tv_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
@@ -20,6 +22,8 @@ import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/popular_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/top_rated_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/tv_detail_notifier.dart';
+import 'package:ditonton/presentation/provider/tv/tv_detail_season_episode_notifier.dart';
+import 'package:ditonton/presentation/provider/tv/tv_detail_season_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/tv_list_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/tv_search_notifier.dart';
 import 'package:ditonton/presentation/provider/tv/watchlist_tv_notifier.dart';
@@ -60,6 +64,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TvDetailNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<TvDetailSeasonNotifier>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<TvDetailSeasonEpisodeNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TvSearchNotifier>(),
@@ -112,6 +122,30 @@ class MyApp extends StatelessWidget {
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: id),
+                settings: settings,
+              );
+            case TvDetailSeasonPage.ROUTE_NAME:
+              final arguments = settings.arguments as Map<String, dynamic>;
+              final id = arguments['id'] as int;
+              final seasonNumber = arguments['seasonNumber'] as int;
+              return MaterialPageRoute(
+                builder: (_) => TvDetailSeasonPage(
+                  id: id,
+                  seasonNumber: seasonNumber,
+                ),
+                settings: settings,
+              );
+            case TvDetailSeasonEpisodePage.ROUTE_NAME:
+              final arguments = settings.arguments as Map<String, dynamic>;
+              final id = arguments['id'] as int;
+              final seasonNumber = arguments['seasonNumber'] as int;
+              final episodeNumber = arguments['episodeNumber'] as int;
+              return MaterialPageRoute(
+                builder: (_) => TvDetailSeasonEpisodePage(
+                  id: id,
+                  seasonNumber: seasonNumber,
+                  episodeNumber: episodeNumber,
+                ),
                 settings: settings,
               );
             case WatchlistTvPage.ROUTE_NAME:

@@ -23,7 +23,7 @@ class TvDetailSeasonEpisodeNotifier extends ChangeNotifier {
 
   String get message => _message;
 
-  Future<void> fetchTvDetailSeason(
+  Future<void> fetchTvDetailSeasonEpisode(
       {required int id,
       required int seasonNumber,
       required int episodeNumber}) async {
