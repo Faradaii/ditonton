@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/domain/entities/tv/genres.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
+import 'package:ditonton/presentation/pages/tv/tv_detail_season_page.dart';
 import 'package:ditonton/presentation/provider/tv/tv_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -227,7 +228,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${tvItem.posterPath}',
+                                                    'https://image.tmdb.org/t/p/w500/${tvItem.posterPath}',
                                                 placeholder: (context, url) =>
                                                     Center(
                                                   child:
@@ -325,14 +326,23 @@ class DetailContent extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          TvDetailSeasonPage.ROUTE_NAME,
+                          arguments: {
+                            'id': tvDetail.id,
+                            'seasonNumber': seasonItem?.seasonNumber
+                          },
+                        );
+                      },
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(
                           Radius.circular(8),
                         ),
                         child: CachedNetworkImage(
                           imageUrl:
-                              'https://image.tmdb.org/t/p/w500${seasonItem?.posterPath}',
+                              'https://image.tmdb.org/t/p/w500/${seasonItem?.posterPath}',
                           placeholder: (context, url) => Center(
                             child: CircularProgressIndicator(),
                           ),
