@@ -51,7 +51,10 @@ class _TvDetailSeasonPageState extends State<TvDetailSeasonPage> {
               ),
             );
           } else {
-            return Text(provider.message);
+            return Center(
+              key: Key('error_message'),
+              child: Text(provider.message),
+            );
           }
         },
       ),
@@ -78,7 +81,8 @@ class DetailSeasonContent extends StatelessWidget {
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) =>
+              Center(child: Icon(Icons.error)),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),

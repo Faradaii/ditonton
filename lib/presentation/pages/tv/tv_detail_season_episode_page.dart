@@ -56,7 +56,10 @@ class _TvDetailSeasonEpisodePageState extends State<TvDetailSeasonEpisodePage> {
               ),
             );
           } else {
-            return Text(provider.message);
+            return Center(
+              key: Key('error_message'),
+              child: Text(provider.message),
+            );
           }
         },
       ),
@@ -71,7 +74,6 @@ class DetailSeasonEpisodeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Container(
@@ -99,7 +101,7 @@ class DetailSeasonEpisodeContent extends StatelessWidget {
                           style: kHeading5,
                         ),
                         Text(
-                          "${_showDuration(episodeDetail.runtime!)}",
+                          "${_showDuration(episodeDetail.runtime ?? 0)}",
                         ),
                         Row(
                           children: [
@@ -192,7 +194,7 @@ class DetailSeasonEpisodeContent extends StatelessWidget {
                   width: 8,
                 ),
             scrollDirection: Axis.horizontal,
-            itemCount: episodeDetail.guestStars!.length,
+            itemCount: episodeDetail.guestStars?.length ?? 0,
             itemBuilder: (context, index) {
               final guestStar = episodeDetail.guestStars![index];
               return Container(
