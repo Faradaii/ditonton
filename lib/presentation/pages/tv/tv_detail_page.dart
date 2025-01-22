@@ -53,7 +53,10 @@ class _TvDetailPageState extends State<TvDetailPage> {
               ),
             );
           } else {
-            return Text(provider.message);
+            return Center(
+              key: Key('error_message'),
+              child: Text(provider.message),
+            );
           }
         },
       ),
@@ -301,17 +304,6 @@ class DetailContent extends StatelessWidget {
     return result.substring(0, result.length - 2);
   }
 
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
-  }
-
   Widget _buildSeasons() {
     return Container(
       height: 180,
@@ -359,7 +351,7 @@ class DetailContent extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  "${seasonItem?.episodeCount} episodes" ?? '',
+                  "${seasonItem?.episodeCount} episodes",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
