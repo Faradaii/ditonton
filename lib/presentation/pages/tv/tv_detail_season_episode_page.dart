@@ -70,7 +70,7 @@ class _TvDetailSeasonEpisodePageState extends State<TvDetailSeasonEpisodePage> {
 class DetailSeasonEpisodeContent extends StatelessWidget {
   final Episode episodeDetail;
 
-  DetailSeasonEpisodeContent(this.episodeDetail);
+  const DetailSeasonEpisodeContent(this.episodeDetail, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class DetailSeasonEpisodeContent extends StatelessWidget {
                           style: kHeading5,
                         ),
                         Text(
-                          "${_showDuration(episodeDetail.runtime ?? 0)}",
+                          _showDuration(episodeDetail.runtime ?? 0),
                         ),
                         Row(
                           children: [
@@ -187,7 +187,7 @@ class DetailSeasonEpisodeContent extends StatelessWidget {
         child: Text("No GuestStar"),
       );
     }
-    return Container(
+    return SizedBox(
         height: 150,
         child: ListView.separated(
             separatorBuilder: (context, index) => const SizedBox(
@@ -256,7 +256,7 @@ class DetailSeasonEpisodeContent extends StatelessWidget {
         child: Text("No Crew"),
       );
     }
-    return Container(
+    return SizedBox(
         height: 150,
         child: ListView.separated(
             separatorBuilder: (context, index) => const SizedBox(

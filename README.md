@@ -1,3 +1,8 @@
+# Ditonton
+
+build
+status: [![Codemagic build status](https://api.codemagic.io/apps/6793978808edbbfbd7c359eb/6793978808edbbfbd7c359ea/status_badge.svg)](https://codemagic.io/app/6793978808edbbfbd7c359eb/6793978808edbbfbd7c359ea/latest_build)
+
 # a199-flutter-expert-project
 
 Repository ini merupakan starter project submission kelas Flutter Expert Dicoding Indonesia.

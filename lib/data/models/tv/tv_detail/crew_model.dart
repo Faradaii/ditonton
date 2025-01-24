@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/crew.dart';
 
 class CrewModel extends Equatable {
-  CrewModel({
+  const CrewModel({
     required this.job,
     required this.department,
     required this.creditId,
@@ -44,33 +44,33 @@ class CrewModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['job'] = job;
-    _data['department'] = department;
-    _data['credit_id'] = creditId;
-    _data['adult'] = adult;
-    _data['gender'] = gender;
-    _data['id'] = id;
-    _data['known_for_department'] = knownForDepartment;
-    _data['name'] = name;
-    _data['original_name'] = originalName;
-    _data['popularity'] = popularity;
-    _data['profile_path'] = profilePath;
-    return _data;
+    final data = <String, dynamic>{};
+    data['job'] = job;
+    data['department'] = department;
+    data['credit_id'] = creditId;
+    data['adult'] = adult;
+    data['gender'] = gender;
+    data['id'] = id;
+    data['known_for_department'] = knownForDepartment;
+    data['name'] = name;
+    data['original_name'] = originalName;
+    data['popularity'] = popularity;
+    data['profile_path'] = profilePath;
+    return data;
   }
 
   Crew toEntity() => Crew(
-      job: this.job,
-      department: this.department,
-      creditId: this.creditId,
-      adult: this.adult,
-      gender: this.gender,
-      id: this.id,
-      knownForDepartment: this.knownForDepartment,
-      name: this.name,
-      originalName: this.originalName,
-      popularity: this.popularity,
-      profilePath: this.profilePath);
+      job: job,
+      department: department,
+      creditId: creditId,
+      adult: adult,
+      gender: gender,
+      id: id,
+      knownForDepartment: knownForDepartment,
+      name: name,
+      originalName: originalName,
+      popularity: popularity,
+      profilePath: profilePath);
 
   @override
   List<Object?> get props => [

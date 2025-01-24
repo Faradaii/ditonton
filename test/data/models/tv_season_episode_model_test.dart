@@ -1,13 +1,9 @@
 import 'package:ditonton/data/models/tv/tv_detail/crew_model.dart';
 import 'package:ditonton/data/models/tv/tv_detail/episode_response.dart';
-import 'package:ditonton/data/models/tv/tv_detail/episodes_model.dart';
 import 'package:ditonton/data/models/tv/tv_detail/guest_stars.dart';
-import 'package:ditonton/data/models/tv/tv_detail/season_response.dart';
 import 'package:ditonton/domain/entities/tv/crew.dart';
 import 'package:ditonton/domain/entities/tv/episode/episode.dart';
-import 'package:ditonton/domain/entities/tv/episodes.dart';
 import 'package:ditonton/domain/entities/tv/guest_stars.dart';
-import 'package:ditonton/domain/entities/tv/season/season_detail.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

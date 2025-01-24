@@ -5,7 +5,7 @@ import 'crew_model.dart';
 import 'guest_stars.dart';
 
 class EpisodesModel extends Equatable {
-  EpisodesModel({
+  const EpisodesModel({
     required this.airDate,
     required this.episodeNumber,
     required this.episodeType,
@@ -61,27 +61,27 @@ class EpisodesModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['air_date'] = airDate;
-    _data['episode_number'] = episodeNumber;
-    _data['episode_type'] = episodeType;
-    _data['id'] = id;
-    _data['name'] = name;
-    _data['overview'] = overview;
-    _data['production_code'] = productionCode;
-    _data['runtime'] = runtime;
-    _data['season_number'] = seasonNumber;
-    _data['show_id'] = showId;
-    _data['still_path'] = stillPath;
-    _data['vote_average'] = voteAverage;
-    _data['vote_count'] = voteCount;
-    _data['crew'] = crew?.map((e) => e.toJson()).toList();
-    _data['guest_stars'] = guestStars?.map((e) => e.toJson()).toList();
-    return _data;
+    final data = <String, dynamic>{};
+    data['air_date'] = airDate;
+    data['episode_number'] = episodeNumber;
+    data['episode_type'] = episodeType;
+    data['id'] = id;
+    data['name'] = name;
+    data['overview'] = overview;
+    data['production_code'] = productionCode;
+    data['runtime'] = runtime;
+    data['season_number'] = seasonNumber;
+    data['show_id'] = showId;
+    data['still_path'] = stillPath;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    data['crew'] = crew?.map((e) => e.toJson()).toList();
+    data['guest_stars'] = guestStars?.map((e) => e.toJson()).toList();
+    return data;
   }
 
   Episodes toEntity() => Episodes(
-        airDate: this.airDate,
+        airDate: airDate,
         episodeNumber: episodeNumber,
         episodeType: episodeType,
         id: id,

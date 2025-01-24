@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class GuestStars extends Equatable {
-  GuestStars({
+  const GuestStars({
     required this.character,
     required this.creditId,
     required this.order,

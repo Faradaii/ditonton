@@ -50,6 +50,9 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.Loaded) {
+              if (data.watchlistTv.isEmpty) {
+                return _buildEmpty();
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final tv = data.watchlistTv[index];
@@ -66,6 +69,12 @@ class _WatchlistTvPageState extends State<WatchlistTvPage> with RouteAware {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildEmpty() {
+    return const Center(
+      child: Text('No tv series found, try add some!.'),
     );
   }
 

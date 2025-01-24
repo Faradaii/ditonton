@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/production_companies.dart';
 
 class ProductionCompaniesModel extends Equatable {
-  ProductionCompaniesModel({
+  const ProductionCompaniesModel({
     required this.id,
     required this.logoPath,
     required this.name,
@@ -24,19 +24,16 @@ class ProductionCompaniesModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['logo_path'] = logoPath;
-    _data['name'] = name;
-    _data['origin_country'] = originCountry;
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['logo_path'] = logoPath;
+    data['name'] = name;
+    data['origin_country'] = originCountry;
+    return data;
   }
 
   ProductionCompanies toEntity() => ProductionCompanies(
-      id: this.id,
-      logoPath: this.logoPath,
-      name: this.name,
-      originCountry: this.originCountry);
+      id: id, logoPath: logoPath, name: name, originCountry: originCountry);
 
   @override
   List<Object?> get props => [

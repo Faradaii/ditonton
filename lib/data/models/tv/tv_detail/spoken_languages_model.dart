@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/spoken_languages.dart';
 
 class SpokenLanguagesModel extends Equatable {
-  SpokenLanguagesModel({
+  const SpokenLanguagesModel({
     required this.englishName,
     required this.iso_639_1,
     required this.name,
@@ -21,17 +21,17 @@ class SpokenLanguagesModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['english_name'] = englishName;
-    _data['iso_639_1'] = iso_639_1;
-    _data['name'] = name;
-    return _data;
+    final data = <String, dynamic>{};
+    data['english_name'] = englishName;
+    data['iso_639_1'] = iso_639_1;
+    data['name'] = name;
+    return data;
   }
 
   SpokenLanguages toEntity() => SpokenLanguages(
-        englishName: this.englishName,
-        iso6391: this.iso_639_1,
-        name: this.name,
+        englishName: englishName,
+        iso6391: iso_639_1,
+        name: name,
       );
 
   @override

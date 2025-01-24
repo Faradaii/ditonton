@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../domain/entities/tv/tv.dart';
 
 class TvSeriesModel extends Equatable {
-  TvSeriesModel({
+  const TvSeriesModel({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -53,46 +53,44 @@ class TvSeriesModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['adult'] = adult;
-    _data['backdrop_path'] = backdropPath;
-    _data['genre_ids'] = genreIds;
-    _data['id'] = id;
-    _data['origin_country'] = originCountry;
-    _data['original_language'] = originalLanguage;
-    _data['original_name'] = originalName;
-    _data['overview'] = overview;
-    _data['popularity'] = popularity;
-    _data['poster_path'] = posterPath;
-    _data['first_air_date'] = firstAirDate;
-    _data['name'] = name;
-    _data['vote_average'] = voteAverage;
-    _data['vote_count'] = voteCount;
-    return _data;
+    final data = <String, dynamic>{};
+    data['adult'] = adult;
+    data['backdrop_path'] = backdropPath;
+    data['genre_ids'] = genreIds;
+    data['id'] = id;
+    data['origin_country'] = originCountry;
+    data['original_language'] = originalLanguage;
+    data['original_name'] = originalName;
+    data['overview'] = overview;
+    data['popularity'] = popularity;
+    data['poster_path'] = posterPath;
+    data['first_air_date'] = firstAirDate;
+    data['name'] = name;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    return data;
   }
 
   TvSeries toEntity() {
     return TvSeries(
-      adult: this.adult,
-      backdropPath: this.backdropPath,
-      genreIds: this.genreIds,
-      id: this.id,
-      originCountry: this.originCountry,
-      originalLanguage: this.originalLanguage,
-      originalName: this.originalName,
-      overview: this.overview,
-      popularity: this.popularity,
-      posterPath: this.posterPath,
-      name: this.name,
-      firstAirDate: this.firstAirDate,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount
-    );
+        adult: adult,
+        backdropPath: backdropPath,
+        genreIds: genreIds,
+        id: id,
+        originCountry: originCountry,
+        originalLanguage: originalLanguage,
+        originalName: originalName,
+        overview: overview,
+        popularity: popularity,
+        posterPath: posterPath,
+        name: name,
+        firstAirDate: firstAirDate,
+        voteAverage: voteAverage,
+        voteCount: voteCount);
   }
 
   @override
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         adult,
         backdropPath,
         genreIds,

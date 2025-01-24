@@ -1,25 +1,26 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:ditonton/presentation/provider/tv/tv_search_notifier.dart';
+import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SearchPage extends StatefulWidget {
-  static const ROUTE_NAME = '/search-movies';
+class SearchTvPage extends StatefulWidget {
+  static const ROUTE_NAME = '/search-tv';
 
-  const SearchPage({super.key});
+  const SearchTvPage({super.key});
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<SearchTvPage> createState() => _SearchTvPageState();
 }
 
-class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
+class _SearchTvPageState extends State<SearchTvPage>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Movies'),
+        title: const Text('Search Tv Series'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -29,8 +30,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
             TextField(
               onSubmitted: (query) {
                 // Trigger the search
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
+                Provider.of<TvSearchNotifier>(context, listen: false)
+                    .fetchTvSearch(query);
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -46,7 +47,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: _buildSearchMovies(),
+              child: _buildSearchTv(),
             ),
           ],
         ),
@@ -54,8 +55,8 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildSearchMovies() {
-    return Consumer<MovieSearchNotifier>(
+  Widget _buildSearchTv() {
+    return Consumer<TvSearchNotifier>(
       builder: (context, data, child) {
         if (data.state == RequestState.Loading) {
           return const Center(
@@ -63,14 +64,12 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
           );
         } else if (data.state == RequestState.Loaded) {
           final result = data.searchResult;
-          if (result.isEmpty) {
-            return _buildEmpty();
-          }
+          if (result.isEmpty) return _buildEmpty();
           return ListView.builder(
             padding: const EdgeInsets.all(8),
             itemBuilder: (context, index) {
-              final movie = data.searchResult[index];
-              return MovieCard(movie);
+              final tv = data.searchResult[index];
+              return TvCard(tv);
             },
             itemCount: result.length,
           );
@@ -83,7 +82,7 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
 
   Widget _buildEmpty() {
     return const Center(
-      child: Text('No movies found.'),
+      child: Text('No tv series found.'),
     );
   }
 }

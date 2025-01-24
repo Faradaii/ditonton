@@ -6,13 +6,12 @@ class Networks extends Equatable {
   String? name;
   String? originCountry;
 
-  Networks({required this.id, required this.logoPath, required this.name, required this.originCountry});
+  Networks(
+      {required this.id,
+      required this.logoPath,
+      required this.name,
+      required this.originCountry});
 
   @override
-  List<Object?> get props => [
-    id,
-    logoPath,
-    name,
-    originCountry
-  ];
+  List<Object?> get props => [id, logoPath, name, originCountry];
 }

@@ -69,7 +69,9 @@ class DetailContent extends StatelessWidget {
   final List<TvSeries> recommendations;
   final bool isAddedWatchlist;
 
-  DetailContent(this.tvDetail, this.recommendations, this.isAddedWatchlist);
+  const DetailContent(
+      this.tvDetail, this.recommendations, this.isAddedWatchlist,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +211,7 @@ class DetailContent extends StatelessWidget {
                                   return Text(data.message);
                                 } else if (data.recommendationState ==
                                     RequestState.Loaded) {
-                                  return Container(
+                                  return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -294,7 +296,7 @@ class DetailContent extends StatelessWidget {
   String _showGenres(List<Genres> genres) {
     String result = '';
     for (var genre in genres) {
-      result += (genre.name != null ? genre.name! + ', ' : '');
+      result += (genre.name != null ? '${genre.name!}, ' : '');
     }
 
     if (result.isEmpty) {
@@ -305,7 +307,7 @@ class DetailContent extends StatelessWidget {
   }
 
   Widget _buildSeasons() {
-    return Container(
+    return SizedBox(
       height: 180,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

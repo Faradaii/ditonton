@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/next_episode_to_air.dart';
 
 class NextEpisodeToAirModel extends Equatable {
-  NextEpisodeToAirModel({
+  const NextEpisodeToAirModel({
     required this.id,
     required this.name,
     required this.overview,
@@ -51,37 +51,37 @@ class NextEpisodeToAirModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['name'] = name;
-    _data['overview'] = overview;
-    _data['vote_average'] = voteAverage;
-    _data['vote_count'] = voteCount;
-    _data['air_date'] = airDate;
-    _data['episode_number'] = episodeNumber;
-    _data['episode_type'] = episodeType;
-    _data['production_code'] = productionCode;
-    _data['runtime'] = runtime;
-    _data['season_number'] = seasonNumber;
-    _data['show_id'] = showId;
-    _data['still_path'] = stillPath;
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['overview'] = overview;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    data['air_date'] = airDate;
+    data['episode_number'] = episodeNumber;
+    data['episode_type'] = episodeType;
+    data['production_code'] = productionCode;
+    data['runtime'] = runtime;
+    data['season_number'] = seasonNumber;
+    data['show_id'] = showId;
+    data['still_path'] = stillPath;
+    return data;
   }
 
   NextEpisodeToAir toEntity() => NextEpisodeToAir(
-      id: this.id,
-      name: this.name,
-      overview: this.overview,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount,
-      airDate: this.airDate,
-      episodeNumber: this.episodeNumber,
-      episodeType: this.episodeType,
-      productionCode: this.productionCode,
-      runtime: this.runtime,
-      seasonNumber: this.seasonNumber,
-      showId: this.showId,
-      stillPath: this.stillPath);
+      id: id,
+      name: name,
+      overview: overview,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
+      airDate: airDate,
+      episodeNumber: episodeNumber,
+      episodeType: episodeType,
+      productionCode: productionCode,
+      runtime: runtime,
+      seasonNumber: seasonNumber,
+      showId: showId,
+      stillPath: stillPath);
 
   @override
   List<Object?> get props => [

@@ -18,19 +18,19 @@ class TvSeries extends Equatable {
 
   TvSeries(
       {required this.adult,
-        required this.backdropPath,
-        required this.genreIds,
-        required this.id,
-        required this.originCountry,
-        required this.originalLanguage,
-        required this.originalName,
-        required this.overview,
-        required this.popularity,
-        required this.posterPath,
-        required this.firstAirDate,
-        required this.name,
-        required this.voteAverage,
-        required this.voteCount});
+      required this.backdropPath,
+      required this.genreIds,
+      required this.id,
+      required this.originCountry,
+      required this.originalLanguage,
+      required this.originalName,
+      required this.overview,
+      required this.popularity,
+      required this.posterPath,
+      required this.firstAirDate,
+      required this.name,
+      required this.voteAverage,
+      required this.voteCount});
 
   TvSeries.watchlist({
     required this.id,
@@ -41,19 +41,19 @@ class TvSeries extends Equatable {
 
   @override
   List<Object?> get props => [
-    adult,
-    backdropPath,
-    genreIds,
-    id,
-    originCountry,
-    originalLanguage,
-    originalName,
-    overview,
-    popularity,
-    posterPath,
-    firstAirDate,
-    name,
-    voteAverage,
-    voteCount
-  ];
+        adult,
+        backdropPath,
+        genreIds,
+        id,
+        originCountry,
+        originalLanguage,
+        originalName,
+        overview,
+        popularity,
+        posterPath,
+        firstAirDate,
+        name,
+        voteAverage,
+        voteCount
+      ];
 }

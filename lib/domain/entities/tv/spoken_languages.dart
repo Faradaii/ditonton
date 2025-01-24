@@ -5,12 +5,9 @@ class SpokenLanguages extends Equatable {
   String? iso6391;
   String? name;
 
-  SpokenLanguages({required this.englishName, required this.iso6391, required this.name});
+  SpokenLanguages(
+      {required this.englishName, required this.iso6391, required this.name});
 
   @override
-  List<Object?> get props => [
-    englishName,
-    iso6391,
-    name
-  ];
+  List<Object?> get props => [englishName, iso6391, name];
 }

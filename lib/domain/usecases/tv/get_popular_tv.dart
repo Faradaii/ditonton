@@ -8,7 +8,7 @@ class GetPopularTv {
 
   GetPopularTv(this.repository);
 
-  Future<Either<Failure, List<TvSeries>>> execute () {
+  Future<Either<Failure, List<TvSeries>>> execute() {
     return repository.getPopularTvSeries();
   }
 }

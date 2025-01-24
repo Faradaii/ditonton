@@ -12,7 +12,7 @@ import 'networks_model.dart';
 import 'next_episode_to_air_model.dart';
 
 class TvSeriesDetailResponse extends Equatable {
-  TvSeriesDetailResponse({
+  const TvSeriesDetailResponse({
     required this.adult,
     required this.backdropPath,
     required this.createdBy,
@@ -134,82 +134,80 @@ class TvSeriesDetailResponse extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['adult'] = adult;
-    _data['backdrop_path'] = backdropPath;
-    _data['created_by'] = createdBy?.map((e) => e.toJson()).toList();
-    _data['episode_run_time'] = episodeRunTime;
-    _data['first_air_date'] = firstAirDate;
-    _data['genres'] = genres?.map((e) => e.toJson()).toList();
-    _data['homepage'] = homepage;
-    _data['id'] = id;
-    _data['in_production'] = inProduction;
-    _data['languages'] = languages;
-    _data['last_air_date'] = lastAirDate;
-    _data['last_episode_to_air'] = lastEpisodeToAir?.toJson();
-    _data['name'] = name;
-    _data['next_episode_to_air'] = nextEpisodeToAir?.toJson();
-    _data['networks'] = networks?.map((e) => e.toJson()).toList();
-    _data['number_of_episodes'] = numberOfEpisodes;
-    _data['number_of_seasons'] = numberOfSeasons;
-    _data['origin_country'] = originCountry;
-    _data['original_language'] = originalLanguage;
-    _data['original_name'] = originalName;
-    _data['overview'] = overview;
-    _data['popularity'] = popularity;
-    _data['poster_path'] = posterPath;
-    _data['production_companies'] =
+    final data = <String, dynamic>{};
+    data['adult'] = adult;
+    data['backdrop_path'] = backdropPath;
+    data['created_by'] = createdBy?.map((e) => e.toJson()).toList();
+    data['episode_run_time'] = episodeRunTime;
+    data['first_air_date'] = firstAirDate;
+    data['genres'] = genres?.map((e) => e.toJson()).toList();
+    data['homepage'] = homepage;
+    data['id'] = id;
+    data['in_production'] = inProduction;
+    data['languages'] = languages;
+    data['last_air_date'] = lastAirDate;
+    data['last_episode_to_air'] = lastEpisodeToAir?.toJson();
+    data['name'] = name;
+    data['next_episode_to_air'] = nextEpisodeToAir?.toJson();
+    data['networks'] = networks?.map((e) => e.toJson()).toList();
+    data['number_of_episodes'] = numberOfEpisodes;
+    data['number_of_seasons'] = numberOfSeasons;
+    data['origin_country'] = originCountry;
+    data['original_language'] = originalLanguage;
+    data['original_name'] = originalName;
+    data['overview'] = overview;
+    data['popularity'] = popularity;
+    data['poster_path'] = posterPath;
+    data['production_companies'] =
         productionCompanies?.map((e) => e.toJson()).toList();
-    _data['production_countries'] =
+    data['production_countries'] =
         productionCountries?.map((e) => e.toJson()).toList();
-    _data['seasons'] = seasons?.map((e) => e.toJson()).toList();
-    _data['spoken_languages'] =
-        spokenLanguages?.map((e) => e.toJson()).toList();
-    _data['status'] = status;
-    _data['tagline'] = tagline;
-    _data['type'] = type;
-    _data['vote_average'] = voteAverage;
-    _data['vote_count'] = voteCount;
-    return _data;
+    data['seasons'] = seasons?.map((e) => e.toJson()).toList();
+    data['spoken_languages'] = spokenLanguages?.map((e) => e.toJson()).toList();
+    data['status'] = status;
+    data['tagline'] = tagline;
+    data['type'] = type;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    return data;
   }
 
   TvSeriesDetail toEntity() => TvSeriesDetail(
-    adult: this.adult,
-    backdropPath: this.backdropPath,
-        createdBy: this.createdBy?.map((e) => e.toEntity()).toList(),
-        episodeRunTime: this.episodeRunTime,
-    firstAirDate: this.firstAirDate,
-        genres: this.genres?.map((e) => e.toEntity()).toList(),
-        homepage: this.homepage,
-    id: this.id,
-    inProduction: this.inProduction,
-    languages: this.languages,
-    lastAirDate: this.lastAirDate,
-        lastEpisodeToAir: this.lastEpisodeToAir?.toEntity(),
-        name: this.name,
-        nextEpisodeToAir: this.nextEpisodeToAir?.toEntity(),
-        networks: this.networks?.map((e) => e.toEntity()).toList(),
-        numberOfEpisodes: this.numberOfEpisodes,
-    numberOfSeasons: this.numberOfSeasons,
-    originCountry: this.originCountry,
-    originalLanguage: this.originalLanguage,
-    originalName: this.originalName,
-    overview: this.overview,
-    popularity: this.popularity,
-    posterPath: this.posterPath,
+        adult: adult,
+        backdropPath: backdropPath,
+        createdBy: createdBy?.map((e) => e.toEntity()).toList(),
+        episodeRunTime: episodeRunTime,
+        firstAirDate: firstAirDate,
+        genres: genres?.map((e) => e.toEntity()).toList(),
+        homepage: homepage,
+        id: id,
+        inProduction: inProduction,
+        languages: languages,
+        lastAirDate: lastAirDate,
+        lastEpisodeToAir: lastEpisodeToAir?.toEntity(),
+        name: name,
+        nextEpisodeToAir: nextEpisodeToAir?.toEntity(),
+        networks: networks?.map((e) => e.toEntity()).toList(),
+        numberOfEpisodes: numberOfEpisodes,
+        numberOfSeasons: numberOfSeasons,
+        originCountry: originCountry,
+        originalLanguage: originalLanguage,
+        originalName: originalName,
+        overview: overview,
+        popularity: popularity,
+        posterPath: posterPath,
         productionCompanies:
-            this.productionCompanies?.map((e) => e.toEntity()).toList(),
+            productionCompanies?.map((e) => e.toEntity()).toList(),
         productionCountries:
-            this.productionCountries?.map((e) => e.toEntity()).toList(),
-        seasons: this.seasons?.map((e) => e.toEntity()).toList(),
-        spokenLanguages:
-            this.spokenLanguages?.map((e) => e.toEntity()).toList(),
-        status: this.status,
-    tagline: this.tagline,
-    type: this.type,
-    voteAverage: this.voteAverage,
-    voteCount: this.voteCount,
-  );
+            productionCountries?.map((e) => e.toEntity()).toList(),
+        seasons: seasons?.map((e) => e.toEntity()).toList(),
+        spokenLanguages: spokenLanguages?.map((e) => e.toEntity()).toList(),
+        status: status,
+        tagline: tagline,
+        type: type,
+        voteAverage: voteAverage,
+        voteCount: voteCount,
+      );
 
   @override
   List<Object?> get props => [
@@ -247,18 +245,3 @@ class TvSeriesDetailResponse extends Equatable {
         voteCount,
       ];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,7 +5,7 @@ import 'crew_model.dart';
 import 'guest_stars.dart';
 
 class EpisodeResponse extends Equatable {
-  EpisodeResponse({
+  const EpisodeResponse({
     required this.airDate,
     required this.crew,
     required this.episodeNumber,
@@ -56,37 +56,37 @@ class EpisodeResponse extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['air_date'] = airDate;
-    _data['crew'] = crew?.map((e) => e.toJson()).toList();
-    _data['episode_number'] = episodeNumber;
-    _data['guest_stars'] = guestStars?.map((e) => e.toJson()).toList();
-    _data['name'] = name;
-    _data['overview'] = overview;
-    _data['id'] = id;
-    _data['production_code'] = productionCode;
-    _data['runtime'] = runtime;
-    _data['season_number'] = seasonNumber;
-    _data['still_path'] = stillPath;
-    _data['vote_average'] = voteAverage;
-    _data['vote_count'] = voteCount;
-    return _data;
+    final data = <String, dynamic>{};
+    data['air_date'] = airDate;
+    data['crew'] = crew?.map((e) => e.toJson()).toList();
+    data['episode_number'] = episodeNumber;
+    data['guest_stars'] = guestStars?.map((e) => e.toJson()).toList();
+    data['name'] = name;
+    data['overview'] = overview;
+    data['id'] = id;
+    data['production_code'] = productionCode;
+    data['runtime'] = runtime;
+    data['season_number'] = seasonNumber;
+    data['still_path'] = stillPath;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    return data;
   }
 
   Episode toEntity() => Episode(
-      airDate: this.airDate,
-      crew: this.crew?.map((e) => e.toEntity()).toList(),
-      episodeNumber: this.episodeNumber,
-      guestStars: this.guestStars?.map((e) => e.toEntity()).toList(),
-      name: this.name,
-      overview: this.overview,
-      id: this.id,
-      productionCode: this.productionCode,
-      runtime: this.runtime,
-      seasonNumber: this.seasonNumber,
-      stillPath: this.stillPath,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount);
+      airDate: airDate,
+      crew: crew?.map((e) => e.toEntity()).toList(),
+      episodeNumber: episodeNumber,
+      guestStars: guestStars?.map((e) => e.toEntity()).toList(),
+      name: name,
+      overview: overview,
+      id: id,
+      productionCode: productionCode,
+      runtime: runtime,
+      seasonNumber: seasonNumber,
+      stillPath: stillPath,
+      voteAverage: voteAverage,
+      voteCount: voteCount);
 
   @override
   List<Object?> get props => [

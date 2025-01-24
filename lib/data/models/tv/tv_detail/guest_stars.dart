@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/guest_stars.dart';
 
 class GuestStarsModel extends Equatable {
-  GuestStarsModel({
+  const GuestStarsModel({
     required this.character,
     required this.creditId,
     required this.order,
@@ -45,33 +45,33 @@ class GuestStarsModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['character'] = character;
-    _data['credit_id'] = creditId;
-    _data['order'] = order;
-    _data['adult'] = adult;
-    _data['gender'] = gender;
-    _data['id'] = id;
-    _data['known_for_department'] = knownForDepartment;
-    _data['name'] = name;
-    _data['original_name'] = originalName;
-    _data['popularity'] = popularity;
-    _data['profile_path'] = profilePath;
-    return _data;
+    final data = <String, dynamic>{};
+    data['character'] = character;
+    data['credit_id'] = creditId;
+    data['order'] = order;
+    data['adult'] = adult;
+    data['gender'] = gender;
+    data['id'] = id;
+    data['known_for_department'] = knownForDepartment;
+    data['name'] = name;
+    data['original_name'] = originalName;
+    data['popularity'] = popularity;
+    data['profile_path'] = profilePath;
+    return data;
   }
 
   GuestStars toEntity() => GuestStars(
-      character: this.character,
-      creditId: this.creditId,
-      order: this.order,
-      adult: this.adult,
-      gender: this.gender,
-      id: this.id,
-      knownForDepartment: this.knownForDepartment,
-      name: this.name,
-      originalName: this.originalName,
-      popularity: this.popularity,
-      profilePath: this.profilePath);
+      character: character,
+      creditId: creditId,
+      order: order,
+      adult: adult,
+      gender: gender,
+      id: id,
+      knownForDepartment: knownForDepartment,
+      name: name,
+      originalName: originalName,
+      popularity: popularity,
+      profilePath: profilePath);
 
   @override
   List<Object?> get props => [

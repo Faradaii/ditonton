@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/genres.dart';
 
 class GenresModel extends Equatable {
-  GenresModel({
+  const GenresModel({
     required this.id,
     required this.name,
   });
@@ -17,13 +17,13 @@ class GenresModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['name'] = name;
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    return data;
   }
 
-  Genres toEntity() => Genres(id: this.id, name: this.name);
+  Genres toEntity() => Genres(id: id, name: name);
 
   @override
   List<Object?> get props => [id, name];

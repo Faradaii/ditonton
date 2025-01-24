@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/seasons.dart';
 
 class SeasonsModel extends Equatable {
-  SeasonsModel({
+  const SeasonsModel({
     required this.airDate,
     required this.episodeCount,
     required this.id,
@@ -35,27 +35,27 @@ class SeasonsModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['air_date'] = airDate;
-    _data['episode_count'] = episodeCount;
-    _data['id'] = id;
-    _data['name'] = name;
-    _data['overview'] = overview;
-    _data['poster_path'] = posterPath;
-    _data['season_number'] = seasonNumber;
-    _data['vote_average'] = voteAverage;
-    return _data;
+    final data = <String, dynamic>{};
+    data['air_date'] = airDate;
+    data['episode_count'] = episodeCount;
+    data['id'] = id;
+    data['name'] = name;
+    data['overview'] = overview;
+    data['poster_path'] = posterPath;
+    data['season_number'] = seasonNumber;
+    data['vote_average'] = voteAverage;
+    return data;
   }
 
   Seasons toEntity() => Seasons(
-        airDate: this.airDate,
-        episodeCount: this.episodeCount,
-        id: this.id,
-        name: this.name,
-        overview: this.overview,
-        posterPath: this.posterPath,
-        seasonNumber: this.seasonNumber,
-        voteAverage: this.voteAverage,
+        airDate: airDate,
+        episodeCount: episodeCount,
+        id: id,
+        name: name,
+        overview: overview,
+        posterPath: posterPath,
+        seasonNumber: seasonNumber,
+        voteAverage: voteAverage,
       );
 
   @override

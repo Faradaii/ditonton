@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/production_countries.dart';
 
 class ProductionCountriesModel extends Equatable {
-  ProductionCountriesModel({
+  const ProductionCountriesModel({
     required this.iso_3166_1,
     required this.name,
   });
@@ -18,15 +18,15 @@ class ProductionCountriesModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['iso_3166_1'] = iso_3166_1;
-    _data['name'] = name;
-    return _data;
+    final data = <String, dynamic>{};
+    data['iso_3166_1'] = iso_3166_1;
+    data['name'] = name;
+    return data;
   }
 
   ProductionCountries toEntity() => ProductionCountries(
-        iso31661: this.iso_3166_1,
-        name: this.name,
+        iso31661: iso_3166_1,
+        name: name,
       );
 
   @override

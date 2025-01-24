@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Crew extends Equatable {
-  Crew({
+  const Crew({
     required this.job,
     required this.department,
     required this.creditId,

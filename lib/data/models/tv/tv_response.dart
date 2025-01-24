@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class TvSeriesResponse extends Equatable {
   final List<TvSeriesModel> tvList;
 
-  TvSeriesResponse({
+  const TvSeriesResponse({
     required this.tvList,
   });
 
@@ -12,16 +12,14 @@ class TvSeriesResponse extends Equatable {
       TvSeriesResponse(
           tvList: List<TvSeriesModel>.from((json["results"] as List)
               .map((tv) => TvSeriesModel.fromJson(tv))
-    .where((element) => element.posterPath != null))
-  );
+              .where((element) => element.posterPath != null)));
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['results'] = tvList.map((tv)=>tv.toJson()).toList();
-    return _data;
+    final data = <String, dynamic>{};
+    data['results'] = tvList.map((tv) => tv.toJson()).toList();
+    return data;
   }
 
   @override
   List<Object?> get props => [tvList];
 }
-

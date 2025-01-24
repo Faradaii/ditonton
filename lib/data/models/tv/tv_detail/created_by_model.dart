@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/created_by.dart';
 
 class CreatedByModel extends Equatable {
-  CreatedByModel({
+  const CreatedByModel({
     required this.id,
     required this.creditId,
     required this.name,
@@ -29,23 +29,23 @@ class CreatedByModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['credit_id'] = creditId;
-    _data['name'] = name;
-    _data['original_name'] = originalName;
-    _data['gender'] = gender;
-    _data['profile_path'] = profilePath;
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['credit_id'] = creditId;
+    data['name'] = name;
+    data['original_name'] = originalName;
+    data['gender'] = gender;
+    data['profile_path'] = profilePath;
+    return data;
   }
 
   CreatedBy toEntity() => CreatedBy(
-      id: this.id,
-      creditId: this.creditId,
-      name: this.name,
-      originalName: this.originalName,
-      gender: this.gender,
-      profilePath: this.profilePath);
+      id: id,
+      creditId: creditId,
+      name: name,
+      originalName: originalName,
+      gender: gender,
+      profilePath: profilePath);
 
   @override
   List<Object?> get props => [

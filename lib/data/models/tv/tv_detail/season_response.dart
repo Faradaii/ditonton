@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../domain/entities/tv/season/season_detail.dart';
 
 class SeasonResponse extends Equatable {
-  SeasonResponse({
+  const SeasonResponse({
     required this.id_alternative,
     required this.airDate,
     required this.episodes,
@@ -41,17 +41,17 @@ class SeasonResponse extends Equatable {
       );
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id_alternative;
-    _data['air_date'] = airDate;
-    _data['episodes'] = episodes?.map((e) => e.toJson()).toList();
-    _data['name'] = name;
-    _data['overview'] = overview;
-    _data['id'] = id;
-    _data['poster_path'] = posterPath;
-    _data['season_number'] = seasonNumber;
-    _data['vote_average'] = voteAverage;
-    return _data;
+    final data = <String, dynamic>{};
+    data['_id'] = id_alternative;
+    data['air_date'] = airDate;
+    data['episodes'] = episodes?.map((e) => e.toJson()).toList();
+    data['name'] = name;
+    data['overview'] = overview;
+    data['id'] = id;
+    data['poster_path'] = posterPath;
+    data['season_number'] = seasonNumber;
+    data['vote_average'] = voteAverage;
+    return data;
   }
 
   Season toEntity() => Season(

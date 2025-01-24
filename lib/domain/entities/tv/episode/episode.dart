@@ -4,7 +4,7 @@ import '../crew.dart';
 import '../guest_stars.dart';
 
 class Episode extends Equatable {
-  Episode({
+  const Episode({
     required this.airDate,
     required this.crew,
     required this.episodeNumber,

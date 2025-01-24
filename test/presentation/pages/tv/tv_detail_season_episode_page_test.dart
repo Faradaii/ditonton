@@ -21,7 +21,7 @@ void main() {
   final tSeasonNumber = 1;
   final tEpisodeNumber = 1;
 
-  Widget _makeTestableWidget(Widget body) {
+  Widget makeTestableWidget(Widget body) {
     return ChangeNotifierProvider<TvDetailSeasonEpisodeNotifier>.value(
       value: mockNotifier,
       child: MaterialApp(
@@ -37,7 +37,7 @@ void main() {
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
 
-    await tester.pumpWidget(_makeTestableWidget(TvDetailSeasonEpisodePage(
+    await tester.pumpWidget(makeTestableWidget(TvDetailSeasonEpisodePage(
       id: tSeriesId,
       seasonNumber: tSeasonNumber,
       episodeNumber: tEpisodeNumber,
@@ -54,7 +54,7 @@ void main() {
 
     final textFinder = find.byKey(Key('error_message'));
 
-    await tester.pumpWidget(_makeTestableWidget(TvDetailSeasonEpisodePage(
+    await tester.pumpWidget(makeTestableWidget(TvDetailSeasonEpisodePage(
       id: tSeriesId,
       seasonNumber: tSeasonNumber,
       episodeNumber: tEpisodeNumber,

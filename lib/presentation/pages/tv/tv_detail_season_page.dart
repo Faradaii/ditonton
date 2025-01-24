@@ -67,7 +67,8 @@ class DetailSeasonContent extends StatelessWidget {
   final int id;
   final int seasonNumber;
 
-  DetailSeasonContent(this.seasonDetail, this.id, this.seasonNumber);
+  const DetailSeasonContent(this.seasonDetail, this.id, this.seasonNumber,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
