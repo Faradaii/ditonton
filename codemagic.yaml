@@ -40,7 +40,7 @@ workflows:
           #!/usr/bin/env sh
           set -e # exit on first failed command
 
-          PROJECT_ROOT=$CM_BUILD_DIR/ditonton    # ADD YOUR PROJECT FOLDER PATH HERE
+          PROJECT_ROOT=$CM_BUILD_DIR   # ADD YOUR PROJECT FOLDER PATH HERE
 
           echo "Decoding Firebase credentials..."
           echo $ANDROID_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/android/app/google-services.json
