@@ -24,6 +24,15 @@ dependencies:
   flutter:
     sdk: flutter
 
+  core:
+    path: core
+  about:
+    path: about
+  tv:
+    path: tv
+  movie:
+    path: movie
+
   http: ^1.3.0
   provider: ^6.1.2
   dartz: ^0.10.1
