@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/common/constants.dart';
 import 'package:core/common/state_enum.dart';
 import 'package:core/common/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:movie/domain/entities/movie.dart';
 import 'package:movie/presentation/provider/movie_list_notifier.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeMoviePage extends StatefulWidget {
@@ -99,8 +99,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
             children: [
               _buildSubHeading(
                 title: 'Now Playing Movies',
-                onTap: () => Navigator.pushNamed(
-                    context, routeNowPlayingMovie),
+                onTap: () => Navigator.pushNamed(context, routeNowPlayingMovie),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.nowPlayingState;
@@ -116,8 +115,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               }),
               _buildSubHeading(
                 title: 'Popular Movies',
-                onTap: () =>
-                    Navigator.pushNamed(context, routePopularMovie),
+                onTap: () => Navigator.pushNamed(context, routePopularMovie),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.popularMoviesState;
@@ -133,8 +131,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               }),
               _buildSubHeading(
                 title: 'Top Rated Movies',
-                onTap: () =>
-                    Navigator.pushNamed(context, routeTopRatedMovie),
+                onTap: () => Navigator.pushNamed(context, routeTopRatedMovie),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedMoviesState;

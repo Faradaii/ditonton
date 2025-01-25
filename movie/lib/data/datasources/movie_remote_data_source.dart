@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:core/common/constants.dart';
 import 'package:core/common/exception.dart';
+import 'package:http/io_client.dart';
 import 'package:movie/data/models/movie_detail_model.dart';
 import 'package:movie/data/models/movie_model.dart';
 import 'package:movie/data/models/movie_response.dart';
-import 'package:http/io_client.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlayingMovies();
@@ -35,8 +35,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<MovieDetailResponse> getMovieDetail(int id) async {
-    final response =
-    await client.get(Uri.parse('$baseUrl/movie/$id?$apiKey'));
+    final response = await client.get(Uri.parse('$baseUrl/movie/$id?$apiKey'));
 
     if (response.statusCode == 200) {
       return MovieDetailResponse.fromJson(json.decode(response.body));
