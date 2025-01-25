@@ -69,10 +69,15 @@ workflows:
                 
           RELEASE_NAME="release-${COMMIT_HASH}"
           
+          gh auth login --with-token < $GITHUB_TOKEN | base64 --decode
           gh release create "${RELEASE_NAME}" \
             --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
             build/**/outputs/**/*.aab \
             build/**/outputs/**/*.apk
+
+          gh release upload "${RELEASE_NAME}" build/**/outputs/**/*.aab
+          gh release upload "${RELEASE_NAME}" build/**/outputs/**/*.apk
+          gh auth logout 
 
     artifacts:
       - build/**/outputs/**/*.apk
