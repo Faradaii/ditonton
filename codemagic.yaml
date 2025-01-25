@@ -69,14 +69,19 @@ workflows:
                 
           RELEASE_NAME="release-${COMMIT_HASH}"
           
-          gh auth login --with-token "${GITHUB_TOKEN}"
+          gh auth login --with-token <<< "${GITHUB_TOKEN}"
+          
+          FILES=$(find build/**/outputs -type f \( -name "*.apk" -o -name "*.aab" \))
+          if [[ -z "${FILES}" ]]; then
+          echo "Error: No APK or AAB files found in build/**/outputs"
+          exit 1
+          fi
+          
           gh release create "${RELEASE_NAME}" \
-            --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
-            build/**/outputs/**/*.aab \
-            build/**/outputs/**/*.apk
-
-          gh release upload "${RELEASE_NAME}" build/**/outputs/**/*.aab
-          gh release upload "${RELEASE_NAME}" build/**/outputs/**/*.apk
+          --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
+          ${FILES} || { echo "Failed to create release"; exit 1; }
+          
+          echo "Release successfully created: ${RELEASE_NAME}"
           gh auth logout 
 
     artifacts:
