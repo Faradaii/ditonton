@@ -1,13 +1,11 @@
-import 'package:movie/data/datasources/db/database_helper.dart';
+import 'package:core/helper/database_helper.dart';
+import 'package:core/helper/network_helper.dart';
+import 'package:get_it/get_it.dart';
+import 'package:movie/data/datasources/db/database_movie.dart';
 import 'package:movie/data/datasources/movie_local_data_source.dart';
 import 'package:movie/data/datasources/movie_remote_data_source.dart';
-import 'package:movie/data/datasources/network/network_helper.dart';
-import 'package:tv/data/datasources/tv_local_data_source.dart';
-import 'package:tv/data/datasources/tv_remote_data_source.dart';
 import 'package:movie/data/repositories/movie_repository_impl.dart';
-import 'package:tv/data/repositories/tv_repository_impl.dart';
 import 'package:movie/domain/repositories/movie_repository.dart';
-import 'package:tv/domain/repositories/tv_repository.dart';
 import 'package:movie/domain/usecases/get_movie_detail.dart';
 import 'package:movie/domain/usecases/get_movie_recommendations.dart';
 import 'package:movie/domain/usecases/get_now_playing_movies.dart';
@@ -18,6 +16,18 @@ import 'package:movie/domain/usecases/get_watchlist_status.dart';
 import 'package:movie/domain/usecases/remove_watchlist.dart';
 import 'package:movie/domain/usecases/save_watchlist.dart';
 import 'package:movie/domain/usecases/search_movies.dart';
+import 'package:movie/presentation/provider/movie_detail_notifier.dart';
+import 'package:movie/presentation/provider/movie_list_notifier.dart';
+import 'package:movie/presentation/provider/movie_search_notifier.dart';
+import 'package:movie/presentation/provider/now_playing_movie_notifier.dart';
+import 'package:movie/presentation/provider/popular_movies_notifier.dart';
+import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:movie/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:tv/data/datasources/db/database_tv.dart';
+import 'package:tv/data/datasources/tv_local_data_source.dart';
+import 'package:tv/data/datasources/tv_remote_data_source.dart';
+import 'package:tv/data/repositories/tv_repository_impl.dart';
+import 'package:tv/domain/repositories/tv_repository.dart';
 import 'package:tv/domain/usecases/tv/get_now_playing_tv.dart';
 import 'package:tv/domain/usecases/tv/get_popular_tv.dart';
 import 'package:tv/domain/usecases/tv/get_top_rated_tv.dart';
@@ -32,23 +42,15 @@ import 'package:tv/domain/usecases/tv/remove_watchlist.dart'
     as removeWatchlistTv;
 import 'package:tv/domain/usecases/tv/save_watchlist.dart' as saveWatchlistTv;
 import 'package:tv/domain/usecases/tv/search_tv.dart';
-import 'package:movie/presentation/provider/movie_detail_notifier.dart';
-import 'package:movie/presentation/provider/movie_list_notifier.dart';
-import 'package:movie/presentation/provider/movie_search_notifier.dart';
-import 'package:movie/presentation/provider/now_playing_movie_notifier.dart';
-import 'package:movie/presentation/provider/popular_movies_notifier.dart';
-import 'package:movie/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:movie/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:tv/presentation/provider/tv/tv_now_playing_notifier.dart';
-import 'package:tv/presentation/provider/tv/tv_popular_notifier.dart';
-import 'package:tv/presentation/provider/tv/tv_top_rated_notifier.dart';
 import 'package:tv/presentation/provider/tv/tv_detail_notifier.dart';
 import 'package:tv/presentation/provider/tv/tv_detail_season_episode_notifier.dart';
 import 'package:tv/presentation/provider/tv/tv_detail_season_notifier.dart';
 import 'package:tv/presentation/provider/tv/tv_list_notifier.dart';
+import 'package:tv/presentation/provider/tv/tv_now_playing_notifier.dart';
+import 'package:tv/presentation/provider/tv/tv_popular_notifier.dart';
 import 'package:tv/presentation/provider/tv/tv_search_notifier.dart';
+import 'package:tv/presentation/provider/tv/tv_top_rated_notifier.dart';
 import 'package:tv/presentation/provider/tv/tv_watchlist_notifier.dart';
-import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
 
@@ -195,9 +197,14 @@ void init() {
   locator.registerLazySingleton<MovieRemoteDataSource>(
       () => MovieRemoteDataSourceImpl(client: locator<NetworkHelper>().client));
   locator.registerLazySingleton<MovieLocalDataSource>(
-      () => MovieLocalDataSourceImpl(databaseHelper: locator()));
+      () => MovieLocalDataSourceImpl(databaseMovie: locator()));
   locator.registerLazySingleton<TvRemoteDataSource>(
       () => TvRemoteDataSourceImpl(client: locator<NetworkHelper>().client));
   locator.registerLazySingleton<TvLocalDataSource>(
-      () => TvLocalDataSourceImpl(databaseHelper: locator()));
+      () => TvLocalDataSourceImpl(databaseTv: locator()));
+
+  locator.registerLazySingleton<DatabaseMovie>(
+      () => DatabaseMovie(database: locator<DatabaseHelper>().database));
+  locator.registerLazySingleton<DatabaseTv>(
+      () => DatabaseTv(database: locator<DatabaseHelper>().database));
 }

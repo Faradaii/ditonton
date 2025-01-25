@@ -1,5 +1,5 @@
 import 'package:core/common/exception.dart';
-import 'package:movie/data/datasources/db/database_helper.dart';
+import 'package:movie/data/datasources/db/database_movie.dart';
 import 'package:movie/data/models/movie_table.dart';
 
 abstract class MovieLocalDataSource {
@@ -10,14 +10,14 @@ abstract class MovieLocalDataSource {
 }
 
 class MovieLocalDataSourceImpl implements MovieLocalDataSource {
-  final DatabaseHelper databaseHelper;
+  final DatabaseMovie databaseMovie;
 
-  MovieLocalDataSourceImpl({required this.databaseHelper});
+  MovieLocalDataSourceImpl({required this.databaseMovie});
 
   @override
   Future<String> insertWatchlist(MovieTable movie) async {
     try {
-      await databaseHelper.insertWatchlistMovie(movie);
+      await databaseMovie.insertWatchlistMovie(movie);
       return 'Added to Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -27,7 +27,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   @override
   Future<String> removeWatchlist(MovieTable movie) async {
     try {
-      await databaseHelper.removeWatchlistMovie(movie);
+      await databaseMovie.removeWatchlistMovie(movie);
       return 'Removed from Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -36,7 +36,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
 
   @override
   Future<MovieTable?> getMovieById(int id) async {
-    final result = await databaseHelper.getMovieById(id);
+    final result = await databaseMovie.getMovieById(id);
     if (result != null) {
       return MovieTable.fromMap(result);
     } else {
@@ -46,7 +46,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
 
   @override
   Future<List<MovieTable>> getWatchlistMovies() async {
-    final result = await databaseHelper.getWatchlistMovies();
+    final result = await databaseMovie.getWatchlistMovies();
     return result.map((data) => MovieTable.fromMap(data)).toList();
   }
 }

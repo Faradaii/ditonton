@@ -8,6 +8,7 @@ import 'dart:convert' as _i24;
 import 'dart:typed_data' as _i25;
 
 import 'package:core/common/failure.dart' as _i10;
+import 'package:core/helper/network_helper.dart' as _i22;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:http/io_client.dart' as _i6;
 import 'package:http/src/base_request.dart' as _i23;
@@ -15,8 +16,7 @@ import 'package:http/src/response.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i19;
 import 'package:sqflite/sqflite.dart' as _i21;
-import 'package:tv/data/datasources/db/database_helper.dart' as _i20;
-import 'package:tv/data/datasources/network/network_helper.dart' as _i22;
+import 'package:tv/data/datasources/db/database_tv.dart' as _i20;
 import 'package:tv/data/datasources/tv_local_data_source.dart' as _i17;
 import 'package:tv/data/datasources/tv_remote_data_source.dart' as _i15;
 import 'package:tv/data/models/tv/tv_detail/episode_response.dart' as _i5;
@@ -422,11 +422,11 @@ class MockTvLocalDataSource extends _i1.Mock implements _i17.TvLocalDataSource {
       ) as _i9.Future<List<_i18.TvTable>>);
 }
 
-/// A class which mocks [DatabaseHelper].
+/// A class which mocks [DatabaseTv].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabaseHelper extends _i1.Mock implements _i20.DatabaseHelper {
-  MockDatabaseHelper() {
+class MockDatabaseTv extends _i1.Mock implements _i20.DatabaseTv {
+  MockDatabaseTv() {
     _i1.throwOnMissingStub(this);
   }
 

@@ -43,6 +43,13 @@ run_tests() {
     echo "Running tests in: $module_dir"
     flutter pub get
 
+    # Run code generation if available
+    if grep -q build_runner pubspec.yaml >/dev/null; then
+      flutter pub run build_runner build --delete-conflicting-outputs
+    else
+      echo "No build_runner dependency found, skipping code generation for: $module_dir"
+    fi
+
     # Escape module path for lcov formatting
     local escaped_path
     escaped_path=$(echo "$module_dir" | sed 's/\//\\\//g')

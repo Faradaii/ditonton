@@ -6,6 +6,8 @@ const String apiKey = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
 const String baseUrl = 'https://api.themoviedb.org/3';
 const int databaseVersion = 2;
 const String databaseName = 'ditonton.db';
+const String tableWatchlistMovie = 'watchlist_movie';
+const String tableWatchlistTv = 'watchlist_tv';
 
 // colors
 const Color kRichBlack = Color(0xFF000814);

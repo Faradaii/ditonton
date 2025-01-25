@@ -8,16 +8,16 @@ import 'dart:convert' as _i20;
 import 'dart:typed_data' as _i21;
 
 import 'package:core/common/failure.dart' as _i8;
+import 'package:core/helper/network_helper.dart' as _i18;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:http/io_client.dart' as _i4;
 import 'package:http/src/base_request.dart' as _i19;
 import 'package:http/src/response.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i15;
-import 'package:movie/data/datasources/db/database_helper.dart' as _i16;
+import 'package:movie/data/datasources/db/database_movie.dart' as _i16;
 import 'package:movie/data/datasources/movie_local_data_source.dart' as _i13;
 import 'package:movie/data/datasources/movie_remote_data_source.dart' as _i11;
-import 'package:movie/data/datasources/network/network_helper.dart' as _i18;
 import 'package:movie/data/models/movie_detail_model.dart' as _i3;
 import 'package:movie/data/models/movie_model.dart' as _i12;
 import 'package:movie/data/models/movie_table.dart' as _i14;
@@ -345,11 +345,11 @@ class MockMovieLocalDataSource extends _i1.Mock
           as _i7.Future<List<_i14.MovieTable>>);
 }
 
-/// A class which mocks [DatabaseHelper].
+/// A class which mocks [DatabaseMovie].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabaseHelper extends _i1.Mock implements _i16.DatabaseHelper {
-  MockDatabaseHelper() {
+class MockDatabaseMovie extends _i1.Mock implements _i16.DatabaseMovie {
+  MockDatabaseMovie() {
     _i1.throwOnMissingStub(this);
   }
 
