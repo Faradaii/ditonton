@@ -1,13 +1,10 @@
-import 'package:ditonton/presentation/provider/now_playing_movie_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:core/common/state_enum.dart';
+import 'package:movie/presentation/provider/now_playing_movie_notifier.dart';
+import 'package:movie/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/state_enum.dart';
-
 class NowPlayingMoviePage extends StatefulWidget {
-  static const ROUTE_NAME = '/now-playing-movie';
-
   const NowPlayingMoviePage({super.key});
 
   @override
@@ -32,8 +29,9 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<NowPlayingMovieNotifier>(
-          builder: (context, data, child) { {
-            if (data.state == RequestState.loading) return Center(
+          builder: (context, data, child) {
+            if (data.state == RequestState.loading) {
+              return Center(
                 child: CircularProgressIndicator(),
               );
             } else if (data.state == RequestState.loaded) {

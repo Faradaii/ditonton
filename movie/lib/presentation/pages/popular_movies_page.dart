@@ -1,16 +1,14 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:core/common/state_enum.dart';
+import 'package:movie/presentation/provider/popular_movies_notifier.dart';
+import 'package:movie/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PopularMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-movie';
-
   const PopularMoviesPage({super.key});
 
   @override
-  _PopularMoviesPageState createState() => _PopularMoviesPageState();
+  State<PopularMoviesPage> createState() => _PopularMoviesPageState();
 }
 
 class _PopularMoviesPageState extends State<PopularMoviesPage> {
@@ -31,8 +29,9 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<PopularMoviesNotifier>(
-          builder: (context, data, child) { {
-            if (data.state == RequestState.loading) return Center(
+          builder: (context, data, child) {
+            if (data.state == RequestState.loading) {
+              return Center(
                 child: CircularProgressIndicator(),
               );
             } else if (data.state == RequestState.loaded) {

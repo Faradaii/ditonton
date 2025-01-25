@@ -1,17 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/movie_detail_page.dart';
-import 'package:ditonton/presentation/pages/now_playing_movie_page.dart';
-import 'package:ditonton/presentation/pages/popular_movies_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/pages/tv/home_tv_page.dart';
-import 'package:ditonton/presentation/pages/tv/watchlist_tv_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
-import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
+import 'package:core/common/constants.dart';
+import 'package:core/common/state_enum.dart';
+import 'package:core/common/utils.dart';
+import 'package:movie/domain/entities/movie.dart';
+import 'package:movie/presentation/provider/movie_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,26 +53,26 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               leading: Icon(Icons.movie),
               title: Text('Tv Series'),
               onTap: () {
-                Navigator.pushNamed(context, HomeTvSeriesPage.ROUTE_NAME);
+                Navigator.pushNamed(context, routeHomeTv);
               },
             ),
             ListTile(
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+                Navigator.pushNamed(context, routeWatchlistMovie);
               },
             ),
             ListTile(
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist Tv'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistTvPage.ROUTE_NAME);
+                Navigator.pushNamed(context, routeWatchlistTv);
               },
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
+                Navigator.pushNamed(context, routeAbout);
               },
               leading: Icon(Icons.info_outline),
               title: Text('About'),
@@ -93,7 +85,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              Navigator.pushNamed(context, routeSearchMovie);
             },
             icon: Icon(Icons.search),
           )
@@ -108,7 +100,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               _buildSubHeading(
                 title: 'Now Playing Movies',
                 onTap: () => Navigator.pushNamed(
-                    context, NowPlayingMoviePage.ROUTE_NAME),
+                    context, routeNowPlayingMovie),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.nowPlayingState;
@@ -125,7 +117,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               _buildSubHeading(
                 title: 'Popular Movies',
                 onTap: () =>
-                    Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, routePopularMovie),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.popularMoviesState;
@@ -142,7 +134,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               _buildSubHeading(
                 title: 'Top Rated Movies',
                 onTap: () =>
-                    Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, routeTopRatedMovie),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedMoviesState;
@@ -204,7 +196,7 @@ class MovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MovieDetailPage.ROUTE_NAME,
+                  routeDetailMovie,
                   arguments: movie.id,
                 );
               },

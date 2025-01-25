@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
+import 'package:core/common/constants.dart';
+import 'package:core/common/state_enum.dart';
+import 'package:core/common/utils.dart';
+import 'package:movie/domain/entities/genre.dart';
+import 'package:movie/domain/entities/movie.dart';
+import 'package:movie/domain/entities/movie_detail.dart';
+import 'package:movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail';
-
   final int id;
 
   const MovieDetailPage({super.key, required this.id});
@@ -73,7 +72,7 @@ class DetailContent extends StatelessWidget {
     return Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+          imageUrl: '$baseImageUrl${movie.posterPath}',
           width: screenWidth,
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(),
@@ -211,7 +210,7 @@ class DetailContent extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                MovieDetailPage.ROUTE_NAME,
+                                                routeDetailMovie,
                                                 arguments: movie.id,
                                               );
                                             },
@@ -221,7 +220,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                                    '$baseImageUrl${movie.posterPath}',
                                                 placeholder: (context, url) =>
                                                     Center(
                                                   child:
