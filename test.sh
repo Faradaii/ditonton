@@ -70,22 +70,6 @@ run_tests() {
   cd - >/dev/null
 }
 
-# Generate the combined HTML coverage report
-generate_report() {
-  if [ -f "coverage/test.info" ] && ! [ "$TRAVIS" ]; then
-    echo "Generating HTML coverage report..."
-    genhtml coverage/test.info -o coverage --no-function-coverage --prefix "$(pwd)"
-
-    if [ "$(uname)" == "Darwin" ]; then
-      open coverage/index.html
-    else
-      start coverage/index.html
-    fi
-  else
-    echo "No coverage data found to generate a report."
-  fi
-}
-
 # Check if the script is run from the root of the repository
 if ! [ -f "pubspec.yaml" ] && [ -d .git ]; then
   printf "\nError: Script must be run from the root of the repository.\n"
@@ -122,8 +106,6 @@ case $1 in
     fi
   fi
 
-  # Generate the combined report
-  generate_report
   ;;
 esac
 

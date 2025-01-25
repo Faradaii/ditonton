@@ -66,6 +66,7 @@ workflows:
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
+      - coverage/*.info
 
     publishing:
       email:
