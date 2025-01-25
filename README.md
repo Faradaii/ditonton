@@ -1,7 +1,7 @@
 # Ditonton
 
 build
-status: [![Codemagic build status](https://api.codemagic.io/apps/6793978808edbbfbd7c359eb/6793978808edbbfbd7c359ea/status_badge.svg)](https://codemagic.io/app/6793978808edbbfbd7c359eb/6793978808edbbfbd7c359ea/latest_build)
+status: [![Codemagic build status](https://api.codemagic.io/apps/6793c8a43e403087c73183b0/default-workflow/status_badge.svg)](https://codemagic.io/app/6793c8a43e403087c73183b0/default-workflow/latest_build)
 
 # a199-flutter-expert-project
 
