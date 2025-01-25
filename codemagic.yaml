@@ -51,14 +51,10 @@ workflows:
           echo $ANDROID_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/android/app/google-services.json
           echo $IOS_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
           echo "Firebase configuration successfully loaded!"
-      - name: Build Universal APK
+      - name: Build AAB APK
         script: |
-          android-app-bundle build-universal-apk \
-            --bundle 'project_directory/build/**/outputs/**/*.aab' \
-            --ks /tmp/keystore.keystore \
-            --ks-pass $CM_KEYSTORE_PASSWORD \
-            --ks-key-alias $CM_KEY_ALIAS \
-            --key-pass $CM_KEY_PASSWORD
+          flutter build appbundle --release
+          flutter build apk --release
 
     artifacts:
       - build/**/outputs/**/**/*.apk
@@ -84,4 +80,14 @@ workflows:
               echo "No .apk were found"
             else
               echo "Publishing .apk artifacts"
+            fi
+
+        - name: Check for aab
+          script: |
+            aabPath=$(find build -name "*.aab" | head -1)
+            if [[ -z ${aabPath} ]]
+            then
+              echo "No .aab were found"
+            else
+              echo "Publishing .aab artifacts"
             fi
