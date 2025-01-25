@@ -69,7 +69,7 @@ workflows:
                 
           RELEASE_NAME="release-${COMMIT_HASH}"
           
-          gh auth login --with-token < $GITHUB_TOKEN | base64 --decode
+          gh auth login --with-token "${GITHUB_TOKEN}"
           gh release create "${RELEASE_NAME}" \
             --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
             build/**/outputs/**/*.aab \
