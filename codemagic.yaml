@@ -35,11 +35,18 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Flutter build and test
+      - name: Get dependencies and run build_runner
         script: |
           flutter pub get
+          echo "Running build_runner..."
           flutter pub run build_runner build --delete-conflicting-outputs
-          flutter test
+      - name: Run tests with coverage
+        script: |
+          echo "Running tests with coverage..."
+          flutter test --coverage
+          mkdir -p coverage
+          genhtml coverage/lcov.info -o coverage --no-function-coverage --prefix "$(pwd)"
+          echo "Coverage report generated at $(pwd)/coverage/index.html"
       - name: Load Firebase configuration
         script: |
           #!/usr/bin/env sh
