@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 const String apiKey = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
 const String baseUrl = 'https://api.themoviedb.org/3';
+const int databaseVersion = 2;
+const String databaseName = 'ditonton.db';
 
 // colors
 const Color kRichBlack = Color(0xFF000814);

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:core/core.dart';
 import 'package:tv/data/models/tv/tv_table.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -23,9 +24,10 @@ class DatabaseHelper {
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
-    final databasePath = '$path/ditonton.db';
+    final databasePath = '$path/$databaseName';
 
-    var db = await openDatabase(databasePath, version: 2, onCreate: _onCreate);
+    var db = await openDatabase(
+        databasePath, version: databaseVersion, onCreate: _onCreate);
     return db;
   }
 
