@@ -105,6 +105,16 @@ workflows:
               echo "Publishing .aab artifacts"
             fi
 
+        - name: Check for test report
+          script: |
+            testReportPath=$(find build -name "*.zip" | head -1)
+            if [[ -z ${testReportPath} ]]
+            then
+              echo "No report .zip were found"
+            else
+              echo "Publishing .zip artifacts"
+            fi
+
         - name: Publish to GitHub
           script: |
             #!/usr/bin/env zsh
@@ -117,10 +127,10 @@ workflows:
             FILES=""
             [[ -f "${apkPath}" ]] && FILES="${FILES} ${apkPath}"
             [[ -f "${aabPath}" ]] && FILES="${FILES} ${aabPath}"
-            [[ -f "coverage-report.zip" ]] && FILES="${FILES} coverage-report.zip"
+            [[ -f "${testReportPath}" ]] && FILES="${FILES} ${testReportPath}"
 
             gh release create "${RELEASE_NAME}" \
-              --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
+              --title "Ditonton release: ${BRANCH_NAME} (${COMMIT_HASH})" \
               ${FILES} || { echo "Failed to create release"; exit 1; }
 
             echo "Release successfully created: ${RELEASE_NAME}"
