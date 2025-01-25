@@ -14,6 +14,8 @@ workflows:
         - firebase_credentials
       flutter: stable
       xcode: latest
+      android_signing:
+        - keystore_ditonton
 
     cache:
       cache_paths:
@@ -30,6 +32,9 @@ workflows:
       cancel_previous_builds: false
 
     scripts:
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
       - name: Flutter build and test
         script: |
           flutter pub get
@@ -46,15 +51,29 @@ workflows:
           echo $ANDROID_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/android/app/google-services.json
           echo $IOS_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
           echo "Firebase configuration successfully loaded!"
+      - name: Build Universal APK
+        script: |
+          android-app-bundle build-universal-apk \
+            --bundle 'project_directory/build/**/outputs/**/*.aab' \
+            --ks /tmp/keystore.keystore \
+            --ks-pass $CM_KEYSTORE_PASSWORD \
+            --ks-key-alias $CM_KEY_ALIAS \
+            --key-pass $CM_KEY_PASSWORD
 
     artifacts:
-      - build/**/outputs/bundle/**/*.aab
-      - build/**/outputs/apk/**/*.apk
+      - build/**/outputs/**/**/*.apk
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log
 
     publishing:
       email:
         recipients:
           - kdkfrdy@gmail.com
+        notify:
+          success: true
+          failure: true
 
       scripts:
         - name: Check for apk
