@@ -69,20 +69,24 @@ workflows:
                 
           RELEASE_NAME="release-${COMMIT_HASH}"
           
-          gh auth login --with-token <<< "${GITHUB_TOKEN}"
+          # Periksa file APK dan AAB
+          APK_PATH="build/app/outputs/apk/release/app-release.apk"
+          AAB_PATH="build/app/outputs/bundle/release/app-release.aab"
           
-          FILES=$(find build/**/outputs -type f \( -name "*.apk" -o -name "*.aab" \))
-          if [[ -z "${FILES}" ]]; then
-          echo "Error: No APK or AAB files found in build/**/outputs"
-          exit 1
+          if [[ ! -f "${APK_PATH}" ]] && [[ ! -f "${AAB_PATH}" ]]; then
+            echo "Error: No APK or AAB files found in the specified paths."
+            exit 1
           fi
           
-          gh release create "${RELEASE_NAME}" \
-          --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
-          ${FILES} || { echo "Failed to create release"; exit 1; }
+          FILES=""
+          [[ -f "${APK_PATH}" ]] && FILES="${FILES} ${APK_PATH}"
+          [[ -f "${AAB_PATH}" ]] && FILES="${FILES} ${AAB_PATH}"
           
+          gh release create "${RELEASE_NAME}" \
+            --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
+            ${FILES} || { echo "Failed to create release"; exit 1; }
+            
           echo "Release successfully created: ${RELEASE_NAME}"
-          gh auth logout 
 
     artifacts:
       - build/**/outputs/**/*.apk
