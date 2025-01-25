@@ -30,11 +30,13 @@ workflows:
       cancel_previous_builds: false
 
     pre_test_scripts:
+
+    scripts:
       - name: Flutter build and test
         script: |
+          flutter pub get
           flutter pub run build_runner build --delete-conflicting-outputs
           flutter test
-    scripts:
       - name: Load Firebase configuration
         script: |
           #!/usr/bin/env sh
