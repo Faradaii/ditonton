@@ -4,6 +4,11 @@ environment:
 
 
 scripts:
+  - name: Flutter build and test
+    script: |
+      flutter pub run build_runner build --delete-conflicting-outputs
+      flutter test
+
   - name: Load Firebase configuration
     script: |
       #!/usr/bin/env sh
@@ -15,3 +20,72 @@ scripts:
       echo $ANDROID_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/android/app/google-services.json
       echo $IOS_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
       echo "Firebase configuration successfully loaded!"
+
+workflows:
+  default-workflow:
+    name: Default Workflow for ditonton
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+
+    inputs:
+      name:
+        description: Input description
+        default: Codemagic
+
+    environment:
+      groups:
+        - firebase_credentials
+      flutter: stable
+      xcode: latest
+
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+
+    triggering:
+      events:
+        - push
+
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      cancel_previous_builds: false
+
+    pre_test_scripts:
+      - name: Flutter build and test
+        script: |
+          flutter pub run build_runner build --delete-conflicting-outputs
+          flutter test
+    scripts:
+      - name: Load Firebase configuration
+        script: |
+          #!/usr/bin/env sh
+          set -e # exit on first failed command
+
+          PROJECT_ROOT=$CM_BUILD_DIR/ditonton    # ADD YOUR PROJECT FOLDER PATH HERE
+
+          echo "Decoding Firebase credentials..."
+          echo $ANDROID_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/android/app/google-services.json
+          echo $IOS_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
+          echo "Firebase configuration successfully loaded!"
+
+    artifacts:
+      - build/**/outputs/bundle/**/*.aab
+      - build/**/outputs/apk/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - kdkfrdy@gmail.com
+
+      scripts:
+        - name: Check for apk
+          script: |
+            apkPath=$(find build -name "*.apk" | head -1)
+            if [[ -z ${apkPath} ]]
+            then
+              echo "No .apk were found"
+            else
+              echo "Publishing .apk artifacts"
+            fi
