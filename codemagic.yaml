@@ -44,14 +44,6 @@ workflows:
         script: |
           chmod +x ./test.sh
           ./test.sh
-          brew update
-          brew install lcov
-          echo "lcov and genhtml installed"
-          genhtml coverage/lcov.info --output-directory coverage/html
-          echo "HTML coverage report generated in coverage/html"
-          zip -r coverage-report.zip coverage/html
-          echo "Zipped HTML report"
-
       - name: Load Firebase configuration
         script: |
           #!/usr/bin/env sh
@@ -68,13 +60,40 @@ workflows:
           flutter build appbundle --release
           flutter build apk --release
 
+      - name: Publish to GitHub
+        script: |
+          #!/usr/bin/env zsh
+          
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+                
+          RELEASE_NAME="release-${COMMIT_HASH}"
+          
+          # Periksa file APK dan AAB
+          APK_PATH="build/app/outputs/apk/release/app-release.apk"
+          AAB_PATH="build/app/outputs/bundle/release/app-release.aab"
+          
+          if [[ ! -f "${APK_PATH}" ]] && [[ ! -f "${AAB_PATH}" ]]; then
+            echo "Error: No APK or AAB files found in the specified paths."
+            exit 1
+          fi
+          
+          FILES=""
+          [[ -f "${APK_PATH}" ]] && FILES="${FILES} ${APK_PATH}"
+          [[ -f "${AAB_PATH}" ]] && FILES="${FILES} ${AAB_PATH}"
+          
+          gh release create "${RELEASE_NAME}" \
+            --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
+            ${FILES} || { echo "Failed to create release"; exit 1; }
+            
+          echo "Release successfully created: ${RELEASE_NAME}"
+
     artifacts:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
       - coverage/*.info
-      - coverage-report.zip
 
     publishing:
       email:
@@ -104,23 +123,3 @@ workflows:
             else
               echo "Publishing .aab artifacts"
             fi
-
-        - name: Publish to GitHub
-          script: |
-            #!/usr/bin/env zsh
-
-            COMMIT_HASH=$(git rev-parse --short HEAD)
-            BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-
-            RELEASE_NAME="release-${COMMIT_HASH}"
-
-            FILES=""
-            [[ -f "${apkPath}" ]] && FILES="${FILES} ${apkPath}"
-            [[ -f "${aabPath}" ]] && FILES="${FILES} ${aabPath}"
-            [[ -f "coverage-report.zip" ]] && FILES="${FILES} coverage-report.zip"
-
-            gh release create "${RELEASE_NAME}" \
-              --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
-              ${FILES} || { echo "Failed to create release"; exit 1; }
-
-            echo "Release successfully created: ${RELEASE_NAME}"

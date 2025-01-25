@@ -66,7 +66,7 @@ run_tests() {
       # Combine coverage data if available
       if [ -d "coverage" ] && [ -f "coverage/lcov.info" ]; then
         echo "Merging coverage data from: $module_dir"
-        sed "s/^SF:lib/SF:$escaped_path\/lib/g" coverage/lcov.info >>"$project_root/coverage/lcov.info"
+        sed "s/^SF:lib/SF:$escaped_path\/lib/g" coverage/lcov.info >>"$project_root/coverage/test.info"
         rm -f coverage/lcov.info
       fi
     else
