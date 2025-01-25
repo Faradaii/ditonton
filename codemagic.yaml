@@ -29,8 +29,6 @@ workflows:
           source: true
       cancel_previous_builds: false
 
-    pre_test_scripts:
-
     scripts:
       - name: Flutter build and test
         script: |
