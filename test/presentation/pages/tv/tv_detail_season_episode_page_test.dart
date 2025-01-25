@@ -32,7 +32,7 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.episodeState).thenReturn(RequestState.Loading);
+    when(mockNotifier.episodeState).thenReturn(RequestState.loading);
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -49,7 +49,7 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockNotifier.episodeState).thenReturn(RequestState.Error);
+    when(mockNotifier.episodeState).thenReturn(RequestState.error);
     when(mockNotifier.message).thenReturn('Error message');
 
     final textFinder = find.byKey(Key('error_message'));

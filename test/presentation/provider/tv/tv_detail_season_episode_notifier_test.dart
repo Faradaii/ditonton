@@ -85,7 +85,7 @@ void main() {
         seasonNumber: tSeasonNumber,
         episodeNumber: tEpisodeNumber);
     // assert
-    expect(notifier.episodeState, RequestState.Loading);
+    expect(notifier.episodeState, RequestState.loading);
     expect(listenerCallCount, 1);
   });
 
@@ -104,7 +104,7 @@ void main() {
         seasonNumber: tSeasonNumber,
         episodeNumber: tEpisodeNumber);
     // assert
-    expect(notifier.episodeState, RequestState.Loaded);
+    expect(notifier.episodeState, RequestState.loaded);
     expect(notifier.episode, tEpisode);
     expect(listenerCallCount, 3);
   });
@@ -122,7 +122,7 @@ void main() {
         seasonNumber: tSeasonNumber,
         episodeNumber: tEpisodeNumber);
     // assert
-    expect(notifier.episodeState, RequestState.Error);
+    expect(notifier.episodeState, RequestState.error);
     expect(notifier.message, 'Server Failure');
     expect(listenerCallCount, 2);
   });

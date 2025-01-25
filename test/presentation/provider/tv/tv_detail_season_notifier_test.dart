@@ -92,7 +92,7 @@ void main() {
     // act
     notifier.fetchTvDetailSeason(tSeriesId, tSeasonNumber);
     // assert
-    expect(notifier.seasonState, RequestState.Loading);
+    expect(notifier.seasonState, RequestState.loading);
     expect(listenerCallCount, 1);
   });
 
@@ -105,7 +105,7 @@ void main() {
     // act
     await notifier.fetchTvDetailSeason(tSeriesId, tSeasonNumber);
     // assert
-    expect(notifier.seasonState, RequestState.Loaded);
+    expect(notifier.seasonState, RequestState.loaded);
     expect(notifier.season, tSeason);
     expect(listenerCallCount, 3);
   });
@@ -118,7 +118,7 @@ void main() {
     // act
     await notifier.fetchTvDetailSeason(tSeriesId, tSeasonNumber);
     // assert
-    expect(notifier.seasonState, RequestState.Error);
+    expect(notifier.seasonState, RequestState.error);
     expect(notifier.message, 'Server Failure');
     expect(listenerCallCount, 2);
   });

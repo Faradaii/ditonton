@@ -88,7 +88,7 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.seasonState).thenReturn(RequestState.Loading);
+    when(mockNotifier.seasonState).thenReturn(RequestState.loading);
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -104,7 +104,7 @@ void main() {
 
   testWidgets('Page should display ListView of episode when data is loaded',
       (WidgetTester tester) async {
-    when(mockNotifier.seasonState).thenReturn(RequestState.Loaded);
+    when(mockNotifier.seasonState).thenReturn(RequestState.loaded);
     when(mockNotifier.season).thenReturn(tSeason);
 
     final listViewFinder = find.byType(ListView);
@@ -119,7 +119,7 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockNotifier.seasonState).thenReturn(RequestState.Error);
+    when(mockNotifier.seasonState).thenReturn(RequestState.error);
     when(mockNotifier.message).thenReturn('Error message');
 
     final textFinder = find.byKey(Key('error_message'));

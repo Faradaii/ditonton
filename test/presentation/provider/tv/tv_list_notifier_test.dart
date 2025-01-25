@@ -55,7 +55,7 @@ void main() {
 
   group('now playing tv series', () {
     test('initialState should be Empty', () {
-      expect(provider.nowPlayingState, equals(RequestState.Empty));
+      expect(provider.nowPlayingState, equals(RequestState.empty));
     });
 
     test('should get data from the usecase', () async {
@@ -75,7 +75,7 @@ void main() {
       // act
       provider.fetchNowPlayingTv();
       // assert
-      expect(provider.nowPlayingState, RequestState.Loading);
+      expect(provider.nowPlayingState, RequestState.loading);
     });
 
     test('should change tv series data when data is gotten successfully',
@@ -86,7 +86,7 @@ void main() {
       // act
       await provider.fetchNowPlayingTv();
       // assert
-      expect(provider.nowPlayingState, RequestState.Loaded);
+      expect(provider.nowPlayingState, RequestState.loaded);
       expect(provider.nowPlayingTv, tTvList);
       expect(listenerCallCount, 2);
     });
@@ -98,7 +98,7 @@ void main() {
       // act
       await provider.fetchNowPlayingTv();
       // assert
-      expect(provider.nowPlayingState, RequestState.Error);
+      expect(provider.nowPlayingState, RequestState.error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });
@@ -111,8 +111,8 @@ void main() {
       // act
       provider.fetchPopularTv();
       // assert
-      expect(provider.popularTvState, RequestState.Loading);
-      // verify(provider.setState(RequestState.Loading));
+      expect(provider.popularTvState, RequestState.loading);
+      // verify(provider.setState(RequestState.loading));
     });
 
     test('should change tv series data when data is gotten successfully',
@@ -122,7 +122,7 @@ void main() {
       // act
       await provider.fetchPopularTv();
       // assert
-      expect(provider.popularTvState, RequestState.Loaded);
+      expect(provider.popularTvState, RequestState.loaded);
       expect(provider.popularTv, tTvList);
       expect(listenerCallCount, 2);
     });
@@ -134,7 +134,7 @@ void main() {
       // act
       await provider.fetchPopularTv();
       // assert
-      expect(provider.popularTvState, RequestState.Error);
+      expect(provider.popularTvState, RequestState.error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });
@@ -147,7 +147,7 @@ void main() {
       // act
       provider.fetchTopRatedTv();
       // assert
-      expect(provider.topRatedState, RequestState.Loading);
+      expect(provider.topRatedState, RequestState.loading);
     });
 
     test('should change tv series data when data is gotten successfully',
@@ -157,7 +157,7 @@ void main() {
       // act
       await provider.fetchTopRatedTv();
       // assert
-      expect(provider.topRatedState, RequestState.Loaded);
+      expect(provider.topRatedState, RequestState.loaded);
       expect(provider.topRatedTv, tTvList);
       expect(listenerCallCount, 2);
     });
@@ -169,7 +169,7 @@ void main() {
       // act
       await provider.fetchTopRatedTv();
       // assert
-      expect(provider.topRatedState, RequestState.Error);
+      expect(provider.topRatedState, RequestState.error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });
