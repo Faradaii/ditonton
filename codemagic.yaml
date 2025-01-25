@@ -1,0 +1,114 @@
+workflows:
+  default-workflow:
+    name: Default Workflow for ditonton
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+
+    inputs:
+      name:
+        description: Input description
+        default: Codemagic
+
+    environment:
+      groups:
+        - firebase_credentials
+      flutter: stable
+      xcode: latest
+      android_signing:
+        - keystore_ditonton
+
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+
+    triggering:
+      events:
+        - push
+        - tag
+
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      cancel_previous_builds: false
+
+    scripts:
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Get dependencies and run build_runner
+        script: |
+          flutter pub get
+          echo "Running build_runner..."
+          flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Run tests with coverage
+        script: |
+          chmod +x ./test.sh
+          ./test.sh
+      - name: Load Firebase configuration
+        script: |
+          #!/usr/bin/env sh
+          set -e # exit on first failed command
+
+          PROJECT_ROOT=$CM_BUILD_DIR   # ADD YOUR PROJECT FOLDER PATH HERE
+
+          echo "Decoding Firebase credentials..."
+          echo $ANDROID_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/android/app/google-services.json
+          echo $IOS_FIREBASE_SECRET | base64 --decode > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
+          echo "Firebase configuration successfully loaded!"
+      - name: Build AAB APK
+        script: |
+          flutter build appbundle --release
+          flutter build apk --release
+
+      - name: Publish to GitHub
+        script: |
+          #!/usr/bin/env zsh
+          
+          # Publish only for tag builds
+          if [ -z ${CM_TAG} ]; then
+            echo "Not a tag build, will not publish GitHub release"
+            exit 0
+          fi
+          
+          gh release create "${CM_TAG}" \
+            --title "Ditonton ${CM_TAG}" \
+            --notes-file changelog.md \
+            build/**/outputs/**/*.aab \
+            build/**/outputs/**/*.apk
+
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log
+      - coverage/*.info
+
+    publishing:
+      email:
+        recipients:
+          - kdkfrdy@gmail.com
+        notify:
+          success: true
+          failure: true
+
+      scripts:
+        - name: Check for apk
+          script: |
+            apkPath=$(find build -name "*.apk" | head -1)
+            if [[ -z ${apkPath} ]]
+            then
+              echo "No .apk were found"
+            else
+              echo "Publishing .apk artifacts"
+            fi
+
+        - name: Check for aab
+          script: |
+            aabPath=$(find build -name "*.aab" | head -1)
+            if [[ -z ${aabPath} ]]
+            then
+              echo "No .aab were found"
+            else
+              echo "Publishing .aab artifacts"
+            fi

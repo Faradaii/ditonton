@@ -1,97 +1,123 @@
 #!/usr/bin/env bash
 
-# https://medium.com/@nocnoc/combined-code-coverage-for-flutter-and-dart-237b9563ecf8
+# Combined Code Coverage for Flutter and Dart Projects
+# Source: https://medium.com/@nocnoc/combined-code-coverage-for-flutter-and-dart-237b9563ecf8
 
-# remember some failed commands and report on exit
+# Exit on any error and capture errors
+set -e
 error=false
 
+# Help message
 show_help() {
-  printf "usage: $0 [--help]
-Tool for running all unit and widget tests with code coverage and automatically generated if lcov is installed.
+  printf "Usage: $0 [--help]
+Tool for running all unit and widget tests with code coverage and generating a report (if lcov is installed).
 
-(run from root of repo)
-where:
+(run from the root of the repo)
+Options:
     --help
-        print this message
+        Show this help message and exit.
 "
   exit 1
 }
 
-# run unit and widget tests
-runTests() {
-  cd $1
+# Run code generation using build_runner
+run_build_runner() {
+  echo "Running build_runner for: $1"
+  cd "$1"
+  if grep -q build_runner pubspec.yaml >/dev/null; then
+    flutter pub run build_runner build --delete-conflicting-outputs || error=true
+  else
+    echo "No build_runner dependency found, skipping code generation for: $1"
+  fi
+  cd - >/dev/null
+}
+
+# Run unit and widget tests
+run_tests() {
+  local module_dir=$1
+  local project_root=$2
+
+  cd "$module_dir"
+
   if [ -f "pubspec.yaml" ] && [ -d "test" ]; then
-    echo "running tests in $1"
+    echo "Running tests in: $module_dir"
     flutter pub get
 
-    escapedPath="$(echo $1 | sed 's/\//\\\//g')"
+    # Run code generation if available
+    if grep -q build_runner pubspec.yaml >/dev/null; then
+      flutter pub run build_runner build --delete-conflicting-outputs
+    else
+      echo "No build_runner dependency found, skipping code generation for: $module_dir"
+    fi
 
-    # run tests with coverage
-    if grep flutter pubspec.yaml >/dev/null; then
-      echo "run flutter tests"
+    # Escape module path for lcov formatting
+    local escaped_path
+    escaped_path=$(echo "$module_dir" | sed 's/\//\\\//g')
+
+    # Run tests with coverage
+    if grep -q flutter pubspec.yaml; then
+      echo "Running Flutter tests"
       if [ -f "test/all_tests.dart" ]; then
         flutter test --coverage test/all_tests.dart || error=true
       else
         flutter test --coverage || error=true
       fi
 
-      if [ -d "coverage" ]; then
-        # combine line coverage info from package tests to a common file
-        sed "s/^SF:lib/SF:$escapedPath\/lib/g" coverage/lcov.info >>$2/coverage/test.info
+      # Combine coverage data if available
+      if [ -d "coverage" ] && [ -f "coverage/lcov.info" ]; then
+        echo "Merging coverage data from: $module_dir"
+        sed "s/^SF:lib/SF:$escaped_path\/lib/g" coverage/lcov.info >>"$project_root/coverage/test.info"
         rm -f coverage/lcov.info
       fi
     else
-      echo "not a flutter package, skipping"
+      echo "Not a Flutter package, skipping: $module_dir"
     fi
   fi
+
   cd - >/dev/null
 }
 
-runReport() {
-  if [ -f "coverage/test.info" ] && ! [ "$TRAVIS" ]; then
-    genhtml coverage/test.info -o coverage --no-function-coverage --prefix $(pwd)
-
-    if [ "$(uname)" == "Darwin" ]; then
-      open coverage/index.html
-    else
-      start coverage/index.html
-    fi
-  fi
-}
-
+# Check if the script is run from the root of the repository
 if ! [ -f "pubspec.yaml" ] && [ -d .git ]; then
-  printf "\nError: not in root of repo\n"
+  printf "\nError: Script must be run from the root of the repository.\n"
   show_help
 fi
 
+# Main logic
 case $1 in
 --help)
   show_help
   ;;
 *)
-  currentDir=$(pwd)
-  # if no parameter passed
-  if [ -z $1 ]; then
-    if [ -d "coverage" ]; then
-      rm -r coverage
-    fi
-    dirs=($(find . -maxdepth 2 -type d))
-    for dir in "${dirs[@]}"; do
-      runTests $dir $currentDir
+  project_root=$(pwd)
+
+  # Clean previous coverage data
+  if [ -d "coverage" ]; then
+    rm -rf coverage
+  fi
+  mkdir -p coverage
+
+  # Run tests for all modules or a specific one
+  if [ -z "$1" ]; then
+    echo "Running tests for all modules..."
+    modules=$(find . -maxdepth 2 -type d)
+    for module in $modules; do
+      run_tests "$module" "$project_root"
     done
   else
-    if [[ -d "$1" ]]; then
-      runTests $1 $currentDir
+    if [ -d "$1" ]; then
+      run_tests "$1" "$project_root"
     else
-      printf "\nError: not a directory: $1"
+      printf "\nError: Not a valid directory: $1\n"
       show_help
     fi
   fi
-  runReport
+
   ;;
 esac
 
-# Fail the build if there was an error
+# Exit with error if any test failed
 if [ "$error" = true ]; then
-  exit -1
+  echo "Some tests failed."
+  exit 1
 fi
