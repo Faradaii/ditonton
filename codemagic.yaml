@@ -47,7 +47,7 @@ workflows:
           brew update
           brew install lcov
           echo "lcov and genhtml installed"
-          genhtml coverage/lcov.info --output-directory coverage/html
+          genhtml coverage/test.info --output-directory coverage/html
           echo "HTML coverage report generated in coverage/html"
           zip -r coverage-report.zip coverage/html
           echo "Zipped HTML report"
