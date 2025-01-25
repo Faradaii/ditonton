@@ -24,7 +24,6 @@ workflows:
     triggering:
       events:
         - push
-        - tag
 
       branch_patterns:
         - pattern: '*'
@@ -65,15 +64,13 @@ workflows:
         script: |
           #!/usr/bin/env zsh
           
-          # Publish only for tag builds
-          if [ -z ${CM_TAG} ]; then
-            echo "Not a tag build, will not publish GitHub release"
-            exit 0
-          fi
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+                
+          RELEASE_NAME="release-${COMMIT_HASH}"
           
-          gh release create "${CM_TAG}" \
-            --title "Ditonton ${CM_TAG}" \
-            --notes-file changelog.md \
+          gh release create "${RELEASE_NAME}" \
+            --title "Ditonton release from ${BRANCH_NAME} (${COMMIT_HASH})" \
             build/**/outputs/**/*.aab \
             build/**/outputs/**/*.apk
 
