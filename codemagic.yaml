@@ -42,11 +42,8 @@ workflows:
           flutter pub run build_runner build --delete-conflicting-outputs
       - name: Run tests with coverage
         script: |
-          echo "Running tests with coverage..."
-          flutter test --coverage
-          mkdir -p coverage
-          genhtml coverage/lcov.info -o coverage --no-function-coverage --prefix "$(pwd)"
-          echo "Coverage report generated at $(pwd)/coverage/index.html"
+          chmod +x ./test.sh
+          ./test.sh
       - name: Load Firebase configuration
         script: |
           #!/usr/bin/env sh
