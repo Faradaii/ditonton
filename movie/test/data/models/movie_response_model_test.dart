@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:movie/data/models/movie_model.dart';
 import 'package:movie/data/models/movie_response.dart';
-import 'package:flutter_test/flutter_test.dart';
 
+import '../../dummy_data/dummy_objects.dart';
 import '../../json_reader.dart';
 
 void main() {
@@ -37,32 +38,37 @@ void main() {
   });
 
   group('toJson', () {
-    test('should return a JSON map containing proper data', () async {
-      // arrange
+    test('should return a valid JSON map containing proper data', () {
+      // Arrange
+      final movieResponse = MovieResponse(
+        movieList: [
+          testMovieModel
+        ]
+      );
 
-      // act
-      final result = tMovieResponseModel.toJson();
-      // assert
-      final expectedJsonMap = {
+      // Act
+      final result = movieResponse.toJson();
+
+      // Assert
+      expect(result, {
         "results": [
           {
             "adult": false,
-            "backdrop_path": "/path.jpg",
-            "genre_ids": [1, 2, 3, 4],
-            "id": 1,
-            "original_title": "Original Title",
-            "overview": "Overview",
-            "popularity": 1.0,
-            "poster_path": "/path.jpg",
-            "release_date": "2020-05-05",
-            "title": "Title",
+            "backdrop_path": '/muth4OYamXf41G2evdrLEg8d3om.jpg',
+            "genre_ids": [14, 28],
+            "id": 557,
+            "original_title": 'Spider-Man',
+            "overview": 'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+            "popularity": 60.441,
+            "poster_path": '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+            "release_date": '2002-05-01',
+            "title": 'Spider-Man',
             "video": false,
-            "vote_average": 1.0,
-            "vote_count": 1
+            "vote_average": 7.2,
+            "vote_count": 13507
           }
-        ],
-      };
-      expect(result, expectedJsonMap);
+        ]
+      });
     });
   });
 }

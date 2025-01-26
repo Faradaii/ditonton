@@ -85,52 +85,15 @@ workflows:
           failure: true
 
       scripts:
-        - name: Check for apk
-          script: |
-            apkPath=$(find build -name "*.apk" | head -1)
-            if [[ -z ${apkPath} ]]
-            then
-              echo "No .apk were found"
-            else
-              echo "Publishing .apk artifacts"
-            fi
-
-        - name: Check for aab
-          script: |
-            aabPath=$(find build -name "*.aab" | head -1)
-            if [[ -z ${aabPath} ]]
-            then
-              echo "No .aab were found"
-            else
-              echo "Publishing .aab artifacts"
-            fi
-
-        - name: Check for test report
-          script: |
-            testReportPath=$(find build -name "*.zip" | head -1)
-            if [[ -z ${testReportPath} ]]
-            then
-              echo "No report .zip were found"
-            else
-              echo "Publishing .zip artifacts"
-            fi
-
-        - name: Publish to GitHub
+        - name: Publish release to GitHub
           script: |
             #!/usr/bin/env zsh
 
             COMMIT_HASH=$(git rev-parse --short HEAD)
             BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-
             RELEASE_NAME="release-${COMMIT_HASH}"
-
-            FILES=""
-            [[ -f "${apkPath}" ]] && FILES="${FILES} ${apkPath}"
-            [[ -f "${aabPath}" ]] && FILES="${FILES} ${aabPath}"
-            [[ -f "${testReportPath}" ]] && FILES="${FILES} ${testReportPath}"
 
             gh release create "${RELEASE_NAME}" \
               --title "Ditonton release: ${BRANCH_NAME} (${COMMIT_HASH})" \
-              ${FILES} || { echo "Failed to create release"; exit 1; }
 
             echo "Release successfully created: ${RELEASE_NAME}"

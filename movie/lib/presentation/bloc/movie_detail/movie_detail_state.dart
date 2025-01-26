@@ -1,7 +1,9 @@
 part of 'movie_detail_bloc.dart';
 
 sealed class MovieDetailState extends Equatable {
-  const MovieDetailState();
+  final String message;
+
+  const MovieDetailState({this.message = ''});
 
   @override
   List<Object> get props => [];
@@ -12,9 +14,7 @@ final class MovieDetailEmpty extends MovieDetailState {}
 final class MovieDetailLoading extends MovieDetailState {}
 
 final class MovieDetailError extends MovieDetailState {
-  final String message;
-
-  const MovieDetailError(this.message);
+  const MovieDetailError({super.message});
 
   @override
   List<Object> get props => [message];
@@ -32,7 +32,9 @@ final class MovieDetailLoaded extends MovieDetailState {
     this.isAddedToWatchlist = false,
     this.recommendations = const [],
     this.recommendationState = RequestState.empty,
-    this.watchlistMessage = ''});
+    this.watchlistMessage = '',
+    super.message,
+  });
 
   MovieDetailLoaded copyWith({
     MovieDetail? movie,
@@ -40,6 +42,7 @@ final class MovieDetailLoaded extends MovieDetailState {
     RequestState? recommendationState,
     bool? isAddedToWatchlist,
     String? watchlistMessage,
+    String? message,
   }) {
     return MovieDetailLoaded(
       movie: movie ?? this.movie,
@@ -47,6 +50,7 @@ final class MovieDetailLoaded extends MovieDetailState {
       recommendations: recommendations ?? this.recommendations,
       isAddedToWatchlist: isAddedToWatchlist ?? this.isAddedToWatchlist,
       watchlistMessage: watchlistMessage ?? this.watchlistMessage,
+      message: message ?? this.message,
     );
   }
 
