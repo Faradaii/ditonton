@@ -98,6 +98,7 @@ void main() {
         },
         act: (bloc) => bloc.add(GetMovieRecommendationsEvent(tId)),
         expect: () => [
+          MovieDetailLoaded(movie: testMovieDetail, recommendations: [], recommendationState: RequestState.loading),
           MovieDetailLoaded(movie: testMovieDetail, recommendations: testMovieList, recommendationState: RequestState.loaded),
         ],
         verify: (bloc) {
@@ -116,6 +117,7 @@ void main() {
         },
         act: (bloc) => bloc.add(GetMovieRecommendationsEvent(tId)),
         expect: () => [
+          MovieDetailLoaded(movie: testMovieDetail, recommendations: [], recommendationState: RequestState.loading),
           MovieDetailLoaded(movie: testMovieDetail, message: "Server Failure", recommendationState: RequestState.error),
         ],
         verify: (bloc) {

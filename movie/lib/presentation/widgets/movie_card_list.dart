@@ -1,13 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/common/constants.dart';
 import 'package:core/common/utils.dart';
-import 'package:movie/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:movie/domain/entities/movie.dart';
+import 'package:movie/presentation/widgets/custom_cached_image.dart';
 
 class MovieCard extends StatelessWidget {
+  final DefaultCacheManager? defaultCacheManager;
   final Movie movie;
 
-  const MovieCard(this.movie, {super.key});
+  const MovieCard(this.movie, {super.key, this.defaultCacheManager});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,8 @@ class MovieCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                child: CachedNetworkImage(
+                child: CustomCachedImage(
+                  defaultCacheManager: defaultCacheManager,
                   imageUrl: '$baseImageUrl${movie.posterPath}',
                   width: 80,
                   placeholder: (context, url) => Center(

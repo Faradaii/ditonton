@@ -1,9 +1,9 @@
 import 'package:core/common/constants.dart';
-import 'package:core/common/state_enum.dart';
-import 'package:movie/presentation/provider/movie_search_notifier.dart';
-import 'package:movie/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/presentation/widgets/movie_card_list.dart';
+
+import '../bloc/movie_search/movie_search_bloc.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -25,10 +25,9 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
+              onChanged: (query) {
                 // Trigger the search
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
+                context.read<MovieSearchBloc>().add(OnQueryChangedEvent(query));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -53,27 +52,31 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
   }
 
   Widget _buildSearchMovies() {
-    return Consumer<MovieSearchNotifier>(
-      builder: (context, data, child) {
-        if (data.state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (data.state == RequestState.loaded) {
-          final result = data.searchResult;
+    return BlocBuilder<MovieSearchBloc, MovieSearchState>(
+      builder: (context, state) {
+        if (state is MovieSearchLoaded) {
+          final result = state.movies;
           if (result.isEmpty) {
             return _buildEmpty();
           }
           return ListView.builder(
             padding: const EdgeInsets.all(8),
             itemBuilder: (context, index) {
-              final movie = data.searchResult[index];
+              final movie = result[index];
               return MovieCard(movie);
             },
             itemCount: result.length,
           );
+        } else if (state is MovieSearchError) {
+          return Center(
+            key: const Key('error_message'),
+            child: Text(state.message),
+          );
         } else {
-          return _buildEmpty();
+          return const Center(
+            key: const Key('loading'),
+            child: CircularProgressIndicator(),
+          );
         }
       },
     );

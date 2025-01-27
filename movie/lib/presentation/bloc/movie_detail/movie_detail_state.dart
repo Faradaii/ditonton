@@ -1,6 +1,6 @@
 part of 'movie_detail_bloc.dart';
 
-sealed class MovieDetailState extends Equatable {
+abstract class MovieDetailState extends Equatable {
   final String message;
 
   const MovieDetailState({this.message = ''});

@@ -40,6 +40,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
       final recommendationsResult = await getMovieRecommendations.execute(event.id);
         if (state is MovieDetailLoaded) {
           final currentState = state as MovieDetailLoaded;
+          emit(currentState.copyWith(recommendationState: RequestState.loading));
           recommendationsResult.fold(
             (failure) {
               emit(currentState.copyWith(recommendationState: RequestState.error, message: failure.message));

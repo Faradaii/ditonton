@@ -386,12 +386,9 @@ class MockDatabaseMovie extends _i1.Mock implements _i4.DatabaseMovie {
           as _i8.Future<int>);
 
   @override
-  _i8.Future<Map<String, dynamic>?> getMovieById(int? id) =>
-      (super.noSuchMethod(
-            Invocation.method(#getMovieById, [id]),
-            returnValue: _i8.Future<Map<String, dynamic>?>.value(),
-          )
-          as _i8.Future<Map<String, dynamic>?>);
+  _i8.Future<Map<String, dynamic>?>? getMovieById(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getMovieById, [id]))
+          as _i8.Future<Map<String, dynamic>?>?);
 
   @override
   _i8.Future<List<Map<String, dynamic>>> getWatchlistMovies() =>

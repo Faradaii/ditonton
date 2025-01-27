@@ -1,6 +1,6 @@
 part of 'movie_now_playing_bloc.dart';
 
-sealed class MovieNowPlayingState extends Equatable {
+abstract class MovieNowPlayingState extends Equatable {
   const MovieNowPlayingState();
 
   @override

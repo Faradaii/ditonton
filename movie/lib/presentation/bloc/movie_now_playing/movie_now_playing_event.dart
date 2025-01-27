@@ -1,6 +1,6 @@
 part of 'movie_now_playing_bloc.dart';
 
-sealed class MovieNowPlayingEvent {
+abstract class MovieNowPlayingEvent {
   const MovieNowPlayingEvent();
 
 }

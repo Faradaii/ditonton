@@ -1,6 +1,6 @@
 part of 'movie_list_bloc.dart';
 
-sealed class MovieListState extends Equatable {
+abstract class MovieListState extends Equatable {
   final String message;
   const MovieListState({this.message = ''});
   @override

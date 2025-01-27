@@ -1,6 +1,6 @@
 part of 'movie_search_bloc.dart';
 
-sealed class MovieSearchEvent {
+abstract class MovieSearchEvent {
   const MovieSearchEvent();
 }
 

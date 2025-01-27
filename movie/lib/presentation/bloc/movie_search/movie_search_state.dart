@@ -1,6 +1,6 @@
 part of 'movie_search_bloc.dart';
 
-sealed class MovieSearchState extends Equatable {
+abstract class MovieSearchState extends Equatable {
   const MovieSearchState();
 
   @override

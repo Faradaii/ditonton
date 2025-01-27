@@ -1,6 +1,6 @@
 part of 'movie_watchlist_bloc.dart';
 
-sealed class MovieWatchlistState extends Equatable {
+abstract class MovieWatchlistState extends Equatable {
   const MovieWatchlistState();
   @override
   List<Object> get props => [];

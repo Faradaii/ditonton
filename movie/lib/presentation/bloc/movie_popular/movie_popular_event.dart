@@ -1,6 +1,6 @@
 part of 'movie_popular_bloc.dart';
 
-sealed class MoviePopularEvent {
+abstract class MoviePopularEvent {
   const MoviePopularEvent();
 }
 
