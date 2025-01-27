@@ -34,7 +34,7 @@ void main() {
   test('should return a valid model from JSON', () async {
     // arrange
     final Map<String, dynamic> jsonMap =
-    json.decode(readJson('dummy_data/movie_detail_response.json'));
+        json.decode(readJson('dummy_data/movie_detail_response.json'));
     // act
     final result = MovieDetailResponse.fromJson(jsonMap);
     // assert
@@ -60,7 +60,9 @@ void main() {
       "vote_average": 1.0,
       "vote_count": 1,
       "budget": 1,
-      "genres": [{"id": 1, "name": "name"}],
+      "genres": [
+        {"id": 1, "name": "name"}
+      ],
       "homepage": "",
       "imdb_id": "",
       "original_language": "",

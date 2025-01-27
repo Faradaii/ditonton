@@ -72,11 +72,13 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
             key: const Key('error_message'),
             child: Text(state.message),
           );
-        } else {
+        } else if (state is MovieSearchLoading) {
           return const Center(
-            key: const Key('loading'),
+            key: Key('loading'),
             child: CircularProgressIndicator(),
           );
+        } else {
+          return _buildInitial();
         }
       },
     );
@@ -85,6 +87,12 @@ class _SearchPageState extends State<SearchPage> with TickerProviderStateMixin {
   Widget _buildEmpty() {
     return const Center(
       child: Text('No movies found.'),
+    );
+  }
+
+  Widget _buildInitial() {
+    return const Center(
+      child: Text('Try searching movies!'),
     );
   }
 }

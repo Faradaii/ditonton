@@ -40,11 +40,7 @@ void main() {
   group('toJson', () {
     test('should return a valid JSON map containing proper data', () {
       // Arrange
-      final movieResponse = MovieResponse(
-        movieList: [
-          testMovieModel
-        ]
-      );
+      final movieResponse = MovieResponse(movieList: [testMovieModel]);
 
       // Act
       final result = movieResponse.toJson();
@@ -58,7 +54,8 @@ void main() {
             "genre_ids": [14, 28],
             "id": 557,
             "original_title": 'Spider-Man',
-            "overview": 'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+            "overview":
+                'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
             "popularity": 60.441,
             "poster_path": '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
             "release_date": '2002-05-01',

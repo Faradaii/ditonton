@@ -5,4 +5,3 @@ abstract class MoviePopularEvent {
 }
 
 class GetMoviePopularEvent extends MoviePopularEvent {}
-

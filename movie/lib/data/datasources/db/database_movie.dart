@@ -2,44 +2,9 @@ import 'dart:async';
 
 import 'package:core/core.dart';
 import 'package:movie/data/models/movie_table.dart';
-import 'package:sqflite/sqflite.dart';
-
-
-abstract class DatabaseHelper {
-  Future<int> insert(String table, Map<String, dynamic> values);
-  Future<int> delete(String table, {String? where, List<Object?>? whereArgs});
-  Future<List<Map<String, dynamic>>> query(String table, {String? where, List<Object?>? whereArgs});
-  Future<Map<String, dynamic>?>? queryGetOne(String table, {String? where, List<Object?>? whereArgs});
-}
-
-class DatabaseHelperImpl implements DatabaseHelper {
-  final Database database;
-
-  DatabaseHelperImpl(this.database);
-
-  @override
-  Future<int> insert(String table, Map<String, dynamic> values) {
-    return database.insert(table, values);
-  }
-
-  @override
-  Future<int> delete(String table, {String? where, List<Object?>? whereArgs}) {
-    return database.delete(table, where: where, whereArgs: whereArgs);
-  }
-
-  @override
-  Future<List<Map<String, dynamic>>> query(String table, {String? where, List<Object?>? whereArgs}) {
-    return database.query(table, where: where, whereArgs: whereArgs);
-  }
-
-  @override
-  Future<Map<String, dynamic>?>? queryGetOne(String table, {String? where, List<Object?>? whereArgs}) {
-    return database.query(table, where: where, whereArgs: whereArgs).then((value) => value.first);
-  }
-}
 
 class DatabaseMovie {
-  final DatabaseHelper databaseHelper;
+  final DatabaseHelperNew databaseHelper;
 
   DatabaseMovie({required this.databaseHelper});
 
@@ -57,7 +22,7 @@ class DatabaseMovie {
     );
   }
 
-  Future<Map<String, dynamic>?>? getMovieById(int id) async {
+  Future<List<Map<String, dynamic>?>?> getMovieById(int id) async {
     final db = databaseHelper;
     final results = await db.queryGetOne(
       tableWatchlistMovie,

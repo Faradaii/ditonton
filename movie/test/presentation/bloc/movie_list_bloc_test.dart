@@ -52,8 +52,32 @@ void main() {
         MovieListLoaded(movieNowPlayingState: RequestState.loading),
         MovieListLoaded(
             moviesNowPlaying: testMovieList,
-            movieNowPlayingState: RequestState.loaded
-        ),
+            movieNowPlayingState: RequestState.loaded),
+      ],
+      verify: (bloc) {
+        verify(mockGetNowPlayingMovies.execute()).called(1);
+      },
+    );
+
+    blocTest<MovieListBloc, MovieListState>(
+      'Should emit [Loaded.copyWith] with RequestState.loading when another data is already gotten',
+      setUp: () {
+        movieListBloc.emit(MovieListLoaded(moviesPopular: testMovieList));
+      },
+      build: () {
+        when(mockGetNowPlayingMovies.execute())
+            .thenAnswer((_) async => Right(testMovieList));
+        return movieListBloc;
+      },
+      act: (bloc) => bloc.add(FetchNowPlayingMovies()),
+      expect: () => [
+        MovieListLoaded(
+            moviesPopular: testMovieList,
+            movieNowPlayingState: RequestState.loading),
+        MovieListLoaded(
+            moviesPopular: testMovieList,
+            moviesNowPlaying: testMovieList,
+            movieNowPlayingState: RequestState.loaded),
       ],
       verify: (bloc) {
         verify(mockGetNowPlayingMovies.execute()).called(1);
@@ -72,8 +96,7 @@ void main() {
         MovieListLoaded(movieNowPlayingState: RequestState.loading),
         MovieListLoaded(
             message: "Server Failure",
-            movieNowPlayingState: RequestState.error
-        ),
+            movieNowPlayingState: RequestState.error),
       ],
       verify: (bloc) {
         verify(mockGetNowPlayingMovies.execute()).called(1);
@@ -94,8 +117,32 @@ void main() {
         MovieListLoaded(moviePopularState: RequestState.loading),
         MovieListLoaded(
             moviesPopular: testMovieList,
-            moviePopularState: RequestState.loaded
-        ),
+            moviePopularState: RequestState.loaded),
+      ],
+      verify: (bloc) {
+        verify(mockGetPopularMovies.execute()).called(1);
+      },
+    );
+
+    blocTest<MovieListBloc, MovieListState>(
+      'Should emit [Loaded.copyWith] with RequestState.loading when another data is already gotten',
+      setUp: () {
+        movieListBloc.emit(MovieListLoaded(moviesTopRated: testMovieList));
+      },
+      build: () {
+        when(mockGetPopularMovies.execute())
+            .thenAnswer((_) async => Right(testMovieList));
+        return movieListBloc;
+      },
+      act: (bloc) => bloc.add(FetchPopularMovies()),
+      expect: () => [
+        MovieListLoaded(
+            moviesTopRated: testMovieList,
+            moviePopularState: RequestState.loading),
+        MovieListLoaded(
+            moviesTopRated: testMovieList,
+            moviesPopular: testMovieList,
+            moviePopularState: RequestState.loaded),
       ],
       verify: (bloc) {
         verify(mockGetPopularMovies.execute()).called(1);
@@ -113,9 +160,7 @@ void main() {
       expect: () => [
         MovieListLoaded(moviePopularState: RequestState.loading),
         MovieListLoaded(
-            message: "Server Failure",
-            moviePopularState: RequestState.error
-        ),
+            message: "Server Failure", moviePopularState: RequestState.error),
       ],
       verify: (bloc) {
         verify(mockGetPopularMovies.execute()).called(1);
@@ -136,8 +181,32 @@ void main() {
         MovieListLoaded(movieTopRatedState: RequestState.loading),
         MovieListLoaded(
             moviesTopRated: testMovieList,
-            movieTopRatedState: RequestState.loaded
-        ),
+            movieTopRatedState: RequestState.loaded),
+      ],
+      verify: (bloc) {
+        verify(mockGetTopRatedMovies.execute()).called(1);
+      },
+    );
+
+    blocTest<MovieListBloc, MovieListState>(
+      'Should emit [Loaded.copyWith] with RequestState.loading when another data is already gotten',
+      setUp: () {
+        movieListBloc.emit(MovieListLoaded(moviesNowPlaying: testMovieList));
+      },
+      build: () {
+        when(mockGetTopRatedMovies.execute())
+            .thenAnswer((_) async => Right(testMovieList));
+        return movieListBloc;
+      },
+      act: (bloc) => bloc.add(FetchTopRatedMovies()),
+      expect: () => [
+        MovieListLoaded(
+            moviesNowPlaying: testMovieList,
+            movieTopRatedState: RequestState.loading),
+        MovieListLoaded(
+            moviesNowPlaying: testMovieList,
+            moviesTopRated: testMovieList,
+            movieTopRatedState: RequestState.loaded),
       ],
       verify: (bloc) {
         verify(mockGetTopRatedMovies.execute()).called(1);
@@ -155,9 +224,7 @@ void main() {
       expect: () => [
         MovieListLoaded(movieTopRatedState: RequestState.loading),
         MovieListLoaded(
-            message: "Server Failure",
-            movieTopRatedState: RequestState.error
-        ),
+            message: "Server Failure", movieTopRatedState: RequestState.error),
       ],
       verify: (bloc) {
         verify(mockGetTopRatedMovies.execute()).called(1);
@@ -212,7 +279,9 @@ void main() {
       expect(newState.movieTopRatedState, initialState.movieTopRatedState);
     });
 
-    test('should return a new instance with no changes when no parameters are provided', () {
+    test(
+        'should return a new instance with no changes when no parameters are provided',
+        () {
       final initialState = MovieListLoaded(
         moviesNowPlaying: [],
         movieNowPlayingState: RequestState.loading,

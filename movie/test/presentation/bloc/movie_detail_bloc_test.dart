@@ -59,12 +59,28 @@ void main() {
         build: () {
           when(mockGetMovieDetail.execute(tId))
               .thenAnswer((_) async => Right(testMovieDetail));
+          when(mockGetMovieRecommendations.execute(tId))
+              .thenAnswer((_) async => Right(testMovieList));
+          when(mockGetWatchlistStatus.execute(tId))
+              .thenAnswer((_) async => false);
           return movieDetailBloc;
         },
         act: (bloc) => bloc.add(GetMovieDetailEvent(tId)),
         expect: () => [
               MovieDetailLoading(),
-              MovieDetailLoaded(movie: testMovieDetail),
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  recommendationState: RequestState.empty,
+                  isAddedToWatchlist: false),
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  recommendationState: RequestState.loading,
+                  isAddedToWatchlist: false),
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  recommendations: testMovieList,
+                  recommendationState: RequestState.loaded,
+                  isAddedToWatchlist: false),
             ],
         verify: (bloc) {
           verify(mockGetMovieDetail.execute(tId)).called(1);
@@ -98,9 +114,15 @@ void main() {
         },
         act: (bloc) => bloc.add(GetMovieRecommendationsEvent(tId)),
         expect: () => [
-          MovieDetailLoaded(movie: testMovieDetail, recommendations: [], recommendationState: RequestState.loading),
-          MovieDetailLoaded(movie: testMovieDetail, recommendations: testMovieList, recommendationState: RequestState.loaded),
-        ],
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  recommendations: [],
+                  recommendationState: RequestState.loading),
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  recommendations: testMovieList,
+                  recommendationState: RequestState.loaded),
+            ],
         verify: (bloc) {
           verify(mockGetMovieRecommendations.execute(tId)).called(1);
         });
@@ -117,9 +139,15 @@ void main() {
         },
         act: (bloc) => bloc.add(GetMovieRecommendationsEvent(tId)),
         expect: () => [
-          MovieDetailLoaded(movie: testMovieDetail, recommendations: [], recommendationState: RequestState.loading),
-          MovieDetailLoaded(movie: testMovieDetail, message: "Server Failure", recommendationState: RequestState.error),
-        ],
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  recommendations: [],
+                  recommendationState: RequestState.loading),
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  message: "Server Failure",
+                  recommendationState: RequestState.error),
+            ],
         verify: (bloc) {
           verify(mockGetMovieRecommendations.execute(tId)).called(1);
         });
@@ -137,7 +165,8 @@ void main() {
         },
         act: (bloc) => bloc.add(LoadWatchlistStatusEvent(tId)),
         expect: () => [
-          MovieDetailLoaded(movie: testMovieDetail, isAddedToWatchlist: true),
+              MovieDetailLoaded(
+                  movie: testMovieDetail, isAddedToWatchlist: true),
             ],
         verify: (bloc) {
           verify(mockGetWatchlistStatus.execute(tId)).called(1);
@@ -157,7 +186,10 @@ void main() {
         },
         act: (bloc) => bloc.add(AddWatchlistEvent(testMovieDetail)),
         expect: () => [
-          MovieDetailLoaded(movie: testMovieDetail, isAddedToWatchlist: true, watchlistMessage: watchlistAddSuccessMessage),
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  isAddedToWatchlist: true,
+                  watchlistMessage: watchlistAddSuccessMessage),
             ],
         verify: (bloc) {
           verify(mockSaveWatchlist.execute(testMovieDetail)).called(1);
@@ -178,9 +210,11 @@ void main() {
         },
         act: (bloc) => bloc.add(RemoveWatchlistEvent(testMovieDetail)),
         expect: () => [
-          MovieDetailLoaded(movie: testMovieDetail, isAddedToWatchlist: false, watchlistMessage: watchlistRemoveSuccessMessage),
-
-        ],
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  isAddedToWatchlist: false,
+                  watchlistMessage: watchlistRemoveSuccessMessage),
+            ],
         verify: (bloc) {
           verify(mockRemoveWatchlist.execute(testMovieDetail)).called(1);
           verify(mockGetWatchlistStatus.execute(tId)).called(1);
@@ -201,7 +235,10 @@ void main() {
         },
         act: (bloc) => bloc.add(AddWatchlistEvent(testMovieDetail)),
         expect: () => [
-          MovieDetailLoaded(movie: testMovieDetail, isAddedToWatchlist: true, watchlistMessage: watchlistAddSuccessMessage),
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  isAddedToWatchlist: true,
+                  watchlistMessage: watchlistAddSuccessMessage),
             ],
         verify: (bloc) {
           verify(mockSaveWatchlist.execute(testMovieDetail)).called(1);
@@ -222,15 +259,18 @@ void main() {
         },
         act: (bloc) => bloc.add(AddWatchlistEvent(testMovieDetail)),
         expect: () => [
-    MovieDetailLoaded(movie: testMovieDetail, isAddedToWatchlist: false, watchlistMessage: "Failed Add"),
-
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  isAddedToWatchlist: false,
+                  watchlistMessage: "Failed Add"),
             ],
         verify: (bloc) {
           verify(mockSaveWatchlist.execute(testMovieDetail)).called(1);
           verify(mockGetWatchlistStatus.execute(tId)).called(1);
         });
 
-    blocTest('Should update message watchlist status when remove watchlist failed',
+    blocTest(
+        'Should update message watchlist status when remove watchlist failed',
         setUp: () {
           movieDetailBloc.emit(MovieDetailLoaded(
               movie: testMovieDetail, isAddedToWatchlist: true));
@@ -244,9 +284,11 @@ void main() {
         },
         act: (bloc) => bloc.add(RemoveWatchlistEvent(testMovieDetail)),
         expect: () => [
-          MovieDetailLoaded(movie: testMovieDetail, isAddedToWatchlist: true, watchlistMessage: "Failed Remove"),
-
-        ],
+              MovieDetailLoaded(
+                  movie: testMovieDetail,
+                  isAddedToWatchlist: true,
+                  watchlistMessage: "Failed Remove"),
+            ],
         verify: (bloc) {
           verify(mockRemoveWatchlist.execute(testMovieDetail)).called(1);
           verify(mockGetWatchlistStatus.execute(tId)).called(1);
@@ -267,25 +309,31 @@ void main() {
     group('MovieDetailLoaded.copyWith', () {
       test('should return a new instance with updated movie', () {
         // Act
-        final newState = movieDetailLoaded.copyWith(movie: testMovieDetailUpdated);
+        final newState =
+            movieDetailLoaded.copyWith(movie: testMovieDetailUpdated);
 
         // Assert
         expect(newState.movie, testMovieDetailUpdated);
         expect(newState.recommendations, movieDetailLoaded.recommendations);
-        expect(newState.recommendationState, movieDetailLoaded.recommendationState);
-        expect(newState.isAddedToWatchlist, movieDetailLoaded.isAddedToWatchlist);
+        expect(newState.recommendationState,
+            movieDetailLoaded.recommendationState);
+        expect(
+            newState.isAddedToWatchlist, movieDetailLoaded.isAddedToWatchlist);
         expect(newState.watchlistMessage, movieDetailLoaded.watchlistMessage);
       });
 
       test('should return a new instance with updated recommendations', () {
         // Act
-        final newState = movieDetailLoaded.copyWith(recommendations: testMovieList);
+        final newState =
+            movieDetailLoaded.copyWith(recommendations: testMovieList);
 
         // Assert
         expect(newState.recommendations, testMovieList);
         expect(newState.movie, movieDetailLoaded.movie);
-        expect(newState.recommendationState, movieDetailLoaded.recommendationState);
-        expect(newState.isAddedToWatchlist, movieDetailLoaded.isAddedToWatchlist);
+        expect(newState.recommendationState,
+            movieDetailLoaded.recommendationState);
+        expect(
+            newState.isAddedToWatchlist, movieDetailLoaded.isAddedToWatchlist);
         expect(newState.watchlistMessage, movieDetailLoaded.watchlistMessage);
       });
 
@@ -296,7 +344,8 @@ void main() {
         expect(newState.isAddedToWatchlist, true);
         expect(newState.movie, movieDetailLoaded.movie);
         expect(newState.recommendations, movieDetailLoaded.recommendations);
-        expect(newState.recommendationState, movieDetailLoaded.recommendationState);
+        expect(newState.recommendationState,
+            movieDetailLoaded.recommendationState);
         expect(newState.watchlistMessage, movieDetailLoaded.watchlistMessage);
       });
 
@@ -310,8 +359,10 @@ void main() {
         expect(newState.message, updatedMessage);
         expect(newState.movie, movieDetailLoaded.movie);
         expect(newState.recommendations, movieDetailLoaded.recommendations);
-        expect(newState.recommendationState, movieDetailLoaded.recommendationState);
-        expect(newState.isAddedToWatchlist, movieDetailLoaded.isAddedToWatchlist);
+        expect(newState.recommendationState,
+            movieDetailLoaded.recommendationState);
+        expect(
+            newState.isAddedToWatchlist, movieDetailLoaded.isAddedToWatchlist);
         expect(newState.watchlistMessage, movieDetailLoaded.watchlistMessage);
       });
 

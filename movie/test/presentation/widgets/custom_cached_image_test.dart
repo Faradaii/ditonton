@@ -17,7 +17,10 @@ void main() {
         defaultCacheManager: mockCacheManager,
         imageUrl: '',
         placeholder: (ctx, url) => const Text('place holder'),
-        errorWidget: (ctx, url, error) => const Icon(Icons.error, key: Key('error'),),
+        errorWidget: (ctx, url, error) => const Icon(
+          Icons.error,
+          key: Key('error'),
+        ),
       ),
     );
 
@@ -36,8 +39,13 @@ void main() {
       home: CustomCachedImage(
         defaultCacheManager: mockCacheManager,
         imageUrl: '',
-        placeholder: (ctx, url) => const CircularProgressIndicator(key: Key('placeholder'),),
-        errorWidget: (ctx, url, error) => const Icon(Icons.error, key: Key('error'),),
+        placeholder: (ctx, url) => const CircularProgressIndicator(
+          key: Key('placeholder'),
+        ),
+        errorWidget: (ctx, url, error) => const Icon(
+          Icons.error,
+          key: Key('error'),
+        ),
       ),
     );
 

@@ -8,19 +8,17 @@ part 'movie_popular_event.dart';
 part 'movie_popular_state.dart';
 
 class MoviePopularBloc extends Bloc<MoviePopularEvent, MoviePopularState> {
-  MoviePopularBloc({required GetPopularMovies getPopularMovies}) : super(MoviePopularEmpty()) {
+  MoviePopularBloc({required GetPopularMovies getPopularMovies})
+      : super(MoviePopularEmpty()) {
     on<GetMoviePopularEvent>((event, emit) async {
       emit(MoviePopularLoading());
 
       final result = await getPopularMovies.execute();
-      result.fold(
-              (failure) {
-            emit(MoviePopularError(failure.message));
-          },
-              (movies) {
-            emit(MoviePopularLoaded(movies));
-          }
-      );
+      result.fold((failure) {
+        emit(MoviePopularError(failure.message));
+      }, (movies) {
+        emit(MoviePopularLoaded(movies));
+      });
     });
   }
 }

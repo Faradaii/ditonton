@@ -1,48 +1,43 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../common/constants.dart';
+abstract class DatabaseHelperNew {
+  Future<int> insert(String table, Map<String, dynamic> values);
 
-class DatabaseHelper {
-  static DatabaseHelper? _databaseHelper;
+  Future<int> delete(String table, {String? where, List<Object?>? whereArgs});
 
-  DatabaseHelper._instance() {
-    _databaseHelper = this;
+  Future<List<Map<String, dynamic>>> query(String table,
+      {String? where, List<Object?>? whereArgs});
+
+  Future<List<Map<String, dynamic>?>?> queryGetOne(String table,
+      {String? where, List<Object?>? whereArgs});
+}
+
+class DatabaseHelperNewImpl implements DatabaseHelperNew {
+  final Database database;
+
+  DatabaseHelperNewImpl(this.database);
+
+  @override
+  Future<int> insert(String table, Map<String, dynamic> values) {
+    return database.insert(table, values);
   }
 
-  factory DatabaseHelper() => _databaseHelper ?? DatabaseHelper._instance();
-
-  static Database? _database;
-
-  Future<Database?> get database async {
-    _database ??= await _initDb();
-    return _database;
+  @override
+  Future<int> delete(String table, {String? where, List<Object?>? whereArgs}) {
+    return database.delete(table, where: where, whereArgs: whereArgs);
   }
 
-  Future<Database> _initDb() async {
-    final path = await getDatabasesPath();
-    final databasePath = '$path/$databaseName';
-
-    var db = await openDatabase(databasePath,
-        version: databaseVersion, onCreate: _onCreate);
-    return db;
+  @override
+  Future<List<Map<String, dynamic>>> query(String table,
+      {String? where, List<Object?>? whereArgs}) {
+    return database.query(table, where: where, whereArgs: whereArgs);
   }
 
-  void _onCreate(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE  $tableWatchlistMovie (
-        id INTEGER PRIMARY KEY,
-        title TEXT,
-        overview TEXT,
-        posterPath TEXT
-      );
-    ''');
-    await db.execute('''
-      CREATE TABLE  $tableWatchlistTv (
-        id INTEGER PRIMARY KEY,
-        name TEXT,
-        overview TEXT,
-        posterPath TEXT
-      );
-    ''');
+  @override
+  Future<List<Map<String, dynamic>?>?> queryGetOne(String table,
+      {String? where, List<Object?>? whereArgs}) {
+    return database
+        .query(table, where: where, whereArgs: whereArgs)
+        .then((value) => value);
   }
 }

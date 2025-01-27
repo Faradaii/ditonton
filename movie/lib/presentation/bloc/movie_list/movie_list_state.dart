@@ -49,12 +49,12 @@ final class MovieListLoaded extends MovieListState {
 
   @override
   List<Object> get props => [
-    moviesNowPlaying,
-    movieNowPlayingState,
-    moviesPopular,
-    moviePopularState,
-    moviesTopRated,
-    movieTopRatedState,
-    message,
-  ];
+        moviesNowPlaying,
+        movieNowPlayingState,
+        moviesPopular,
+        moviePopularState,
+        moviesTopRated,
+        movieTopRatedState,
+        message,
+      ];
 }

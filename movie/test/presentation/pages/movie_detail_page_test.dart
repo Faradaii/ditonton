@@ -56,7 +56,7 @@ void main() {
   group('MovieDetailPage Tests', () {
     testWidgets(
       'should display loading indicator when state is MovieDetailLoading',
-          (WidgetTester tester) async {
+      (WidgetTester tester) async {
         // Arrange
         when(() => mockBloc.state).thenReturn(MovieDetailLoading());
 
@@ -70,8 +70,7 @@ void main() {
 
     testWidgets(
       'should display movie details when state is MovieDetailLoaded',
-          (WidgetTester tester) async {
-
+      (WidgetTester tester) async {
         when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
           movie: testMovieDetail,
           recommendationState: RequestState.loaded,
@@ -92,10 +91,11 @@ void main() {
 
     testWidgets(
       'should display error message when state is MovieDetailError',
-          (WidgetTester tester) async {
+      (WidgetTester tester) async {
         // Arrange
         const errorMessage = 'Failed to load movie details';
-        when(() => mockBloc.state).thenReturn(MovieDetailError(message: errorMessage));
+        when(() => mockBloc.state)
+            .thenReturn(MovieDetailError(message: errorMessage));
 
         // Act
         await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
@@ -108,28 +108,27 @@ void main() {
 
   group('watchlist', () {
     testWidgets(
-      'should display add to watchlist button when movie is not in watchlist',
-          (WidgetTester tester) async {
-            when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
-              movie: testMovieDetail,
-              recommendationState: RequestState.loaded,
-              recommendations: [],
-              watchlistMessage: '',
-              isAddedToWatchlist: false,
-            ));
+        'should display add to watchlist button when movie is not in watchlist',
+        (WidgetTester tester) async {
+      when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
+        movie: testMovieDetail,
+        recommendationState: RequestState.loaded,
+        recommendations: [],
+        watchlistMessage: '',
+        isAddedToWatchlist: false,
+      ));
 
-            // Act
-            await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
+      // Act
+          await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
 
-            // Assert
-            expect(find.text('Watchlist'), findsOneWidget);
-            expect(find.byIcon(Icons.add), findsOneWidget);
-          });
+      // Assert
+      expect(find.text('Watchlist'), findsOneWidget);
+      expect(find.byIcon(Icons.add), findsOneWidget);
+    });
 
     testWidgets(
       'should execute watchlist add and display snackbar when movie is not in watchlist',
-          (WidgetTester tester) async {
-
+      (WidgetTester tester) async {
         when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
           movie: testMovieDetail,
           recommendationState: RequestState.loaded,
@@ -163,59 +162,61 @@ void main() {
         await tester.pump();
 
         // Assert
-        verify(() => mockBloc.add(AddWatchlistEvent(testMovieDetail))).called(1);
+        verify(() => mockBloc.add(AddWatchlistEvent(testMovieDetail)))
+            .called(1);
         expect(find.byType(SnackBar), findsOneWidget);
-        expect(find.text(MovieDetailBloc.watchlistAddSuccessMessage), findsOneWidget);
-        },
+        expect(find.text(MovieDetailBloc.watchlistAddSuccessMessage),
+            findsOneWidget);
+      },
     );
 
     testWidgets(
       'should execute watchlist remove and display snackbar when movie is in watchlist',
-          (WidgetTester tester) async {
-
-            when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
+      (WidgetTester tester) async {
+        when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
+          movie: testMovieDetail,
+          recommendationState: RequestState.loaded,
+          recommendations: [],
+          watchlistMessage: '',
+          isAddedToWatchlist: true,
+        ));
+        whenListen(
+          mockBloc,
+          Stream.fromIterable([
+            MovieDetailLoaded(
               movie: testMovieDetail,
               recommendationState: RequestState.loaded,
               recommendations: [],
               watchlistMessage: '',
               isAddedToWatchlist: true,
-            ));
-            whenListen(
-              mockBloc,
-              Stream.fromIterable([
-                MovieDetailLoaded(
-                  movie: testMovieDetail,
-                  recommendationState: RequestState.loaded,
-                  recommendations: [],
-                  watchlistMessage: '',
-                  isAddedToWatchlist: true,
-                ),
-                MovieDetailLoaded(
-                  movie: testMovieDetail,
-                  recommendationState: RequestState.loaded,
-                  recommendations: [],
-                  watchlistMessage: MovieDetailBloc.watchlistRemoveSuccessMessage,
-                  isAddedToWatchlist: false,
-                ),
-              ]),
-            );
+            ),
+            MovieDetailLoaded(
+              movie: testMovieDetail,
+              recommendationState: RequestState.loaded,
+              recommendations: [],
+              watchlistMessage: MovieDetailBloc.watchlistRemoveSuccessMessage,
+              isAddedToWatchlist: false,
+            ),
+          ]),
+        );
 
-            // Act
-            await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
-            await tester.tap(find.byKey(Key('watchlist_button')));
-            await tester.pump();
+        // Act
+        await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
+        await tester.tap(find.byKey(Key('watchlist_button')));
+        await tester.pump();
 
-            // Assert
-            verify(() => mockBloc.add(RemoveWatchlistEvent(testMovieDetail))).called(1);
-            expect(find.byType(SnackBar), findsOneWidget);
-            expect(find.text(MovieDetailBloc.watchlistRemoveSuccessMessage), findsOneWidget);
-          },
+        // Assert
+        verify(() => mockBloc.add(RemoveWatchlistEvent(testMovieDetail)))
+            .called(1);
+        expect(find.byType(SnackBar), findsOneWidget);
+        expect(find.text(MovieDetailBloc.watchlistRemoveSuccessMessage),
+            findsOneWidget);
+      },
     );
 
     testWidgets(
       'should display remove from watchlist button when movie is in watchlist',
-          (WidgetTester tester) async {
-
+      (WidgetTester tester) async {
         when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
           movie: testMovieDetail,
           recommendationState: RequestState.loaded,
@@ -237,8 +238,7 @@ void main() {
   group('movie detail recommendations', () {
     testWidgets(
       'should display CircularProgressIndicator when recommendations are loading',
-          (WidgetTester tester) async {
-
+      (WidgetTester tester) async {
         when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
           movie: testMovieDetail,
           recommendationState: RequestState.loading,
@@ -251,14 +251,14 @@ void main() {
         await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
 
         // Assert
-        expect(find.bySemanticsLabel('recommendations_loading'), findsOneWidget);
+        expect(
+            find.bySemanticsLabel('recommendations_loading'), findsOneWidget);
       },
     );
 
     testWidgets(
       'should display movies when recommendations are loaded',
-          (WidgetTester tester) async {
-
+      (WidgetTester tester) async {
         when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
           movie: testMovieDetail,
           recommendationState: RequestState.loaded,
@@ -280,8 +280,7 @@ void main() {
 
     testWidgets(
       'should display error message when recommendations are error',
-          (WidgetTester tester) async {
-
+      (WidgetTester tester) async {
         when(() => mockBloc.state).thenReturn(MovieDetailLoaded(
           movie: testMovieDetail,
           recommendationState: RequestState.error,
@@ -297,9 +296,7 @@ void main() {
         // Assert
         expect(find.text('Failed to get recommendations'), findsOneWidget);
         expect(find.bySemanticsLabel('recommendations_loading'), findsNothing);
-
       },
     );
-
   });
 }

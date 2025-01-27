@@ -38,7 +38,7 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   Future<MovieTable?> getMovieById(int id) async {
     final result = await databaseMovie.getMovieById(id);
     if (result != null) {
-      return MovieTable.fromMap(result);
+      return MovieTable.fromMap(result.first!);
     } else {
       return null;
     }

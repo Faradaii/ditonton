@@ -8,14 +8,14 @@ import 'dart:convert' as _i19;
 import 'dart:typed_data' as _i20;
 
 import 'package:core/common/failure.dart' as _i9;
-import 'package:core/helper/network_helper.dart' as _i17;
+import 'package:core/core.dart' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:http/io_client.dart' as _i5;
 import 'package:http/src/base_request.dart' as _i18;
 import 'package:http/src/response.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i16;
-import 'package:movie/data/datasources/db/database_movie.dart' as _i4;
+import 'package:movie/data/datasources/db/database_movie.dart' as _i17;
 import 'package:movie/data/datasources/movie_local_data_source.dart' as _i14;
 import 'package:movie/data/datasources/movie_remote_data_source.dart' as _i12;
 import 'package:movie/data/models/movie_detail_model.dart' as _i3;
@@ -50,10 +50,10 @@ class _FakeMovieDetailResponse_1 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-class _FakeDatabaseHelper_2 extends _i1.SmartFake
-    implements _i4.DatabaseHelper {
-  _FakeDatabaseHelper_2(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeDatabaseHelperNew_2 extends _i1.SmartFake
+    implements _i4.DatabaseHelperNew {
+  _FakeDatabaseHelperNew_2(Object parent, Invocation parentInvocation)
+      : super(parent, parentInvocation);
 }
 
 class _FakeIOClient_3 extends _i1.SmartFake implements _i5.IOClient {
@@ -353,21 +353,19 @@ class MockMovieLocalDataSource extends _i1.Mock
 /// A class which mocks [DatabaseMovie].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabaseMovie extends _i1.Mock implements _i4.DatabaseMovie {
+class MockDatabaseMovie extends _i1.Mock implements _i17.DatabaseMovie {
   MockDatabaseMovie() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.DatabaseHelper get databaseHelper =>
-      (super.noSuchMethod(
+  _i4.DatabaseHelperNew get databaseHelper => (super.noSuchMethod(
             Invocation.getter(#databaseHelper),
-            returnValue: _FakeDatabaseHelper_2(
-              this,
+        returnValue: _FakeDatabaseHelperNew_2(
+          this,
               Invocation.getter(#databaseHelper),
             ),
-          )
-          as _i4.DatabaseHelper);
+          ) as _i4.DatabaseHelperNew);
 
   @override
   _i8.Future<int> insertWatchlistMovie(_i15.MovieTable? movie) =>
@@ -386,9 +384,11 @@ class MockDatabaseMovie extends _i1.Mock implements _i4.DatabaseMovie {
           as _i8.Future<int>);
 
   @override
-  _i8.Future<Map<String, dynamic>?>? getMovieById(int? id) =>
-      (super.noSuchMethod(Invocation.method(#getMovieById, [id]))
-          as _i8.Future<Map<String, dynamic>?>?);
+  _i8.Future<List<Map<String, dynamic>?>?> getMovieById(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(#getMovieById, [id]),
+        returnValue: _i8.Future<List<Map<String, dynamic>?>?>.value(),
+      ) as _i8.Future<List<Map<String, dynamic>?>?>);
 
   @override
   _i8.Future<List<Map<String, dynamic>>> getWatchlistMovies() =>
@@ -404,7 +404,7 @@ class MockDatabaseMovie extends _i1.Mock implements _i4.DatabaseMovie {
 /// A class which mocks [NetworkHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkHelper extends _i1.Mock implements _i17.NetworkHelper {
+class MockNetworkHelper extends _i1.Mock implements _i4.NetworkHelper {
   MockNetworkHelper() {
     _i1.throwOnMissingStub(this);
   }
@@ -416,6 +416,69 @@ class MockNetworkHelper extends _i1.Mock implements _i17.NetworkHelper {
             returnValue: _FakeIOClient_3(this, Invocation.getter(#client)),
           )
           as _i5.IOClient);
+}
+
+/// A class which mocks [DatabaseHelperNew].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDatabaseHelperNew extends _i1.Mock implements _i4.DatabaseHelperNew {
+  MockDatabaseHelperNew() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i8.Future<int> insert(String? table, Map<String, dynamic>? values) =>
+      (super.noSuchMethod(
+        Invocation.method(#insert, [table, values]),
+        returnValue: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
+
+  @override
+  _i8.Future<int> delete(
+    String? table, {
+    String? where,
+    List<Object?>? whereArgs,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [table],
+          {#where: where, #whereArgs: whereArgs},
+        ),
+        returnValue: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
+
+  @override
+  _i8.Future<List<Map<String, dynamic>>> query(
+    String? table, {
+    String? where,
+    List<Object?>? whereArgs,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #query,
+          [table],
+          {#where: where, #whereArgs: whereArgs},
+        ),
+        returnValue: _i8.Future<List<Map<String, dynamic>>>.value(
+          <Map<String, dynamic>>[],
+        ),
+      ) as _i8.Future<List<Map<String, dynamic>>>);
+
+  @override
+  _i8.Future<List<Map<String, dynamic>?>?> queryGetOne(
+    String? table, {
+    String? where,
+    List<Object?>? whereArgs,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #queryGetOne,
+          [table],
+          {#where: where, #whereArgs: whereArgs},
+        ),
+        returnValue: _i8.Future<List<Map<String, dynamic>?>?>.value(),
+      ) as _i8.Future<List<Map<String, dynamic>?>?>);
 }
 
 /// A class which mocks [IOClient].

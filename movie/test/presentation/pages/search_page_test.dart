@@ -35,53 +35,77 @@ void main() {
     );
   }
 
-  testWidgets('Page should display center progress bar when loading',
-          (WidgetTester tester) async {
-        when(() => mockBloc.state).thenReturn(MovieSearchLoading());
+  testWidgets('Page should display text initial when empty state',
+      (WidgetTester tester) async {
+    when(() => mockBloc.state).thenReturn(MovieSearchEmpty());
 
-        final progressBarFinder = find.byType(CircularProgressIndicator);
+    final textFinder = find.text('Try searching movies!');
+
+    await tester.pumpWidget(makeTestableWidget(SearchPage()));
+
+    expect(textFinder, findsOneWidget);
+  });
+
+  testWidgets('Page should display center progress bar when loading',
+      (WidgetTester tester) async {
+    when(() => mockBloc.state).thenReturn(MovieSearchLoading());
+
+    final progressBarFinder = find.byType(CircularProgressIndicator);
         final centerFinder = find.byKey(Key('loading'));
 
-        await tester.pumpWidget(makeTestableWidget(SearchPage()));
+    await tester.pumpWidget(makeTestableWidget(SearchPage()));
 
-        expect(centerFinder, findsOneWidget);
+    expect(centerFinder, findsOneWidget);
         expect(progressBarFinder, findsOneWidget);
       });
 
+  testWidgets('Page should execute onChanged when type text',
+      (WidgetTester tester) async {
+    when(() => mockBloc.state).thenReturn(MovieSearchLoaded(testMovieList));
+
+    await tester.pumpWidget(makeTestableWidget(SearchPage()));
+    final textField = find.byType(TextField);
+
+    await tester.enterText(textField, 'Spiderman');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+
+    await tester.pump();
+
+    expect(find.text('Spiderman'), findsOneWidget);
+    expect(textField, findsOneWidget);
+  });
+
   testWidgets('Page should display ListView when data is loaded',
-          (WidgetTester tester) async {
-        when(() => mockBloc.state).thenReturn(MovieSearchLoaded(
-            testMovieList
-        ));
+      (WidgetTester tester) async {
+    when(() => mockBloc.state).thenReturn(MovieSearchLoaded(testMovieList));
 
-        final listViewFinder = find.byType(ListView);
+    final listViewFinder = find.byType(ListView);
 
-        await tester.pumpWidget(makeTestableWidget(SearchPage()));
+    await tester.pumpWidget(makeTestableWidget(SearchPage()));
 
-        expect(listViewFinder, findsOneWidget);
+    expect(listViewFinder, findsOneWidget);
       });
 
-  testWidgets('Page should display mo found message when data is loaded and empty',
-          (WidgetTester tester) async {
-        when(() => mockBloc.state).thenReturn(MovieSearchLoaded(
-            []
-        ));
+  testWidgets(
+      'Page should display mo found message when data is loaded and empty',
+      (WidgetTester tester) async {
+    when(() => mockBloc.state).thenReturn(MovieSearchLoaded([]));
 
-        await tester.pumpWidget(makeTestableWidget(SearchPage()));
+    await tester.pumpWidget(makeTestableWidget(SearchPage()));
 
-        expect(find.text('No movies found.'), findsOneWidget);
-      });
+    expect(find.text('No movies found.'), findsOneWidget);
+  });
 
   testWidgets('Page should display text with message when Error',
-          (WidgetTester tester) async {
-        when(() => mockBloc.state).thenReturn(MovieSearchError(
-          'error message',
-        ));
+      (WidgetTester tester) async {
+    when(() => mockBloc.state).thenReturn(MovieSearchError(
+      'error message',
+    ));
 
-        final textFinder = find.byKey(Key('error_message'));
+    final textFinder = find.byKey(Key('error_message'));
 
-        await tester.pumpWidget(makeTestableWidget(SearchPage()));
+    await tester.pumpWidget(makeTestableWidget(SearchPage()));
 
-        expect(textFinder, findsOneWidget);
+    expect(textFinder, findsOneWidget);
       });
 }

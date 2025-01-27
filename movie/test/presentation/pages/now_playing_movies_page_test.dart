@@ -8,7 +8,8 @@ import 'package:movie/presentation/pages/now_playing_movie_page.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 
-class MockMovieNowPlayingBloc extends MockBloc<MovieNowPlayingEvent, MovieNowPlayingState>
+class MockMovieNowPlayingBloc
+    extends MockBloc<MovieNowPlayingEvent, MovieNowPlayingState>
     implements MovieNowPlayingBloc {}
 
 class FakeMovieNowPlayingEvent extends Fake implements MovieNowPlayingEvent {}
@@ -51,9 +52,7 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-        when(() => mockBloc.state).thenReturn(MovieNowPlayingLoaded(
-          testMovieList
-        ));
+    when(() => mockBloc.state).thenReturn(MovieNowPlayingLoaded(testMovieList));
 
     final listViewFinder = find.byType(ListView);
 
@@ -64,9 +63,7 @@ void main() {
 
   testWidgets('Page should display empty message when data is loaded and empty',
       (WidgetTester tester) async {
-    when(() => mockBloc.state).thenReturn(MovieNowPlayingLoaded(
-        []
-    ));
+    when(() => mockBloc.state).thenReturn(MovieNowPlayingLoaded([]));
 
     await tester.pumpWidget(makeTestableWidget(NowPlayingMoviePage()));
 
@@ -75,9 +72,9 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-        when(() => mockBloc.state).thenReturn(MovieNowPlayingError(
-          'error message',
-        ));
+    when(() => mockBloc.state).thenReturn(MovieNowPlayingError(
+      'error message',
+    ));
 
     final textFinder = find.byKey(Key('error_message'));
 

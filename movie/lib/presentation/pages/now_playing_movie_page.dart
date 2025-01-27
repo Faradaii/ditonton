@@ -15,8 +15,7 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
   @override
   void initState() {
     super.initState();
-    context.read<MovieNowPlayingBloc>()
-        .add(GetMovieNowPlayingEvent());
+    context.read<MovieNowPlayingBloc>().add(GetMovieNowPlayingEvent());
   }
 
   @override

@@ -69,7 +69,7 @@ void main() {
     test('should return Movie Detail Table when data is found', () async {
       // arrange
       when(mockDatabaseMovie.getMovieById(tId))
-          .thenAnswer((_) async => testMovieMap);
+          .thenAnswer((_) async => [testMovieMap]);
       // act
       final result = await dataSource.getMovieById(tId);
       // assert

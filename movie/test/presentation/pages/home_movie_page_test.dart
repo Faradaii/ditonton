@@ -42,12 +42,18 @@ void main() {
       routes: {
         routeHomeMovie: (context) => Scaffold(body: const Text('Movies')),
         routeHomeTv: (context) => Scaffold(body: const Text('Tv Series')),
-        routeWatchlistMovie: (context) => Scaffold(body: const Text('Watchlist Movie')),
-        routeWatchlistTv: (context) => Scaffold(body: const Text('Watchlist Tv')),
+        routeWatchlistMovie: (context) =>
+            Scaffold(body: const Text('Watchlist Movie')),
+        routeWatchlistTv: (context) =>
+            Scaffold(body: const Text('Watchlist Tv')),
         routeAbout: (context) => Scaffold(body: const Text('About')),
-        routeNowPlayingMovie: (context) => Scaffold(body: const Text('Now Playing Movie')),
-        routePopularMovie: (context) => Scaffold(body: const Text('Popular Movie')),
-        routeTopRatedMovie: (context) => Scaffold(body: const Text('Top Rated Movie')),
+        routeNowPlayingMovie: (context) =>
+            Scaffold(body: const Text('Now Playing Movie')),
+        routePopularMovie: (context) =>
+            Scaffold(body: const Text('Popular Movie')),
+        routeTopRatedMovie: (context) =>
+            Scaffold(body: const Text('Top Rated Movie')),
+        routeSearchMovie: (context) => Scaffold(body: const Text('Search')),
       },
       home: BlocProvider<MovieListBloc>.value(
         value: mockBloc,
@@ -56,7 +62,8 @@ void main() {
     );
   }
 
-  testWidgets('should display loading indicators while loading movies', (WidgetTester tester) async {
+  testWidgets('should display loading indicators while loading movies',
+      (WidgetTester tester) async {
     when(() => mockBloc.state).thenReturn(MovieListLoaded(
       movieNowPlayingState: RequestState.loading,
       moviePopularState: RequestState.loading,
@@ -86,13 +93,15 @@ void main() {
     await tester.pumpWidget(makeTestableWidget(const HomeMoviePage()));
 
     // Verify
-    expect(find.byType(CachedNetworkImage), findsNWidgets(testMovieList.length * 3));
+    expect(find.byType(CachedNetworkImage),
+        findsNWidgets(testMovieList.length * 3));
     expect(find.text('Now Playing Movies'), findsOneWidget);
     expect(find.text('Popular Movies'), findsOneWidget);
     expect(find.text('Top Rated Movies'), findsOneWidget);
   });
 
-  testWidgets('should display error message when movies fail to load', (WidgetTester tester) async {
+  testWidgets('should display error message when movies fail to load',
+      (WidgetTester tester) async {
     when(() => mockBloc.state).thenReturn(MovieListLoaded(
       movieNowPlayingState: RequestState.error,
       moviePopularState: RequestState.error,
@@ -110,8 +119,12 @@ void main() {
   });
 
   group('drawer', () {
-    Future<void> searchNavigationAndTap(
-        {required WidgetTester tester, required String title, required String expectText, IconData? icon, Key? key, bool? inDrawer = false}) async {
+    Future<void> searchNavigationAndTap({required WidgetTester tester,
+      String? title,
+      required String expectText,
+      IconData? icon,
+      Key? key,
+      bool? inDrawer = false}) async {
       when(() => mockBloc.state).thenReturn(MovieListLoaded(
         movieNowPlayingState: RequestState.loaded,
         moviePopularState: RequestState.loaded,
@@ -129,7 +142,7 @@ void main() {
       await tester.pumpAndSettle();
 
       if (inDrawer == true) {
-        await tester.tap(find.text(title));
+        await tester.tap(find.text(title!));
         await tester.pumpAndSettle();
       }
       expect(find.text(expectText), findsOneWidget);
@@ -159,27 +172,71 @@ void main() {
       expect(find.text('About'), findsOneWidget);
     });
 
-    testWidgets('should display drawer and navigate to tv series', (WidgetTester tester) async {
-      await searchNavigationAndTap(tester: tester, title: 'Tv Series', expectText: 'Tv Series',icon: Icons.menu, inDrawer: true);
+    testWidgets('should display drawer and navigate to tv series',
+        (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester,
+          title: 'Tv Series',
+          expectText: 'Tv Series',
+          icon: Icons.menu,
+          inDrawer: true);
     });
-    testWidgets('should display drawer and navigate to Watchlist movie', (WidgetTester tester) async {
-      await searchNavigationAndTap(tester: tester, title: 'Watchlist Movie', expectText: 'Watchlist Movie',icon: Icons.menu, inDrawer: true);
+    testWidgets('should display drawer and navigate to Watchlist movie',
+        (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester,
+          title: 'Watchlist Movie',
+          expectText: 'Watchlist Movie',
+          icon: Icons.menu,
+          inDrawer: true);
     });
-    testWidgets('should display drawer and navigate to Watchlist Tv', (WidgetTester tester) async {
-      await searchNavigationAndTap(tester: tester, title: 'Watchlist Tv', expectText: 'Watchlist Tv',  icon: Icons.menu, inDrawer: true);
+    testWidgets('should display drawer and navigate to Watchlist Tv',
+        (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester,
+          title: 'Watchlist Tv',
+          expectText: 'Watchlist Tv',
+          icon: Icons.menu,
+          inDrawer: true);
     });
-    testWidgets('should display drawer and navigate to About', (WidgetTester tester) async {
-      await searchNavigationAndTap(tester: tester, title: 'About', expectText: 'About', icon: Icons.menu, inDrawer: true);
+    testWidgets('should display drawer and navigate to About',
+        (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester,
+          title: 'About',
+          expectText: 'About',
+          icon: Icons.menu,
+          inDrawer: true);
     });
 
-    testWidgets('should navigate to Now Playing Movies', (WidgetTester tester) async {
-      await searchNavigationAndTap(tester: tester, title: 'See More', expectText: 'Now Playing Movie', key: Key('now_playing'));
+    testWidgets('should navigate to Now Playing Movies',
+        (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester,
+          title: 'See More',
+          expectText: 'Now Playing Movie',
+          key: Key('now_playing'));
     });
-    testWidgets('should navigate to Popular Movies', (WidgetTester tester) async {
-      await searchNavigationAndTap(tester: tester, title: 'See More', expectText: 'Popular Movie', key: Key('popular'));
+    testWidgets('should navigate to Popular Movies',
+        (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester,
+          title: 'See More',
+          expectText: 'Popular Movie',
+          key: Key('popular'));
     });
-    testWidgets('should navigate to Top Rated Movies', (WidgetTester tester) async {
-      await searchNavigationAndTap(tester: tester, title: 'See More', expectText: 'Top Rated Movie', key: Key('top_rated'));
+    testWidgets('should navigate to Top Rated Movies',
+        (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester,
+          title: 'See More',
+          expectText: 'Top Rated Movie',
+          key: Key('top_rated'));
+    });
+
+    testWidgets('should navigate to search', (WidgetTester tester) async {
+      await searchNavigationAndTap(
+          tester: tester, expectText: 'Search', key: Key('search'));
     });
   });
 }

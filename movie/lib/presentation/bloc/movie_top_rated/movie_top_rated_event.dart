@@ -5,4 +5,3 @@ abstract class MovieTopRatedEvent {
 }
 
 class GetMovieTopRatedEvent extends MovieTopRatedEvent {}
-

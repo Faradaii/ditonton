@@ -40,7 +40,7 @@ void main() {
     expect(result, tMovie);
   });
 
-  test('toJson', ()  {
+  test('toJson', () {
     final result = tMovieModel.toJson();
     expect(result, {
       "adult": false,

@@ -1,18 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie/data/datasources/db/database_movie.dart';
 import 'package:movie/data/models/movie_table.dart';
 
-import 'database_movie_test.mocks.dart';
+import '../../../helpers/test_helper.mocks.dart';
 
-@GenerateMocks([DatabaseHelper])
 void main() {
   late DatabaseMovie databaseMovie;
-  late MockDatabaseHelper mockDatabaseHelper;
+  late MockDatabaseHelperNew mockDatabaseHelper;
 
   setUpAll(() async {
-    mockDatabaseHelper = MockDatabaseHelper();
+    mockDatabaseHelper = MockDatabaseHelperNew();
     databaseMovie = DatabaseMovie(databaseHelper: mockDatabaseHelper);
   });
 
@@ -46,7 +44,8 @@ void main() {
         posterPath: '/path.jpg',
       );
 
-      when(databaseMovie.removeWatchlistMovie(movie)).thenAnswer((_) async => 1);
+      when(databaseMovie.removeWatchlistMovie(movie))
+          .thenAnswer((_) async => 1);
 
       // Act
       final result = await databaseMovie.removeWatchlistMovie(movie);
@@ -66,13 +65,13 @@ void main() {
         'posterPath': '/path.jpg',
       };
 
-      when(databaseMovie.getMovieById(id)).thenAnswer((_) async => movieData);
+      when(databaseMovie.getMovieById(id)).thenAnswer((_) async => [movieData]);
 
       // Act
       final result = await databaseMovie.getMovieById(id);
 
       // Assert
-      expect(result, movieData);
+      expect(result!.first, movieData);
       verify(databaseMovie.getMovieById(id)).called(1);
     });
 
@@ -107,7 +106,8 @@ void main() {
         },
       ];
 
-      when(databaseMovie.getWatchlistMovies()).thenAnswer((_) async => moviesData);
+      when(databaseMovie.getWatchlistMovies())
+          .thenAnswer((_) async => moviesData);
 
       // Act
       final result = await databaseMovie.getWatchlistMovies();

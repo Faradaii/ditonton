@@ -17,30 +17,54 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
     required GetTopRatedMovies getTopRatedMovies,
   }) : super(MovieListEmpty()) {
     on<FetchNowPlayingMovies>((event, emit) async {
-      emit(MovieListLoaded(movieNowPlayingState: RequestState.loading));
+      if (state is! MovieListLoaded) {
+        emit(MovieListLoaded(movieNowPlayingState: RequestState.loading));
+      } else {
+        emit((state as MovieListLoaded)
+            .copyWith(movieNowPlayingState: RequestState.loading));
+      }
       final result = await getNowPlayingMovies.execute();
       result.fold((failure) {
-        emit(MovieListLoaded(movieNowPlayingState: RequestState.error, message: failure.message));
+        emit((state as MovieListLoaded).copyWith(
+            movieNowPlayingState: RequestState.error,
+            message: failure.message));
       }, (moviesData) {
-        emit(MovieListLoaded(movieNowPlayingState: RequestState.loaded, moviesNowPlaying: moviesData));
+        emit((state as MovieListLoaded).copyWith(
+            movieNowPlayingState: RequestState.loaded,
+            moviesNowPlaying: moviesData));
       });
     });
     on<FetchPopularMovies>((event, emit) async {
-      emit(MovieListLoaded(moviePopularState: RequestState.loading));
+      if (state is! MovieListLoaded) {
+        emit(MovieListLoaded(moviePopularState: RequestState.loading));
+      } else {
+        emit((state as MovieListLoaded)
+            .copyWith(moviePopularState: RequestState.loading));
+      }
       final result = await getPopularMovies.execute();
       result.fold((failure) {
-        emit(MovieListLoaded(moviePopularState: RequestState.error, message: failure.message));
+        emit((state as MovieListLoaded).copyWith(
+            moviePopularState: RequestState.error, message: failure.message));
       }, (moviesData) {
-        emit(MovieListLoaded(moviePopularState: RequestState.loaded, moviesPopular: moviesData));
+        emit((state as MovieListLoaded).copyWith(
+            moviePopularState: RequestState.loaded, moviesPopular: moviesData));
       });
     });
     on<FetchTopRatedMovies>((event, emit) async {
-      emit(MovieListLoaded(movieTopRatedState: RequestState.loading));
+      if (state is! MovieListLoaded) {
+        emit(MovieListLoaded(movieTopRatedState: RequestState.loading));
+      } else {
+        emit((state as MovieListLoaded)
+            .copyWith(movieTopRatedState: RequestState.loading));
+      }
       final result = await getTopRatedMovies.execute();
       result.fold((failure) {
-        emit(MovieListLoaded(movieTopRatedState: RequestState.error, message: failure.message));
+        emit((state as MovieListLoaded).copyWith(
+            movieTopRatedState: RequestState.error, message: failure.message));
       }, (moviesData) {
-        emit(MovieListLoaded(movieTopRatedState: RequestState.loaded, moviesTopRated: moviesData));
+        emit((state as MovieListLoaded).copyWith(
+            movieTopRatedState: RequestState.loaded,
+            moviesTopRated: moviesData));
       });
     });
   }
