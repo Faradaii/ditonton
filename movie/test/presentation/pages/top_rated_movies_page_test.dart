@@ -42,13 +42,13 @@ void main() {
     when(() => mockBloc.state).thenReturn(MovieTopRatedLoading());
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
-        final centerFinder = find.byType(Center);
+    final centerFinder = find.byType(Center);
 
     await tester.pumpWidget(makeTestableWidget(TopRatedMoviesPage()));
 
     expect(centerFinder, findsOneWidget);
-        expect(progressBarFinder, findsOneWidget);
-      });
+    expect(progressBarFinder, findsOneWidget);
+  });
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
@@ -59,7 +59,7 @@ void main() {
     await tester.pumpWidget(makeTestableWidget(TopRatedMoviesPage()));
 
     expect(listViewFinder, findsOneWidget);
-      });
+  });
 
   testWidgets('Page should display empty message when data is loaded and empty',
       (WidgetTester tester) async {
@@ -81,5 +81,5 @@ void main() {
     await tester.pumpWidget(makeTestableWidget(TopRatedMoviesPage()));
 
     expect(textFinder, findsOneWidget);
-      });
+  });
 }

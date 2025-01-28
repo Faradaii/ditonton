@@ -68,7 +68,7 @@ void main() {
 
     test('should return Tv Detail Table when data is found', () async {
       // arrange
-      when(mockDatabaseTv.getTvById(tId)).thenAnswer((_) async => testTvMap);
+      when(mockDatabaseTv.getTvById(tId)).thenAnswer((_) async => [testTvMap]);
       // act
       final result = await dataSource.getTvById(tId);
       // assert

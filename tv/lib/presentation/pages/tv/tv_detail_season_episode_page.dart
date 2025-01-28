@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/common/constants.dart';
-import 'package:core/common/state_enum.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
+import 'package:tv/presentation/bloc/tv_detail_season_episode/tv_detail_season_episode_bloc.dart';
 
 import '../../../domain/entities/tv/episode/episode.dart';
-import '../../provider/tv/tv_detail_season_episode_notifier.dart';
 
 class TvDetailSeasonEpisodePage extends StatefulWidget {
   final int id;
@@ -28,35 +27,30 @@ class _TvDetailSeasonEpisodePageState extends State<TvDetailSeasonEpisodePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<TvDetailSeasonEpisodeNotifier>(context, listen: false)
-          .fetchTvDetailSeasonEpisode(
-              id: widget.id,
-              seasonNumber: widget.seasonNumber,
-              episodeNumber: widget.episodeNumber);
-    });
+    context.read<TvDetailSeasonEpisodeBloc>().add(GetTvDetailSeasonEpisodeEvent(
+        widget.id, widget.seasonNumber, widget.episodeNumber));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<TvDetailSeasonEpisodeNotifier>(
-        builder: (context, provider, child) {
-          if (provider.episodeState == RequestState.loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (provider.episodeState == RequestState.loaded) {
-            final episode = provider.episode;
+      body: BlocBuilder<TvDetailSeasonEpisodeBloc, TvDetailSeasonEpisodeState>(
+        builder: (context, state) {
+          if (state is TvDetailSeasonEpisodeLoaded) {
+            final episode = state.episode;
             return SafeArea(
               child: DetailSeasonEpisodeContent(
                 episode,
               ),
             );
-          } else {
+          } else if (state is TvDetailSeasonEpisodeError) {
             return Center(
               key: Key('error_message'),
-              child: Text(provider.message),
+              child: Text(state.message),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
             );
           }
         },

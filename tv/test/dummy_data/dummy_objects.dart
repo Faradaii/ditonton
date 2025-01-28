@@ -1,3 +1,4 @@
+import 'package:tv/data/models/tv/tv_model.dart';
 import 'package:tv/data/models/tv/tv_table.dart';
 import 'package:tv/domain/entities/tv/created_by.dart';
 import 'package:tv/domain/entities/tv/crew.dart';
@@ -42,14 +43,14 @@ final testTvSeriesDetail = TvSeriesDetail(
     CreatedBy(
         id: 1,
         creditId: "creditId",
-        name: "name",
+        name: "created by name",
         originalName: "originalName",
         gender: 1,
         profilePath: "profilePath")
   ],
   episodeRunTime: [1, 2, 3, 4],
   firstAirDate: "firstAirDate",
-  genres: [Genres(id: 1, name: "name")],
+  genres: [Genres(id: 1, name: "genre name")],
   homepage: "homepage",
   id: 1,
   inProduction: false,
@@ -57,7 +58,7 @@ final testTvSeriesDetail = TvSeriesDetail(
   lastAirDate: "lastAirDate",
   lastEpisodeToAir: LastEpisodeToAir(
       id: 1,
-      name: "name",
+      name: "last episode name",
       overview: "overview",
       voteAverage: 1.0,
       voteCount: 1,
@@ -69,10 +70,10 @@ final testTvSeriesDetail = TvSeriesDetail(
       seasonNumber: 1,
       showId: 1,
       stillPath: "stillPath"),
-  name: "name",
+  name: "tv name",
   nextEpisodeToAir: NextEpisodeToAir(
       id: 1,
-      name: "name",
+      name: "next episode name",
       overview: "overview",
       voteAverage: 1.0,
       voteCount: 1,
@@ -88,7 +89,7 @@ final testTvSeriesDetail = TvSeriesDetail(
     Networks(
         id: 1,
         logoPath: "logoPath",
-        name: "name",
+        name: "networks name",
         originCountry: "originCountry")
   ],
   numberOfEpisodes: 1,
@@ -103,18 +104,18 @@ final testTvSeriesDetail = TvSeriesDetail(
     ProductionCompanies(
         id: 1,
         logoPath: "logoPath",
-        name: "name",
+        name: "product comp name",
         originCountry: "originCountry")
   ],
   productionCountries: [
-    ProductionCountries(iso31661: "iso31661", name: "name")
+    ProductionCountries(iso31661: "iso31661", name: "product country name")
   ],
   seasons: [
     Seasons(
         airDate: "airDate",
         episodeCount: 1,
         id: 1,
-        name: "name",
+        name: "season name",
         overview: "overview",
         posterPath: "posterPath",
         seasonNumber: 1,
@@ -122,13 +123,112 @@ final testTvSeriesDetail = TvSeriesDetail(
   ],
   spokenLanguages: [
     SpokenLanguages(
-        englishName: "englishName", iso6391: "iso6391", name: "name")
+        englishName: "englishName", iso6391: "iso6391", name: "language name")
   ],
   status: "status",
   tagline: "tagline",
   type: "type",
   voteAverage: 1.0,
   voteCount: 1,
+);
+
+final testTvSeriesDetailUpdated = TvSeriesDetail(
+  adult: false,
+  backdropPath: "backdropPath updated",
+  createdBy: [
+    CreatedBy(
+        id: 2,
+        creditId: "creditId updated",
+        name: "created byname updated",
+        originalName: "originalName updated",
+        gender: 2,
+        profilePath: "profilePath updated")
+  ],
+  episodeRunTime: [2, 2, 3, 4],
+  firstAirDate: "firstAirDate updated",
+  genres: [Genres(id: 2, name: "genre name updated")],
+  homepage: "homepage updated",
+  id: 2,
+  inProduction: false,
+  languages: ["languages updated"],
+  lastAirDate: "lastAirDate updated",
+  lastEpisodeToAir: LastEpisodeToAir(
+      id: 2,
+      name: "last episode name updated",
+      overview: "overview updated",
+      voteAverage: 2.0,
+      voteCount: 2,
+      airDate: "airDate updated",
+      episodeNumber: 2,
+      episodeType: "episodeType updated",
+      productionCode: "productionCode updated",
+      runtime: 2,
+      seasonNumber: 2,
+      showId: 2,
+      stillPath: "stillPath updated"),
+  name: "tv name updated",
+  nextEpisodeToAir: NextEpisodeToAir(
+      id: 2,
+      name: "next episode name updated",
+      overview: "overview updated",
+      voteAverage: 2.0,
+      voteCount: 2,
+      airDate: "airDate updated",
+      episodeNumber: 2,
+      episodeType: "episodeType updated",
+      productionCode: "productionCode updated",
+      runtime: 2,
+      seasonNumber: 2,
+      showId: 2,
+      stillPath: "stillPath updated"),
+  networks: [
+    Networks(
+        id: 2,
+        logoPath: "logoPath updated",
+        name: "networks name updated",
+        originCountry: "originCountry updated")
+  ],
+  numberOfEpisodes: 2,
+  numberOfSeasons: 2,
+  originCountry: ["originCountry updated"],
+  originalLanguage: "originalLanguage updated",
+  originalName: "originalName updated",
+  overview: "overview updated",
+  popularity: 2.0,
+  posterPath: "posterPath updated",
+  productionCompanies: [
+    ProductionCompanies(
+        id: 2,
+        logoPath: "logoPath updated",
+        name: "product comp name updated",
+        originCountry: "originCountry updated")
+  ],
+  productionCountries: [
+    ProductionCountries(
+        iso31661: "iso31661 updated", name: "product country name updated")
+  ],
+  seasons: [
+    Seasons(
+        airDate: "airDate updated",
+        episodeCount: 2,
+        id: 2,
+        name: "season name updated",
+        overview: "overview updated",
+        posterPath: "posterPath updated",
+        seasonNumber: 2,
+        voteAverage: 2.0)
+  ],
+  spokenLanguages: [
+    SpokenLanguages(
+        englishName: "englishName updated",
+        iso6391: "iso6391 updated",
+        name: "language name updated")
+  ],
+  status: "status updated",
+  tagline: "tagline updated",
+  type: "type updated",
+  voteAverage: 2.0,
+  voteCount: 2,
 );
 
 final testSeasonDetail = Season(
@@ -228,21 +328,38 @@ final testEpisodeDetail = Episode(
 
 final testWatchlistTv = TvSeries.watchlist(
   id: 1,
-  name: 'name',
+  name: 'tv name',
   posterPath: 'posterPath',
   overview: 'overview',
 );
 
 final testTvTable = TvTable(
   id: 1,
-  name: 'name',
+  name: 'tv name',
   posterPath: 'posterPath',
   overview: 'overview',
+);
+
+final testTvModel = TvSeriesModel(
+  adult: true,
+  backdropPath: "backdropPath",
+  genreIds: [1, 2, 3, 4],
+  id: 1,
+  originCountry: ["originCountry"],
+  originalLanguage: "originalLanguage",
+  originalName: "originalName",
+  overview: "overview",
+  popularity: 1.0,
+  posterPath: "posterPath",
+  firstAirDate: "firstAirDate",
+  name: "name",
+  voteAverage: 1.0,
+  voteCount: 1,
 );
 
 final testTvMap = {
   'id': 1,
   'overview': 'overview',
   'posterPath': 'posterPath',
-  'name': 'name',
+  'name': 'tv name',
 };

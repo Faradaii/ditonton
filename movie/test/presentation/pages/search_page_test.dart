@@ -51,13 +51,13 @@ void main() {
     when(() => mockBloc.state).thenReturn(MovieSearchLoading());
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
-        final centerFinder = find.byKey(Key('loading'));
+    final centerFinder = find.byKey(Key('loading'));
 
     await tester.pumpWidget(makeTestableWidget(SearchPage()));
 
     expect(centerFinder, findsOneWidget);
-        expect(progressBarFinder, findsOneWidget);
-      });
+    expect(progressBarFinder, findsOneWidget);
+  });
 
   testWidgets('Page should execute onChanged when type text',
       (WidgetTester tester) async {
@@ -84,7 +84,7 @@ void main() {
     await tester.pumpWidget(makeTestableWidget(SearchPage()));
 
     expect(listViewFinder, findsOneWidget);
-      });
+  });
 
   testWidgets(
       'Page should display mo found message when data is loaded and empty',
@@ -107,5 +107,5 @@ void main() {
     await tester.pumpWidget(makeTestableWidget(SearchPage()));
 
     expect(textFinder, findsOneWidget);
-      });
+  });
 }

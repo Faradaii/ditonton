@@ -13,7 +13,7 @@ import 'package:movie/domain/repositories/movie_repository.dart';
   MovieLocalDataSource,
   DatabaseMovie,
   NetworkHelper,
-  DatabaseHelperNew,
+  DatabaseHelper,
 ], customMocks: [
   MockSpec<IOClient>(as: #MockIOClient),
 ])

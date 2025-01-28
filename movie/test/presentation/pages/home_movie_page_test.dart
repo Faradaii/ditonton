@@ -119,12 +119,13 @@ void main() {
   });
 
   group('drawer', () {
-    Future<void> searchNavigationAndTap({required WidgetTester tester,
-      String? title,
-      required String expectText,
-      IconData? icon,
-      Key? key,
-      bool? inDrawer = false}) async {
+    Future<void> searchNavigationAndTap(
+        {required WidgetTester tester,
+        String? title,
+        required String expectText,
+        IconData? icon,
+        Key? key,
+        bool? inDrawer = false}) async {
       when(() => mockBloc.state).thenReturn(MovieListLoaded(
         movieNowPlayingState: RequestState.loaded,
         moviePopularState: RequestState.loaded,

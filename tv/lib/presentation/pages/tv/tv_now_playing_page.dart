@@ -1,8 +1,7 @@
-import 'package:core/common/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../provider/tv/tv_now_playing_notifier.dart';
+import '../../bloc/tv_now_playing/tv_now_playing_bloc.dart';
 import '../../widgets/tv_card_list.dart';
 
 class TvNowPlayingPage extends StatefulWidget {
@@ -16,9 +15,7 @@ class _TvNowPlayingPageState extends State<TvNowPlayingPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TvNowPlayingNotifier>(context, listen: false)
-            .fetchNowPlayingTv());
+    context.read<TvNowPlayingBloc>().add(GetTvNowPlayingEvent());
   }
 
   @override
@@ -29,24 +26,29 @@ class _TvNowPlayingPageState extends State<TvNowPlayingPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TvNowPlayingNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.state == RequestState.loaded) {
+        child: BlocBuilder<TvNowPlayingBloc, TvNowPlayingState>(
+          builder: (context, state) {
+            if (state is TvNowPlayingLoaded) {
+              if (state.tvList.isEmpty) {
+                return Center(
+                  child: Text('Empty'),
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.tv[index];
+                  final tv = state.tvList[index];
                   return TvCard(tv);
                 },
-                itemCount: data.tv.length,
+                itemCount: state.tvList.length,
+              );
+            } else if (state is TvNowPlayingError) {
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else {
               return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
+                child: CircularProgressIndicator(),
               );
             }
           },

@@ -4,7 +4,7 @@ import 'package:core/core.dart';
 import 'package:movie/data/models/movie_table.dart';
 
 class DatabaseMovie {
-  final DatabaseHelperNew databaseHelper;
+  final DatabaseHelper databaseHelper;
 
   DatabaseMovie({required this.databaseHelper});
 

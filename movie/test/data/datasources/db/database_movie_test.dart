@@ -7,10 +7,10 @@ import '../../../helpers/test_helper.mocks.dart';
 
 void main() {
   late DatabaseMovie databaseMovie;
-  late MockDatabaseHelperNew mockDatabaseHelper;
+  late MockDatabaseHelper mockDatabaseHelper;
 
   setUpAll(() async {
-    mockDatabaseHelper = MockDatabaseHelperNew();
+    mockDatabaseHelper = MockDatabaseHelper();
     databaseMovie = DatabaseMovie(databaseHelper: mockDatabaseHelper);
   });
 

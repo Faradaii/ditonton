@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/common/constants.dart';
-import 'package:core/common/state_enum.dart';
 import 'package:core/common/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 
 import '../../../domain/entities/tv/season/season_detail.dart';
-import '../../provider/tv/tv_detail_season_notifier.dart';
+import '../../bloc/tv_detail_season/tv_detail_season_bloc.dart';
 
 class TvDetailSeasonPage extends StatefulWidget {
   final int id;
@@ -24,38 +23,36 @@ class _TvDetailSeasonPageState extends State<TvDetailSeasonPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<TvDetailSeasonNotifier>(context, listen: false)
-          .fetchTvDetailSeason(widget.id, widget.seasonNumber);
-    });
+    context
+        .read<TvDetailSeasonBloc>()
+        .add(GetTvDetailSeasonEvent(widget.id, widget.seasonNumber));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<TvDetailSeasonNotifier>(
-        builder: (context, provider, child) {
-          if (provider.seasonState == RequestState.loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (provider.seasonState == RequestState.loaded) {
-            final season = provider.season;
-            return SafeArea(
-              child: DetailSeasonContent(
-                season,
-                widget.id,
-                widget.seasonNumber,
-              ),
-            );
-          } else {
-            return Center(
-              key: Key('error_message'),
-              child: Text(provider.message),
-            );
-          }
-        },
-      ),
+      body: BlocBuilder<TvDetailSeasonBloc, TvDetailSeasonState>(
+          builder: (context, state) {
+        if (state is TvDetailSeasonLoaded) {
+          final season = state.season;
+          return SafeArea(
+            child: DetailSeasonContent(
+              season,
+              widget.id,
+              widget.seasonNumber,
+            ),
+          );
+        } else if (state is TvDetailSeasonError) {
+          return Center(
+            key: Key('error_message'),
+            child: Text(state.message),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }),
     );
   }
 }

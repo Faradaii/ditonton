@@ -31,9 +31,12 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png'),
-                backgroundColor: Colors.grey.shade900,
+              currentAccountPicture: ClipOval(
+                child: Image.asset(
+                  'assets/circle-g.png',
+                  width: 100,
+                  height: 100,
+                ),
               ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),

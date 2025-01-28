@@ -13,6 +13,8 @@ dependencies:
   equatable: ^2.0.5
   google_fonts: ^6.2.1
   sqflite: ^2.4.1
+  flutter_bloc: ^9.0.0
+  rxdart: ^0.28.0
 
 dev_dependencies:
   flutter_test:
@@ -26,8 +28,8 @@ dev_dependencies:
 flutter:
 
 # To add assets to your package, add an assets section, like this:
-  assets:
-    - ../assets/circle-g.png
+#  assets:
+#    - ../assets/circle-g.png
 #   - images/a_dot_ham.jpeg
 #
 # For details regarding assets in packages, see

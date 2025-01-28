@@ -1,8 +1,7 @@
-import 'package:core/common/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../provider/tv/tv_top_rated_notifier.dart';
+import '../../bloc/tv_top_rated/tv_top_rated_bloc.dart';
 import '../../widgets/tv_card_list.dart';
 
 class TvTopRatedPage extends StatefulWidget {
@@ -16,9 +15,7 @@ class _TvTopRatedPageState extends State<TvTopRatedPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TvTopRatedNotifier>(context, listen: false)
-            .fetchTopRatedTv());
+    context.read<TvTopRatedBloc>().add(GetTvTopRatedEvent());
   }
 
   @override
@@ -29,24 +26,29 @@ class _TvTopRatedPageState extends State<TvTopRatedPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TvTopRatedNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.state == RequestState.loaded) {
+        child: BlocBuilder<TvTopRatedBloc, TvTopRatedState>(
+          builder: (context, state) {
+            if (state is TvTopRatedLoaded) {
+              if (state.tvList.isEmpty) {
+                return Center(
+                  child: Text('Empty'),
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.tv[index];
+                  final tv = state.tvList[index];
                   return TvCard(tv);
                 },
-                itemCount: data.tv.length,
+                itemCount: state.tvList.length,
+              );
+            } else if (state is TvTopRatedError) {
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else {
               return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
+                child: CircularProgressIndicator(),
               );
             }
           },

@@ -119,7 +119,7 @@ void main() {
       ));
 
       // Act
-          await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
+      await tester.pumpWidget(makeTestableWidget(MovieDetailPage(id: 1)));
 
       // Assert
       expect(find.text('Watchlist'), findsOneWidget);

@@ -1,8 +1,10 @@
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
 import 'package:core/common/exception.dart';
 import 'package:core/common/failure.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:tv/data/models/tv/tv_detail/created_by_model.dart';
 import 'package:tv/data/models/tv/tv_detail/crew_model.dart';
 import 'package:tv/data/models/tv/tv_detail/episode_response.dart';
@@ -21,8 +23,6 @@ import 'package:tv/data/models/tv/tv_detail/tv_detail_model.dart';
 import 'package:tv/data/models/tv/tv_model.dart';
 import 'package:tv/data/repositories/tv_repository_impl.dart';
 import 'package:tv/domain/entities/tv/tv.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
@@ -204,14 +204,14 @@ void main() {
         CreatedByModel(
             id: 1,
             creditId: "creditId",
-            name: "name",
+            name: "created by name",
             originalName: "originalName",
             gender: 1,
             profilePath: "profilePath")
       ],
       episodeRunTime: [1, 2, 3, 4],
       firstAirDate: "firstAirDate",
-      genres: [GenresModel(id: 1, name: "name")],
+      genres: [GenresModel(id: 1, name: "genre name")],
       homepage: "homepage",
       id: 1,
       inProduction: false,
@@ -219,7 +219,7 @@ void main() {
       lastAirDate: "lastAirDate",
       lastEpisodeToAir: LastEpisodeToAirModel(
           id: 1,
-          name: "name",
+          name: "last episode name",
           overview: "overview",
           voteAverage: 1.0,
           voteCount: 1,
@@ -231,10 +231,10 @@ void main() {
           seasonNumber: 1,
           showId: 1,
           stillPath: "stillPath"),
-      name: "name",
+      name: "tv name",
       nextEpisodeToAir: NextEpisodeToAirModel(
           id: 1,
-          name: "name",
+          name: "next episode name",
           overview: "overview",
           voteAverage: 1.0,
           voteCount: 1,
@@ -250,7 +250,7 @@ void main() {
         NetworksModel(
             id: 1,
             logoPath: "logoPath",
-            name: "name",
+            name: "networks name",
             originCountry: "originCountry")
       ],
       numberOfEpisodes: 1,
@@ -265,18 +265,19 @@ void main() {
         ProductionCompaniesModel(
             id: 1,
             logoPath: "logoPath",
-            name: "name",
+            name: "product comp name",
             originCountry: "originCountry")
       ],
       productionCountries: [
-        ProductionCountriesModel(iso_3166_1: "iso31661", name: "name")
+        ProductionCountriesModel(
+            iso_3166_1: "iso31661", name: "product country name")
       ],
       seasons: [
         SeasonsModel(
             airDate: "airDate",
             episodeCount: 1,
             id: 1,
-            name: "name",
+            name: "season name",
             overview: "overview",
             posterPath: "posterPath",
             seasonNumber: 1,
@@ -284,7 +285,9 @@ void main() {
       ],
       spokenLanguages: [
         SpokenLanguagesModel(
-            englishName: "englishName", iso_639_1: "iso6391", name: "name")
+            englishName: "englishName",
+            iso_639_1: "iso6391",
+            name: "language name")
       ],
       status: "status",
       tagline: "tagline",
