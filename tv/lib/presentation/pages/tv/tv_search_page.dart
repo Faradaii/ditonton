@@ -1,9 +1,8 @@
 import 'package:core/common/constants.dart';
-import 'package:core/common/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../provider/tv/tv_search_notifier.dart';
+import '../../bloc/tv_search/tv_search_bloc.dart';
 import '../../widgets/tv_card_list.dart';
 
 class TvSearchPage extends StatefulWidget {
@@ -27,10 +26,9 @@ class _TvSearchPageState extends State<TvSearchPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
+              onChanged: (query) {
                 // Trigger the search
-                Provider.of<TvSearchNotifier>(context, listen: false)
-                    .fetchTvSearch(query);
+                context.read<TvSearchBloc>().add(OnQueryChangedEvent(query));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -55,25 +53,33 @@ class _TvSearchPageState extends State<TvSearchPage>
   }
 
   Widget _buildSearchTv() {
-    return Consumer<TvSearchNotifier>(
-      builder: (context, data, child) {
-        if (data.state == RequestState.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (data.state == RequestState.loaded) {
-          final result = data.searchResult;
-          if (result.isEmpty) return _buildEmpty();
+    return BlocBuilder<TvSearchBloc, TvSearchState>(
+      builder: (context, state) {
+        if (state is TvSearchLoaded) {
+          final result = state.tvList;
+          if (result.isEmpty) {
+            return _buildEmpty();
+          }
           return ListView.builder(
             padding: const EdgeInsets.all(8),
             itemBuilder: (context, index) {
-              final tv = data.searchResult[index];
+              final tv = result[index];
               return TvCard(tv);
             },
             itemCount: result.length,
           );
+        } else if (state is TvSearchError) {
+          return Center(
+            key: const Key('error_message'),
+            child: Text(state.message),
+          );
+        } else if (state is TvSearchLoading) {
+          return const Center(
+            key: Key('loading'),
+            child: CircularProgressIndicator(),
+          );
         } else {
-          return _buildEmpty();
+          return _buildInitial();
         }
       },
     );
@@ -82,6 +88,12 @@ class _TvSearchPageState extends State<TvSearchPage>
   Widget _buildEmpty() {
     return const Center(
       child: Text('No tv series found.'),
+    );
+  }
+
+  Widget _buildInitial() {
+    return const Center(
+      child: Text('Try searching tv series!'),
     );
   }
 }

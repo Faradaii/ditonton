@@ -4,9 +4,9 @@ import '../models/tv/tv_table.dart';
 import 'db/database_tv.dart';
 
 abstract class TvLocalDataSource {
-  Future<String> insertWatchlist(TvTable movie);
+  Future<String> insertWatchlist(TvTable tv);
 
-  Future<String> removeWatchlist(TvTable movie);
+  Future<String> removeWatchlist(TvTable tv);
 
   Future<TvTable?> getTvById(int id);
 
@@ -42,7 +42,7 @@ class TvLocalDataSourceImpl implements TvLocalDataSource {
   Future<TvTable?> getTvById(int id) async {
     final result = await databaseTv.getTvById(id);
     if (result != null) {
-      return TvTable.fromMap(result);
+      return TvTable.fromMap(result.first!);
     } else {
       return null;
     }

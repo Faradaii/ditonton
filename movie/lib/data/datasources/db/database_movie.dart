@@ -2,46 +2,45 @@ import 'dart:async';
 
 import 'package:core/core.dart';
 import 'package:movie/data/models/movie_table.dart';
-import 'package:sqflite/sqflite.dart';
 
 class DatabaseMovie {
-  final Future<Database?> database;
+  final DatabaseHelper databaseHelper;
 
-  DatabaseMovie({required this.database});
+  DatabaseMovie({required this.databaseHelper});
 
   Future<int> insertWatchlistMovie(MovieTable movie) async {
-    final db = await database;
-    return await db!.insert(tableWatchlistMovie, movie.toJson());
+    final db = databaseHelper;
+    return await db.insert(tableWatchlistMovie, movie.toJson());
   }
 
   Future<int> removeWatchlistMovie(MovieTable movie) async {
-    final db = await database;
-    return await db!.delete(
+    final db = databaseHelper;
+    return await db.delete(
       tableWatchlistMovie,
       where: 'id = ?',
       whereArgs: [movie.id],
     );
   }
 
-  Future<Map<String, dynamic>?> getMovieById(int id) async {
-    final db = await database;
-    final results = await db!.query(
+  Future<List<Map<String, dynamic>?>?> getMovieById(int id) async {
+    final db = databaseHelper;
+    final results = await db.queryGetOne(
       tableWatchlistMovie,
       where: 'id = ?',
       whereArgs: [id],
     );
 
-    if (results.isNotEmpty) {
-      return results.first;
+    if (results != null && results.isNotEmpty) {
+      return results;
     } else {
       return null;
     }
   }
 
   Future<List<Map<String, dynamic>>> getWatchlistMovies() async {
-    final db = await database;
+    final db = databaseHelper;
     final List<Map<String, dynamic>> results =
-        await db!.query(tableWatchlistMovie);
+        await db.query(tableWatchlistMovie);
 
     return results;
   }

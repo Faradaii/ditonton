@@ -24,7 +24,6 @@ workflows:
     triggering:
       events:
         - push
-        - tag
 
       branch_patterns:
         - pattern: '*'
@@ -45,6 +44,14 @@ workflows:
         script: |
           chmod +x ./test.sh
           ./test.sh
+          brew update
+          brew install lcov
+          echo "lcov and genhtml installed"
+          genhtml coverage/test.info --output-directory coverage/html
+          echo "HTML coverage report generated in coverage/html"
+          zip -r coverage-report.zip coverage/html
+          echo "Zipped HTML report"
+
       - name: Load Firebase configuration
         script: |
           #!/usr/bin/env sh
@@ -61,28 +68,13 @@ workflows:
           flutter build appbundle --release
           flutter build apk --release
 
-      - name: Publish to GitHub
-        script: |
-          #!/usr/bin/env zsh
-          
-          # Publish only for tag builds
-          if [ -z ${CM_TAG} ]; then
-            echo "Not a tag build, will not publish GitHub release"
-            exit 0
-          fi
-          
-          gh release create "${CM_TAG}" \
-            --title "Ditonton ${CM_TAG}" \
-            --notes-file changelog.md \
-            build/**/outputs/**/*.aab \
-            build/**/outputs/**/*.apk
-
     artifacts:
       - build/**/outputs/**/*.apk
       - build/**/outputs/**/*.aab
       - build/**/outputs/**/mapping.txt
       - flutter_drive.log
       - coverage/*.info
+      - coverage-report.zip
 
     publishing:
       email:
@@ -93,22 +85,15 @@ workflows:
           failure: true
 
       scripts:
-        - name: Check for apk
+        - name: Publish release to GitHub
           script: |
-            apkPath=$(find build -name "*.apk" | head -1)
-            if [[ -z ${apkPath} ]]
-            then
-              echo "No .apk were found"
-            else
-              echo "Publishing .apk artifacts"
-            fi
+            #!/usr/bin/env zsh
 
-        - name: Check for aab
-          script: |
-            aabPath=$(find build -name "*.aab" | head -1)
-            if [[ -z ${aabPath} ]]
-            then
-              echo "No .aab were found"
-            else
-              echo "Publishing .aab artifacts"
-            fi
+            COMMIT_HASH=$(git rev-parse --short HEAD)
+            BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+            RELEASE_NAME="release-${COMMIT_HASH}"
+
+            gh release create "${RELEASE_NAME}" \
+              --title "Ditonton release: ${BRANCH_NAME} (${COMMIT_HASH})" \
+
+            echo "Release successfully created: ${RELEASE_NAME}"
