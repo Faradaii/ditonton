@@ -1,5 +1,7 @@
 part of 'tv_top_rated_bloc.dart';
 
-sealed class TvTopRatedEvent extends Equatable {
+abstract class TvTopRatedEvent {
   const TvTopRatedEvent();
 }
+
+class GetTvTopRatedEvent extends TvTopRatedEvent {}

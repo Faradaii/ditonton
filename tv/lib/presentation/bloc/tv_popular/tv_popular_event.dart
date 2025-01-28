@@ -1,5 +1,7 @@
 part of 'tv_popular_bloc.dart';
 
-sealed class TvPopularEvent extends Equatable {
+abstract class TvPopularEvent {
   const TvPopularEvent();
 }
+
+class GetTvPopularEvent extends TvPopularEvent {}

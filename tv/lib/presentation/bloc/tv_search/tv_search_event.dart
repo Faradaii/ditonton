@@ -1,5 +1,11 @@
 part of 'tv_search_bloc.dart';
 
-sealed class TvSearchEvent extends Equatable {
+abstract class TvSearchEvent {
   const TvSearchEvent();
+}
+
+class OnQueryChangedEvent extends TvSearchEvent {
+  final String query;
+
+  const OnQueryChangedEvent(this.query);
 }

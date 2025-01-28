@@ -1,5 +1,7 @@
 part of 'tv_watchlist_bloc.dart';
 
-sealed class TvWatchlistEvent extends Equatable {
+abstract class TvWatchlistEvent {
   const TvWatchlistEvent();
 }
+
+class GetTvWatchlistEvent extends TvWatchlistEvent {}

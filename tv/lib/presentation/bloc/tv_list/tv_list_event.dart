@@ -1,5 +1,11 @@
 part of 'tv_list_bloc.dart';
 
-sealed class TvListEvent extends Equatable {
+abstract class TvListEvent {
   const TvListEvent();
 }
+
+class FetchNowPlayingTvList extends TvListEvent {}
+
+class FetchPopularTvList extends TvListEvent {}
+
+class FetchTopRatedTvList extends TvListEvent {}
