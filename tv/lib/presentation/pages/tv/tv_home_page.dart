@@ -98,15 +98,15 @@ class _TvHomePageState extends State<TvHomePage> {
               ),
               BlocBuilder<TvListBloc, TvListState>(builder: (context, state) {
                 if (state is TvListLoaded &&
-                    state.tvPopularState == RequestState.loaded) {
-                  if (state.tvListPopular.isEmpty) {
+                    state.tvTopRatedState == RequestState.loaded) {
+                  if (state.tvListTopRated.isEmpty) {
                     return Center(
                       child: Text("No Tv Series found"),
                     );
                   }
-                  return TvList(state.tvListPopular);
+                  return TvList(state.tvListTopRated);
                 } else if (state is TvListLoaded &&
-                    state.tvPopularState == RequestState.error) {
+                    state.tvTopRatedState == RequestState.error) {
                   return Text(state.message);
                 } else {
                   return Center(

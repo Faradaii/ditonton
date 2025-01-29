@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class CreatedBy extends Equatable {
-  int? id;
-  String? creditId;
-  String? name;
-  String? originalName;
-  int? gender;
-  String? profilePath;
+  final int? id;
+  final String? creditId;
+  final String? name;
+  final String? originalName;
+  final int? gender;
+  final String? profilePath;
 
-  CreatedBy(
+  const CreatedBy(
       {required this.id,
       required this.creditId,
       required this.name,

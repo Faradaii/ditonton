@@ -1,7 +1,8 @@
 name: tv
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
+publish_to: none
+#homepage:
 
 environment:
   sdk: ^3.6.1
@@ -38,7 +39,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 
-flutter:
+#flutter:
 
 # To add assets to your package, add an assets section, like this:
 # assets:

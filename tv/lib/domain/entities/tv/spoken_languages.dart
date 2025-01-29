@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class SpokenLanguages extends Equatable {
-  String? englishName;
-  String? iso6391;
-  String? name;
+  final String? englishName;
+  final String? iso6391;
+  final String? name;
 
-  SpokenLanguages(
+  const SpokenLanguages(
       {required this.englishName, required this.iso6391, required this.name});
 
   @override

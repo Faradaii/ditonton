@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/helper/bloc_helper.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/domain/usecases/search_movies.dart';
 
 import '../../../domain/entities/movie.dart';

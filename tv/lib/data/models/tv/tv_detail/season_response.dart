@@ -1,11 +1,11 @@
-import 'package:tv/data/models/tv/tv_detail/episodes_model.dart';
 import 'package:equatable/equatable.dart';
+import 'package:tv/data/models/tv/tv_detail/episodes_model.dart';
 
 import '../../../../domain/entities/tv/season/season_detail.dart';
 
 class SeasonResponse extends Equatable {
   const SeasonResponse({
-    required this.id_alternative,
+    required this.idAlternative,
     required this.airDate,
     required this.episodes,
     required this.name,
@@ -16,7 +16,7 @@ class SeasonResponse extends Equatable {
     required this.voteAverage,
   });
 
-  final String? id_alternative;
+  final String? idAlternative;
   final String? airDate;
   final List<EpisodesModel>? episodes;
   final String? name;
@@ -27,7 +27,7 @@ class SeasonResponse extends Equatable {
   final double? voteAverage;
 
   factory SeasonResponse.fromJson(Map<String, dynamic> json) => SeasonResponse(
-        id_alternative: json['_id'],
+    idAlternative: json['_id'],
         airDate: json['air_date'],
         episodes: List.from(json['episodes'])
             .map((e) => EpisodesModel.fromJson(e))
@@ -42,7 +42,7 @@ class SeasonResponse extends Equatable {
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['_id'] = id_alternative;
+    data['_id'] = idAlternative;
     data['air_date'] = airDate;
     data['episodes'] = episodes?.map((e) => e.toJson()).toList();
     data['name'] = name;
@@ -55,7 +55,7 @@ class SeasonResponse extends Equatable {
   }
 
   Season toEntity() => Season(
-        id_alternative: id_alternative,
+    idAlternative: idAlternative,
         airDate: airDate,
         episodes: episodes?.map((e) => e.toEntity()).toList(),
         name: name,
@@ -68,7 +68,7 @@ class SeasonResponse extends Equatable {
 
   @override
   List<Object?> get props => [
-        id_alternative,
+    idAlternative,
         airDate,
         episodes,
         name,

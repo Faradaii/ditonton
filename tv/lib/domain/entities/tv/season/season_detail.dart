@@ -4,7 +4,7 @@ import '../episodes.dart';
 
 class Season extends Equatable {
   const Season({
-    required this.id_alternative,
+    required this.idAlternative,
     required this.airDate,
     required this.episodes,
     required this.name,
@@ -15,7 +15,7 @@ class Season extends Equatable {
     required this.voteAverage,
   });
 
-  final String? id_alternative;
+  final String? idAlternative;
   final String? airDate;
   final List<Episodes>? episodes;
   final String? name;
@@ -27,10 +27,10 @@ class Season extends Equatable {
 
   @override
   List<Object?> get props => [
-        id_alternative,
-        airDate,
-        episodes,
-        name,
+    idAlternative,
+    airDate,
+    episodes,
+    name,
         overview,
         id,
         posterPath,

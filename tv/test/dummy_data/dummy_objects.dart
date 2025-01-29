@@ -232,7 +232,7 @@ final testTvSeriesDetailUpdated = TvSeriesDetail(
 );
 
 final testSeasonDetail = Season(
-    id_alternative: "1",
+    idAlternative: "1",
     airDate: "1994-11-19",
     episodes: [
       Episodes(

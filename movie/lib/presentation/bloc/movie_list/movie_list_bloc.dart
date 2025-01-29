@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:core/common/state_enum.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/movie.dart';
 import '../../../domain/usecases/get_now_playing_movies.dart';

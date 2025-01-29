@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 
 class NextEpisodeToAir extends Equatable {
-  int? id;
-  String? name;
-  String? overview;
-  double? voteAverage;
-  int? voteCount;
-  String? airDate;
-  int? episodeNumber;
-  String? episodeType;
-  String? productionCode;
-  int? runtime;
-  int? seasonNumber;
-  int? showId;
-  String? stillPath;
+  final int? id;
+  final String? name;
+  final String? overview;
+  final double? voteAverage;
+  final int? voteCount;
+  final String? airDate;
+  final int? episodeNumber;
+  final String? episodeType;
+  final String? productionCode;
+  final int? runtime;
+  final int? seasonNumber;
+  final int? showId;
+  final String? stillPath;
 
-  NextEpisodeToAir(
+  const NextEpisodeToAir(
       {required this.id,
       required this.name,
       required this.overview,

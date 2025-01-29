@@ -1,8 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:tv/domain/entities/tv/production_companies.dart';
 import 'package:tv/domain/entities/tv/production_countries.dart';
 import 'package:tv/domain/entities/tv/seasons.dart';
 import 'package:tv/domain/entities/tv/spoken_languages.dart';
-import 'package:equatable/equatable.dart';
 
 import 'created_by.dart';
 import 'genres.dart';
@@ -11,40 +11,40 @@ import 'networks.dart';
 import 'next_episode_to_air.dart';
 
 class TvSeriesDetail extends Equatable {
-  bool? adult;
-  String? backdropPath;
-  List<CreatedBy>? createdBy;
-  List<int>? episodeRunTime;
-  String? firstAirDate;
-  List<Genres>? genres;
-  String? homepage;
-  int id;
-  bool? inProduction;
-  List<String>? languages;
-  String? lastAirDate;
-  LastEpisodeToAir? lastEpisodeToAir;
-  String? name;
-  NextEpisodeToAir? nextEpisodeToAir;
-  List<Networks>? networks;
-  int? numberOfEpisodes;
-  int? numberOfSeasons;
-  List<String>? originCountry;
-  String? originalLanguage;
-  String? originalName;
-  String? overview;
-  double? popularity;
-  String? posterPath;
-  List<ProductionCompanies>? productionCompanies;
-  List<ProductionCountries>? productionCountries;
-  List<Seasons>? seasons;
-  List<SpokenLanguages>? spokenLanguages;
-  String? status;
-  String? tagline;
-  String? type;
-  double? voteAverage;
-  int? voteCount;
+  final bool? adult;
+  final String? backdropPath;
+  final List<CreatedBy>? createdBy;
+  final List<int>? episodeRunTime;
+  final String? firstAirDate;
+  final List<Genres>? genres;
+  final String? homepage;
+  final int id;
+  final bool? inProduction;
+  final List<String>? languages;
+  final String? lastAirDate;
+  final LastEpisodeToAir? lastEpisodeToAir;
+  final String? name;
+  final NextEpisodeToAir? nextEpisodeToAir;
+  final List<Networks>? networks;
+  final int? numberOfEpisodes;
+  final int? numberOfSeasons;
+  final List<String>? originCountry;
+  final String? originalLanguage;
+  final String? originalName;
+  final String? overview;
+  final double? popularity;
+  final String? posterPath;
+  final List<ProductionCompanies>? productionCompanies;
+  final List<ProductionCountries>? productionCountries;
+  final List<Seasons>? seasons;
+  final List<SpokenLanguages>? spokenLanguages;
+  final String? status;
+  final String? tagline;
+  final String? type;
+  final double? voteAverage;
+  final int? voteCount;
 
-  TvSeriesDetail(
+  const TvSeriesDetail(
       {required this.adult,
       required this.backdropPath,
       required this.createdBy,

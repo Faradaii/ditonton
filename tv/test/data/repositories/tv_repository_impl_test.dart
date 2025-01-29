@@ -340,7 +340,7 @@ void main() {
     final tId = 1;
     final tSeasonNumber = 1;
     final tSeasonResponse = SeasonResponse(
-        id_alternative: "1",
+        idAlternative: "1",
         airDate: "1994-11-19",
         episodes: [
           EpisodesModel(

@@ -10,7 +10,7 @@ import 'package:tv/domain/entities/tv/season/season_detail.dart';
 
 void main() {
   final tSeasonResponse = SeasonResponse(
-      id_alternative: "1",
+      idAlternative: "1",
       airDate: "1994-11-19",
       episodes: [
         EpisodesModel(
@@ -64,7 +64,7 @@ void main() {
       voteAverage: 1.0);
 
   final tSeason = Season(
-      id_alternative: "1",
+      idAlternative: "1",
       airDate: "1994-11-19",
       episodes: [
         Episodes(

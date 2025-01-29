@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class Seasons extends Equatable {
-  String? airDate;
-  int? episodeCount;
-  int? id;
-  String? name;
-  String? overview;
-  String? posterPath;
-  int? seasonNumber;
-  double? voteAverage;
+  final String? airDate;
+  final int? episodeCount;
+  final int? id;
+  final String? name;
+  final String? overview;
+  final String? posterPath;
+  final int? seasonNumber;
+  final double? voteAverage;
 
-  Seasons(
+  const Seasons(
       {required this.airDate,
       required this.episodeCount,
       required this.id,

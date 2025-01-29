@@ -1,4 +1,4 @@
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:tv/data/models/tv/tv_detail/tv_detail_model.dart';
 
 void main() {

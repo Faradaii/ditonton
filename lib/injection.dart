@@ -36,11 +36,11 @@ import 'package:tv/domain/usecases/tv/get_tv_detail_season.dart';
 import 'package:tv/domain/usecases/tv/get_tv_detail_season_episode.dart';
 import 'package:tv/domain/usecases/tv/get_tv_recommendations.dart';
 import 'package:tv/domain/usecases/tv/get_watchlist_status.dart'
-    as getWatchListStatus;
+as get_watchlist_tv;
 import 'package:tv/domain/usecases/tv/get_watchlist_tv.dart';
 import 'package:tv/domain/usecases/tv/remove_watchlist.dart'
-    as removeWatchlistTv;
-import 'package:tv/domain/usecases/tv/save_watchlist.dart' as saveWatchlistTv;
+as remove_watchlist_tv;
+import 'package:tv/domain/usecases/tv/save_watchlist.dart' as save_watchlist_tv;
 import 'package:tv/domain/usecases/tv/search_tv.dart';
 import 'package:tv/presentation/bloc/tv_detail/tv_detail_bloc.dart';
 import 'package:tv/presentation/bloc/tv_detail_season/tv_detail_season_bloc.dart';
@@ -114,10 +114,11 @@ Future<void> init() async {
   locator.registerLazySingleton(() => GetTvRecommendation(locator()));
   locator.registerLazySingleton(() => SearchTv(locator()));
   locator.registerLazySingleton(
-      () => getWatchListStatus.GetWatchListStatus(locator()));
-  locator.registerLazySingleton(() => saveWatchlistTv.SaveWatchlist(locator()));
+          () => get_watchlist_tv.GetWatchListStatus(locator()));
+  locator
+      .registerLazySingleton(() => save_watchlist_tv.SaveWatchlist(locator()));
   locator.registerLazySingleton(
-      () => removeWatchlistTv.RemoveWatchlist(locator()));
+          () => remove_watchlist_tv.RemoveWatchlist(locator()));
   locator.registerLazySingleton(() => GetWatchlistTv(locator()));
 
   // bloc

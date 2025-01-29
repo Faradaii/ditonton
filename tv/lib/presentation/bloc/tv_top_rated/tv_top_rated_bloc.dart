@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/tv/tv.dart';
 import '../../../domain/usecases/tv/get_top_rated_tv.dart';
